@@ -867,8 +867,9 @@ async function loadMod(id){                    // télécharge et déchiffre un 
   if(!MCACHE[id]){
     const r=await fetch('mod/'+id+'.enc',{cache:'force-cache'});
     if(!r.ok) throw new Error('module '+r.status);
-    const raw=B64((await r.text()).trim()), key=await yearKey(m.y);
-    const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:raw.slice(0,12)},key,raw.slice(12));
+    const raw=B64((await r.text()).trim());
+    let pt; try{ pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:raw.slice(0,12)},await yearKey(m.y),raw.slice(12)); }
+    catch(e){ try{localStorage.removeItem('mt_k'+m.y);}catch(_){} pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:raw.slice(0,12)},await yearKey(m.y),raw.slice(12)); }
     MCACHE[id]=JSON.parse(new TextDecoder().decode(pt));
   }
   migrate(id); CUR=id; reloadState(); setData(MCACHE[id]);
