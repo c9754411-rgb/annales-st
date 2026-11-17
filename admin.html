@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Accès étudiants — MedLagh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef0f7;--surface:#fff;--surface2:#f4f5fb;--ink:#161a33;--muted:#5f6584;--line:#dfe2ee;
+ --navy:#1d1b4f;--navy2:#2d2a78;--orange:#f59e0b;--good:#1f8b3a;--bad:#d32f2f;--shadow:0 2px 6px rgba(22,26,51,.08),0 10px 24px rgba(22,26,51,.06)}
+@media(prefers-color-scheme:dark){:root{--bg:#0c0e1c;--surface:#161a31;--surface2:#1d2240;--ink:#eceefe;--muted:#a2a8cc;--line:#2b3157;--navy:#120f3a;--navy2:#272263;--good:#3ecf6b;--bad:#ff5c5c;--shadow:none}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Roboto,system-ui,sans-serif;line-height:1.45}
+.hdr{background:linear-gradient(90deg,var(--navy),var(--navy2));color:#fff;padding:12px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hdr b{font-size:1.05rem;font-weight:900;color:var(--orange);flex:1;min-width:160px}
+.hdr .who{font-size:.82rem;color:#c9c6ff}
+.wrap{max-width:1050px;margin:0 auto;padding:18px 16px 60px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+h2{margin:0 0 12px;font-size:1.1rem;font-weight:900}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:.55em 1em;font-weight:700;background:var(--surface2);color:var(--ink);border:1px solid var(--line)}
+button:hover{border-color:var(--navy2)}
+.navy{background:var(--navy2);color:#fff;border-color:var(--navy2)}
+.orange{background:var(--orange);color:#1b1300;border-color:var(--orange)}
+.danger{color:var(--bad)}
+input{font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:.55em .8em;background:var(--surface2);color:var(--ink);outline:none}
+input:focus{border-color:var(--navy2)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{padding:.6em .5em;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;letter-spacing:.12em;font-size:1.02rem}
+.sw{position:relative;width:44px;height:25px;border-radius:99px;background:#c6c9d6;border:0;padding:0;transition:.15s}
+.sw.on{background:var(--good)}
+.sw i{position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:.15s}
+.sw.on i{left:22px}
+.pill{display:inline-block;border-radius:99px;padding:.15em .6em;font-size:.76rem;font-weight:700}
+.p-ok{background:rgba(31,139,58,.14);color:var(--good)}.p-no{background:rgba(211,47,47,.14);color:var(--bad)}
+.muted{color:var(--muted)}.sm{font-size:.84rem}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.uid{font-family:ui-monospace,monospace;font-size:.84rem;background:var(--surface2);padding:.45em .7em;border-radius:8px;word-break:break-all}
+.warn{background:rgba(245,158,11,.14);border-left:4px solid var(--orange);border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:.92rem}
+#toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,30px);opacity:0;background:#161a33;color:#fff;padding:.7em 1.1em;border-radius:12px;font-weight:700;font-size:.9rem;transition:.25s;pointer-events:none}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.center{min-height:70vh;display:grid;place-items:center;text-align:center}
+.stat{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:4px}
+.stat div b{display:block;font-size:1.7rem;font-weight:900;line-height:1}
+.stat div span{font-size:.78rem;color:var(--muted)}
+.ycell{white-space:nowrap}
+.ych{min-width:42px;padding:.34em .55em;margin-right:5px;border-radius:9px;border:1px solid var(--line);
+ background:var(--surface2);color:var(--muted);font-weight:800;font-size:.82rem;cursor:pointer}
+.ych.on{background:var(--good,#2e9d46);border-color:var(--good,#2e9d46);color:#fff}
+.ych sup{font-size:.62em}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:620px){.tbl th:nth-child(3),.tbl td:nth-child(3){display:none}.tw table{min-width:400px}}
+</style></head><body>
+<div class="hdr"><b>Accès étudiants · MedLagh</b><span class="who" id="who"></span>
+  <button id="out" style="display:none">Se déconnecter</button></div>
+<div class="wrap" id="app"><div class="center"><div>
+  <h2>Tableau de bord</h2>
+  <p class="muted sm">Connectez-vous avec le compte Google propriétaire du projet.</p>
+  <button class="navy" id="in">Se connecter avec Google</button>
+</div></div></div>
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
+  from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+
+const CFG = { apiKey:'__FB_APIKEY__', authDomain:'__FB_AUTHDOMAIN__', projectId:'__FB_PROJECTID__' };
+const DB  = '__FB_URL__';
+
+const auth=getAuth(initializeApp(CFG));
+const $=s=>document.querySelector(s);
+const toast=m=>{const t=$('#toast');t.textContent=m;t.className='on';clearTimeout(t._h);t._h=setTimeout(()=>t.className='',3200)};
+let TOK=null, USERS={};
+
+const api=async(path,method,body)=>{
+  const o={method:method||'GET'};
+  if(body!==undefined){ o.headers={'Content-Type':'application/json'}; o.body=JSON.stringify(body); }
+  const r=await fetch(DB.replace(/\/$/,'')+path+'?auth='+TOK,o);
+  if(!r.ok) throw new Error(r.status===401||r.status===403
+    ? "Accès refusé : votre UID n'est pas encore inscrit dans les règles de la base (étape 6 du guide)."
+    : 'Erreur '+r.status);
+  return r.json();
+};
+const dt=t=>t?new Date(t).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'short'}):'—';
+const ago=t=>{ if(!t) return 'jamais'; const d=(Date.now()-t)/86400000;
+  return d<1?"aujourd'hui":d<2?'hier':d<30?Math.floor(d)+' j':dt(t); };
+const esc=x=>String(x==null?'':x).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+
+onAuthStateChanged(auth, async u=>{
+  if(!u){ $('#who').textContent=''; $('#out').style.display='none'; return; }
+  TOK=await u.getIdToken();
+  $('#who').textContent=u.email; $('#out').style.display='';
+  render(u);
+});
+$('#in').onclick=()=>signInWithPopup(auth,new GoogleAuthProvider()).catch(e=>toast(e.message));
+$('#out').onclick=()=>signOut(auth).then(()=>location.reload());
+
+async function render(u){
+  let err='';
+  try{ USERS=(await api('/users.json'))||{}; }catch(e){ err=e.message; USERS={}; }
+  const YEARS=[5,6];
+  const yrs=v=>YEARS.filter(y=>((v&&v.acc)||{})[y]===true);
+  const L=Object.entries(USERS).map(([uid,v])=>({uid,p:v.profile||{},acc:yrs(v),blocked:v.blocked===true,seen:v.seen||{}}));
+  const wait=L.filter(x=>!x.acc.length&&!x.blocked);
+  const act =L.filter(x=>x.acc.length);
+  const off =L.filter(x=>x.blocked&&!x.acc.length);
+  const used=act.filter(x=>x.seen.at&&Date.now()-x.seen.at<7*86400000).length;
+  const line=x=>`<tr>
+     <td><b>${esc(x.p.name)||'<span class="muted">—</span>'}</b><div class="sm muted">${esc(x.p.email)}</div></td>
+     <td class="sm">${ago(x.seen.at)}</td>
+     <td class="sm">${x.seen.n?`${x.seen.n} faites · ${x.seen.ok||0} justes`:'<span class="muted">—</span>'}</td>
+     <td class="ycell">${[5,6].map(y=>`<button class="ych ${x.acc.includes(y)?'on':''}" data-y="${x.uid}|${y}" title="${x.acc.includes(y)?'Retirer la '+y+'e année':'Ouvrir la '+y+'e année'}">${y}<sup>e</sup></button>`).join('')}</td>
+     <td><button class="danger sm" data-del="${x.uid}">Supprimer</button></td></tr>`;
+  $('#app').innerHTML=`
+   <div class="card"><h2>Votre identifiant d'administrateur</h2>
+     <p class="sm muted" style="margin-top:0">À coller dans les règles Firebase, à la place de <code>UID_ADMIN</code>.</p>
+     <div class="row"><span class="uid" id="uid">${u.uid}</span><button id="cpuid">Copier</button></div></div>
+   ${err?`<div class="warn"><b>${esc(err)}</b></div>`:''}
+   <div class="card"><div class="stat">
+     <div><b>${wait.length}</b><span>en attente</span></div>
+     <div><b>${act.length}</b><span>validés</span></div>
+     <div><b>${L.filter(x=>x.acc.includes(5)).length}/${L.filter(x=>x.acc.includes(6)).length}</b><span>5<sup>e</sup> / 6<sup>e</sup> année</span></div>
+     <div><b>${used}</b><span>actifs cette semaine</span></div>
+     <div><b>${off.length}</b><span>sans accès</span></div></div></div>
+   ${wait.length?`<div class="card" style="border-color:var(--orange)">
+     <h2>Demandes en attente <span class="pill p-no">${wait.length}</span></h2>
+     <div class="tw"><table><tbody>${wait.map(x=>`<tr>
+       <td><b>${esc(x.p.name)||'—'}</b><div class="sm muted">${esc(x.p.email)}</div></td>
+       <td class="sm muted">demandé ${ago(x.p.at)}</td>
+       <td style="text-align:right">${[5,6].map(y=>`<button class="orange" data-ok="${x.uid}|${y}">Ouvrir la ${y}<sup>e</sup></button>`).join(' ')}
+           <button class="danger sm" data-del="${x.uid}">Refuser</button></td></tr>`).join('')}</tbody></table></div></div>`:''}
+   <div class="card"><h2>Étudiants validés</h2>
+     ${act.length?`<div class="tw"><table class="tbl"><thead><tr><th>Étudiant</th><th>Activité</th><th>Progression</th><th>Années</th><th></th></tr></thead>
+       <tbody>${act.sort((a,b)=>(b.seen.at||0)-(a.seen.at||0)).map(line).join('')}</tbody></table></div>`
+      :'<p class="muted">Personne pour l\'instant.</p>'}</div>
+   ${off.length?`<div class="card"><h2>Sans accès</h2>
+     <div class="tw"><table class="tbl"><tbody>${off.map(line).join('')}</tbody></table></div></div>`:''}`;
+
+  $('#cpuid').onclick=()=>{navigator.clipboard.writeText(u.uid);toast('UID copié')};
+  const setYear=async(uid,y,val)=>{ await api('/users/'+uid+'/acc/'+y+'.json','PUT',val); };
+  document.querySelectorAll('[data-ok]').forEach(b=>b.onclick=async()=>{
+    const [uid,y]=b.dataset.ok.split('|');
+    try{ await setYear(uid,y,true); toast(y+'e année ouverte'); render(u); }catch(e){ toast(e.message); }});
+  document.querySelectorAll('[data-y]').forEach(b=>b.onclick=async()=>{
+    const [uid,y]=b.dataset.y.split('|'), on=b.classList.contains('on');
+    try{ await setYear(uid,y,!on); render(u); }catch(e){ toast(e.message); }});
+  document.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{
+    const uid=b.dataset.del, nm=(USERS[uid].profile||{}).email||uid;
+    if(!confirm('Supprimer '+nm+' ?\n\nToute sa progression sera perdue. S\'il se reconnecte, il repartira de zéro et réapparaîtra en attente.')) return;
+    try{ await api('/users/'+uid+'.json','DELETE'); await api('/data/'+uid+'.json','DELETE').catch(()=>{});
+         toast('Supprimé'); render(u); }catch(e){ toast(e.message); }});
+}
+</script></body></html>

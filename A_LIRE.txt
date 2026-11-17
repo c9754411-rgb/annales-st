@@ -1,0 +1,43 @@
+MEDLAGH — mise a jour : module PEDIATRIE + 4 cours de gyneco
+============================================================
+
+Ce qui change
+   - Nouveau module : Pediatrie (5e annee) — 272 questions corrigees,
+     5 examens : Nov. 2026 P1, Juin 2026 P2, Dec. 2025 P1, Juin 2025 P2, Juin 2023 P2.
+   - Gyneco : les pages de cours sont maintenant affichees pour
+     cancer du col, HTA et grossesse, infections genitales hautes et infertilite.
+     Couverture : 120 questions sur 149 (avant : 89).
+   - Pediatrie utilise la MEME cle que la Gyneco (meme annee) :
+     rien a changer dans Firebase, ni dans les regles, ni dans admin.html.
+   - Les ressources (PDF, liens Drive) sont maintenant propres a chaque module :
+     plus de liens de Medecine du travail qui apparaissaient dans la Gyneco.
+
+Ce que tu dois faire (2 minutes)
+   Dans le dossier du depot sur ton PC :
+   1. Remplace  index.html  et  admin.html
+   2. Remplace le dossier  mod/gygy/  en entier (images des cours de gyneco)
+   3. Remplace les fichiers  mod/gygy.enc ,  mod/ste.enc  et  mod/pedia.enc
+   4. NE TOUCHE PAS au dossier  mod/ste/  : tes images de Medecine du travail
+      (of2, imgs.json, oimg2.json) restent exactement ou elles sont.
+   5. Commit + Push dans GitHub Desktop.
+
+   Ensuite : ouvre le site, choisis la 5e annee -> tu vois deux modules,
+   Gynecologie-Obstetrique et Pediatrie.
+
+CE QU'IL ME MANQUE ENCORE
+   - Gyneco, 5 cours sans pages affichees (29 questions) :
+     cancer du sein (12), hemorragies du 3e trimestre (9), cancer de l'endometre (4),
+     prolapsus (2), algies pelviennes (2).
+   - Pediatrie : aucun cours pour l'instant, il me faut le Drive des cours.
+
+A SAVOIR SUR LE CORRIGE DE PEDIATRIE
+   - Quand ma reponse differe de la grille officielle de la fac, la remarque
+     est ecrite AU DEBUT du commentaire, et c'est la grille officielle qui est
+     retenue comme bonne reponse (12 questions sur 272).
+   - Examen Juin 2023 : le scan n'a que 8 pages, les questions 48 a 54 manquent.
+     Les 53 autres sont faites.
+
+CLES A GARDER (ne jamais partager, ne jamais mettre dans le depot)
+   5e annee (Gyneco + Pediatrie)  : FjuF8/eHiDsB5KlV4yP8AmG2iyp0BuodYjdX04Ax7pc=
+   6e annee (Medecine du travail) : nvOKIIFkZImmPZgHVbxKQFA/NxWLoNJ2evTDOjO1Xyw=
+   UID administrateur             : eR8YPv48CZMKWCBbGBXsU8WV9c33
