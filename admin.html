@@ -65,8 +65,8 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
   from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 
-const CFG = { apiKey:'__FB_APIKEY__', authDomain:'__FB_AUTHDOMAIN__', projectId:'__FB_PROJECTID__' };
-const DB  = '__FB_URL__';
+const CFG = { apiKey:'AIzaSyCmgBrtwDbkjkTbjmufnop41nNl7hfq_pI', authDomain:'annales-ste.firebaseapp.com', projectId:'annales-ste' };
+const DB  = 'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app';
 
 const auth=getAuth(initializeApp(CFG));
 const $=s=>document.querySelector(s);
