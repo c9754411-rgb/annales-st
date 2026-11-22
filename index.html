@@ -658,12 +658,12 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .lhero h1 em{font-style:normal;color:var(--orange)}
 .lp{font-size:1rem;line-height:1.62;color:#d6d8f6;margin:0 0 30px;max-width:48ch}
 .lpbig{font-size:1.16rem;font-weight:600;color:#fff}
-.lst{display:grid;grid-template-columns:repeat(4,auto);gap:0 0;margin-bottom:34px;
+.lin .lst{display:grid;grid-template-columns:repeat(4,auto);gap:0 0;margin-bottom:34px;
  border-top:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16);padding:16px 0;max-width:560px}
-.lst div{padding:2px 18px;border-left:1px solid rgba(255,255,255,.14)}
-.lst div:first-child{border-left:0;padding-left:0}
-.lst b{display:block;font-size:1.9rem;font-weight:900;line-height:1.05;color:var(--orange);font-variant-numeric:tabular-nums}
-.lst span{font-size:.74rem;color:#b9bce6;letter-spacing:.02em;line-height:1.25;display:block}
+.lin .lst div{padding:2px 18px;border-left:1px solid rgba(255,255,255,.14)}
+.lin .lst div:first-child{border-left:0;padding-left:0}
+.lin .lst b{display:block;font-size:1.9rem;font-weight:900;line-height:1.05;color:var(--orange);font-variant-numeric:tabular-nums}
+.lin .lst span{font-size:.74rem;color:#b9bce6;letter-spacing:.02em;line-height:1.25;display:block}
 .lcr{font-size:.76rem;color:#8e92c9;margin:0}
 .lpane{display:grid;place-items:center;padding:34px 20px;background:var(--bg)}
 .gate{width:min(100%,540px);background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.9);border-radius:28px;
@@ -679,10 +679,10 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
  .lhero{padding:30px 22px 34px}
 
  .lp{margin-bottom:22px;font-size:.95rem}
- .lst{grid-template-columns:repeat(2,1fr);margin-bottom:20px;max-width:none}
- .lst div{padding:8px 14px}
- .lst div:nth-child(odd){border-left:0;padding-left:0}
- .lst b{font-size:1.5rem}
+ .lin .lst{grid-template-columns:repeat(2,1fr);margin-bottom:20px;max-width:none}
+ .lin .lst div{padding:8px 14px}
+ .lin .lst div:nth-child(odd){border-left:0;padding-left:0}
+ .lin .lst b{font-size:1.5rem}
  .lecg{height:46px;bottom:10px;opacity:.4}
  .lcr{display:none}
  .lpane{padding:26px 16px 44px}
@@ -798,8 +798,8 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .lpbig{color:#13185a}
 .lin h1 em{color:#c2410c}
 .lp{color:#243066}
-.lst b{color:#c2410c}
-.lst span{color:#33407a}
+.lin .lst b{color:#c2410c}
+.lin .lst span{color:#33407a}
 .lben{margin:0 0 26px;padding:0;list-style:none;display:grid;gap:9px;font-size:.98rem;color:#13185a;font-weight:600}
 .lben li{display:flex;gap:10px;align-items:center}
 .lben li b{flex:none;width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);color:#2f5fd0;display:grid;place-items:center}
@@ -808,10 +808,13 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .bk{display:flex;gap:12px;align-items:flex-start}
 .bkimg{flex:none;width:96px;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in}
 .bkimg img{display:block;width:100%;height:auto}
-.brandh{position:relative;isolation:isolate;margin:0 50px 0 8px}
-@media(max-width:620px){.brandh{margin:0 34px 0 4px}}
-.brandh::before{content:'';position:absolute;top:-7px;bottom:-7px;left:-12px;right:-58px;z-index:-1;pointer-events:none;border-radius:14px;
-  background:linear-gradient(90deg,#ffffff 0%,#f1f3ff 62%,rgba(225,229,255,.55) 82%,rgba(225,229,255,0) 100%)}
+.brandh{position:relative;isolation:isolate;margin:0 64px 0 8px}
+@media(max-width:620px){.brandh{margin:0 24px 0 4px}}
+.brandh::before{content:none}
+/* en-tête : bleu clair sous le logo, puis dégradé souple vers le bleu foncé à droite */
+.hdr{background:linear-gradient(90deg,#e3ecff 0px,#d3e1ff 165px,#a9b6ee 205px,#6c6cc9 240px,#3a379a 275px,#2d2a78 330px,#1d1b4f 100%)!important}
+.hdr>.hbtn[data-a="sb"]{background:#2d2a78;color:#fff}
+@media(max-width:620px){.hdr{background:linear-gradient(90deg,#e3ecff 0px,#d3e1ff 150px,#9aa6e8 180px,#5653b5 210px,#2d2a78 250px,#1d1b4f 100%)!important}}
 .brandh img{background:none;border-radius:0;padding:0;box-shadow:none;height:48px;max-width:184px}
 @media(max-width:620px){.brandh img{height:36px;max-width:120px}.brandh::before{top:-6px;bottom:-6px;left:-8px;right:-38px}}
 </style>
@@ -860,7 +863,7 @@ const LOCALC={pest:'cours/pest.pdf'};
 const PDFS_STE=[['STE_Synthese_orientee_examen.pdf','Résumé du module','Synthèse orientée examen · PDF'],['STE_Sujets_Lebouabi_2024-2026.pdf','Sujets des examens','2024 – 2026 corrigés · PDF'],['STE_Examens_blancs_1-3.pdf','Examens blancs n°1 à 3','Sujets + corrigés · PDF']];
 const RES={
   ste:{drive:DRIVE,local:LOCALC,auth:AUTH,dauth:'Dr S. LEBOUABI · 2026-2027',poly:POLY,polysub:'Google Drive · Dr Lebouabi',pdfs:PDFS_STE},
-  gygy:{drive:{"comm": "1XZkvCpj0EBGRwxA8XZtZEmJO4RJunptW", "sf": "15ZsYKuj7ksqoPYmnV5LMifEjeU7rq0bI", "amen": "19xzTrxkIz7gZY9ixr_pxw5x9rFntO8lQ", "contra": "1pqZxouwU0IIaWdG71yNS4_Uf7X4vike4", "deliv": "1nc0Rut5nW92chMREFlm2kPBCYd920T6B", "suites": "1nc0Rut5nW92chMREFlm2kPBCYd920T6B", "defl": "1FkNI_unjDxBalRSNNeUF2x3J3b9FXbYk", "meca": "1FwlDxdhPnBMsqn3F2xhmFn4pYauzKpRJ", "geu": "1Rw-hguuZtQyhQdl_bM47th0GMTmgvyHi", "bassin": "1n-37rRrw4tbGYVgxxCz55lTFmFI8PjTs", "mole": "1Pl6X6G-yaXMv-Ys07gReCQjrkd0Xthh0", "ovaire": "1z8y9BuVmGHP8Uo1Ov7Bgpq_K2oxuNKFy", "siege": "1zgSoqFqO5uGrb3gPhHAwoNE8EgA6iiPl", "fibrome": "1uKHb8Mws4dY0zWEg-5Ejxbwmft9LhTVJ", "cycle": "19S_HMFG5FNzn5799qBu0luC6aZGKZc_r", "grossesse": "1sykqvCgft9Cn4ya3ONfOD8S-HUlPvIZy", "endomet": "1dSzWIHJ6pJrRy4MwloRCQfXJvNOVrR1P", "infg": "1fjMmsSdN_--_GRV-PqCTiZ-zonea5Y0D", "rhesus": "1AgWtvmendf5RHZ-J4Z0pDeVNAffLlG7M", "avort": "134FQvnOqP621ok96QBX-g9d61UAlnW4g", "prema": "1Rok2dCqRMIm__AAVxLlFd5m6NkS_EvBw"},local:{"diab": "mod/gygy/cours/diab.pdf", "hta": "mod/gygy/cours/hta.pdf", "col": "mod/gygy/cours/col.pdf", "infert": "mod/gygy/cours/infert.pdf", "igh": "mod/gygy/cours/igh.pdf", "meno": "mod/gygy/cours/meno.pdf"},auth:{},dauth:'Pr OUZIRI',poly:'',polysub:'',pdfs:[],folder:'1DmmitrSkUE17ugCJ2hniEsCYz4WrDkvG'},
+  gygy:{drive:{"comm": "1XZkvCpj0EBGRwxA8XZtZEmJO4RJunptW", "sf": "15ZsYKuj7ksqoPYmnV5LMifEjeU7rq0bI", "amen": "19xzTrxkIz7gZY9ixr_pxw5x9rFntO8lQ", "contra": "1pqZxouwU0IIaWdG71yNS4_Uf7X4vike4", "deliv": "1nc0Rut5nW92chMREFlm2kPBCYd920T6B", "suites": "1nc0Rut5nW92chMREFlm2kPBCYd920T6B", "defl": "1FkNI_unjDxBalRSNNeUF2x3J3b9FXbYk", "meca": "1FwlDxdhPnBMsqn3F2xhmFn4pYauzKpRJ", "geu": "1Rw-hguuZtQyhQdl_bM47th0GMTmgvyHi", "bassin": "1n-37rRrw4tbGYVgxxCz55lTFmFI8PjTs", "mole": "1Pl6X6G-yaXMv-Ys07gReCQjrkd0Xthh0", "ovaire": "1z8y9BuVmGHP8Uo1Ov7Bgpq_K2oxuNKFy", "siege": "1zgSoqFqO5uGrb3gPhHAwoNE8EgA6iiPl", "fibrome": "1uKHb8Mws4dY0zWEg-5Ejxbwmft9LhTVJ", "cycle": "19S_HMFG5FNzn5799qBu0luC6aZGKZc_r", "grossesse": "1sykqvCgft9Cn4ya3ONfOD8S-HUlPvIZy", "endomet": "1dSzWIHJ6pJrRy4MwloRCQfXJvNOVrR1P", "infg": "1fjMmsSdN_--_GRV-PqCTiZ-zonea5Y0D", "rhesus": "1AgWtvmendf5RHZ-J4Z0pDeVNAffLlG7M", "avort": "134FQvnOqP621ok96QBX-g9d61UAlnW4g", "prema": "1Rok2dCqRMIm__AAVxLlFd5m6NkS_EvBw"},local:{"diab": "mod/gygy/cours/diab.pdf", "hta": "mod/gygy/cours/hta.pdf", "col": "mod/gygy/cours/col.pdf", "infert": "mod/gygy/cours/infert.pdf", "igh": "mod/gygy/cours/igh.pdf", "meno": "mod/gygy/cours/meno.pdf", "h3t": "mod/gygy/cours/h3t.pdf"},auth:{},dauth:'Pr OUZIRI',poly:'',polysub:'',pdfs:[],folder:'1DmmitrSkUE17ugCJ2hniEsCYz4WrDkvG'},
   pedia:{drive:{},local:{},auth:{},dauth:'',poly:'',polysub:'',pdfs:[]}
 };
 const R=()=>RES[CUR]||RES.ste;
@@ -938,13 +941,13 @@ let MODST={}; const isOpen=m=>MODST[m.id]!==false;
 async function loadMods(){ try{ const r=await fetch(FB.url.replace(/\/$/,'')+'/mods.json',{cache:'no-store'}); if(r.ok) MODST=(await r.json())||{}; }catch(e){} }
 let CUR='', YEAR=0;
 /* les clés ci-dessous sont propres à chaque module : mt_hist_ste, mt_hist_gygy… */
-const MSCOPE=new Set(['mt_hist','mt_fav','mt_notes','mt_last','mt_hl','mt_flk','mt_sessions','mt_fcs','mt_fy','mt_fe2','mt_ft','mt_by2','mt_fdeck','mt_fdir','mt_lastsave','mt_order2','mt_eorder']);
+const MSCOPE=new Set(['mt_hist','mt_fav','mt_notes','mt_last','mt_hl','mt_flk','mt_sessions','mt_fcs','mt_fy','mt_fe2','mt_fes','mt_plan','mt_ft','mt_by2','mt_fdeck','mt_fdir','mt_lastsave','mt_order2','mt_eorder']);
 const mk=k=>(CUR&&MSCOPE.has(k))?k+'_'+CUR:k;
 const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m.length+1)); return k; };
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261122172847';   // version du build (remplacée à la compilation)
+const BUILDV='20261122182049';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1030,9 +1033,10 @@ function reloadState(){                        // recharge l'état propre au mod
   S.order=LS.get('mt_order2','annee'); S.eorder=LS.get('mt_eorder','exam');
   const ex=(MCACHE[CUR]&&MCACHE[CUR].exams)||[]; const fe=LS.get('mt_fe2',''); 
   S.fe=(ex.some(e=>e[0]===fe)?fe:(ex[0]&&ex[0][0])||'');
+  S.fes=LS.get('mt_fes',[]).filter(k=>ex.some(e=>e[0]===k)); if(!S.fes.length&&S.fe) S.fes=[S.fe];
   S.open=new Set(); S.hideT=new Set(); S.drop=null; S.zoom=null; S.fl=null;
 }
-const GRACE=7*24*3600*1000;      // tolérance hors ligne pour un accès déjà validé
+const GRACE=30*24*3600*1000;      // tolérance hors ligne pour un accès déjà validé
 async function onAuth(u,tok){
   AU.u=u; AU.tok=tok; AU.err='';
   if(!u){ AU.state='out'; AU.node=null; render(); return; }
@@ -1047,10 +1051,10 @@ async function onAuth(u,tok){
     AU.node=j||{profile:prof};
     AU.acc=accOf(j);
     AU.state = AU.acc.length ? 'in' : (j&&j.blocked===true ? 'blocked' : 'pending');
-    LS.set('mt_auth',{uid:u.uid,email:prof.email,ok:AU.state==='in',acc:AU.acc,at:Date.now()});
+    LS.set('mt_auth',{uid:u.uid,email:prof.email,ok:AU.state==='in',acc:AU.acc,at:Date.now(),mods:(j&&j.mods)||null,yacc:(j&&j.acc)||null});
   }catch(e){
     const c=LS.get('mt_auth',null);
-    if(c&&c.uid===u.uid&&c.ok&&Date.now()-c.at<GRACE){ AU.state='in'; AU.acc=c.acc||[]; SY.st='off'; }
+    if(c&&c.uid===u.uid&&c.ok&&Date.now()-c.at<GRACE){ AU.state='in'; AU.acc=c.acc||[]; AU.node={mods:c.mods,acc:c.yacc}; SY.st='off'; }
     else { AU.state='nonet'; AU.err=String(e.message||e); }
   }
   if(AU.state!=='in'){ for(const y of YEARS){ try{ localStorage.removeItem('mt_k'+y); }catch(e){} } }
@@ -1060,9 +1064,10 @@ async function onAuth(u,tok){
 }
 window.__onauth=onAuth;
 setTimeout(()=>{ if(AU.state==='load'){ const c=LS.get('mt_auth',null);
-  if(c&&c.ok&&Date.now()-c.at<GRACE){ AU.u={uid:c.uid,email:c.email}; AU.acc=c.acc||[]; AU.state='in'; SY.st='off';
-    YEAR=AU.acc.length===1?AU.acc[0]:0; S.view=YEAR?'mods':'years'; }
-  AU.state='nonet'; render(); } },9000);
+  if(c&&c.ok&&Date.now()-c.at<GRACE){ AU.u={uid:c.uid,email:c.email}; AU.acc=c.acc||[]; AU.node={mods:c.mods,acc:c.yacc}; AU.state='in'; SY.st='off';
+    YEAR=AU.acc.length===1?AU.acc[0]:0; S.view=YEAR?'mods':'years'; }      /* hors connexion : accès déjà validé */
+  else AU.state='nonet';
+  render(); } }, navigator.onLine===false?2500:9000);
 const _lsset=LS.set.bind(LS);
 LS.set=function(k,v){ _lsset(k,v); if(k&&k.startsWith('mt_')&&k!=='mt_sync'&&k!=='mt_lastsave'&&k!=='mt_auth'&&!k.startsWith('mt_k')&&k!=='mt_year') SY.touch(); };
 addEventListener('pagehide',()=>SY.flush());
@@ -1084,7 +1089,7 @@ const SFX={}; function play(k){ if(!S.sound) return; try{ if(!SFX[k]) SFX[k]=new
 /* filtres */
 const typeOk=(q,ft)=>ft==='all'||(ft==='case'?!!q.case:!q.case);
 function poolC(fcs=S.fcs,fy=S.fy,ft=S.ft){ return Q.filter(q=>(!fcs.length||fcs.includes(q.c))&&(!fy||q.exam===fy)&&typeOk(q,ft)); }
-function poolE(fe=S.fe){ return Q.filter(q=>q.exam===fe); }
+function poolE(fe){ if(fe) return Q.filter(q=>q.exam===fe); const L=(S.fes&&S.fes.length)?S.fes:[S.fe]; return Q.filter(q=>L.includes(q.exam)); }
 const pool=()=>S.by==='exam'?poolE():poolC();
 const EXI=Object.fromEntries(EXAMS.map(([k],i)=>[k,i]));
 /* ordre : les questions d'un même cas clinique restent groupées */
@@ -1100,7 +1105,7 @@ function ordered(list,ord){
   return blocks.flat().map(q=>q.id);
 }
 function sessTitle(){
-  if(S.by==='exam') return 'Examen · '+EN[S.fe];
+  if(S.by==='exam') return (S.fes&&S.fes.length>1?'Examens · ':'Examen · ')+((S.fes&&S.fes.length)?S.fes:[S.fe]).map(k=>EN[k]).join(' + ');
   const a=[]; a.push(S.fcs.length===0?'Tous les cours':S.fcs.length===1?CN[S.fcs[0]]:S.fcs.length+' cours'); if(S.fy) a.push(EN[S.fy]); return a.join(' · ');
 }
 /* session */
@@ -1219,6 +1224,18 @@ function docsHTML(){ const r=R();
   return r.pdfs.map(([f,t,sub])=>`<a href="${f}" target="_blank" rel="noopener" download data-pdf="${f}"><span class="ic">§pdf§</span><div>${esc(t)}<span>${esc(sub)}</span></div></a>`).join('')
    +(r.poly?`<a href="${dlink(r.poly)}" target="_blank" rel="noopener"><span class="ic">§pdf§</span><div>Polycopié du cours<span>${esc(r.polysub)}</span></div></a>`:''); }
 function vDocs(){ return `${header()}<div class="wrap"><div class="card"><p class="sec">§download§ Documents PDF</p>${hasDocs()?`<div class="dl">${docsHTML()}</div>`:'<p class="muted">Aucun document pour ce module pour l’instant.</p>'}</div></div>`; }
+/* choix des examens : une ligne par examen, plusieurs possibles */
+function epicker(items){
+  const val=S.fes||[]; const label=val.length===1?EN[val[0]]:val.length+' examens sélectionnés';
+  let h=`<div class="pick"><button class="pickbtn on" data-a="drop" data-v="fes"><span>${esc(label)}</span><em>▾</em></button>`;
+  if(S.drop==='fes'){
+    h+=`<div class="drop"><div class="tools"><button data-a="eall">Tout cocher</button><button data-a="eone">Un seul</button><button data-a="dclose" style="margin-left:auto">OK ✓</button></div><div class="lst">
+      ${items.map(x=>`<button class="${val.includes(x[0])?'on':''}" data-a="tge" data-v="${x[0]}"><span class="chk">${val.includes(x[0])?'✓':''}</span><span>${esc(x[1])}</span><b>${x[2]}</b></button>`).join('')}</div></div>`;
+  }
+  h+='</div>';
+  if(val.length>1) h+=`<div class="chips">${val.map(c=>`<button data-a="tge" data-v="${c}" title="Retirer cet examen">${esc(EN[c])}<i>✕</i></button>`).join('')}</div>`;
+  return h;
+}
 function mpicker(){
   const val=S.fcs; const label=val.length===0?'Tous les cours':val.length===1?CN[val[0]]:val.length+' cours sélectionnés';
   let h=`<div class="pick"><button class="pickbtn ${val.length?'on':''}" data-a="drop" data-v="fcs"><span>${esc(label)}</span><em>${val.length?'':'▾'}</em>${val.length?`<em data-a="clr" data-v="fcs">✕</em>`:''}</button>`;
@@ -1266,7 +1283,7 @@ function vHome(){
     ${S.by==='cours'?`<p class="lbl">Cours (un ou plusieurs)</p>${mpicker()}<p class="lbl">Année (facultatif)</p>${picker('fy','Toutes les années',S.fy,yearItems,'Toutes les années')}
     <p class="lbl">Type</p>
     <div class="seg">${[['all','Tout'],['case','Cas cliniques'],['iso','QCM isolés']].map(([k,n])=>`<button data-a="ft" data-v="${k}" class="${S.ft===k?'on':''}">${n}</button>`).join('')}</div>`
-    :`<p class="lbl">Examen</p>${picker('fe','',S.fe,examItems,null)}`}
+    :`<p class="lbl">Examens (un ou plusieurs)</p>${epicker(examItems)}`}
     <p class="lbl">Mode</p>
     <div class="seg"><button data-a="mode" data-v="rev" class="${S.mode==='rev'?'on':''}">§bookopen§ Révision</button><button data-a="mode" data-v="exam" class="${S.mode==='exam'?'on':''}">§clock§ Examen</button></div>
     ${S.mode==='exam'?`<p class="lbl">Durée de l'examen</p><div class="dur">${[[0,'Auto (1 min/question)'],[15,'15 min'],[30,'30 min'],[45,'45 min'],[60,'1 h'],[90,'1 h 30'],[120,'2 h']].map(([k,n])=>`<button data-a="dur" data-v="${k}" class="${S.dur===k?'on':''}">${n}</button>`).join('')}</div>
@@ -1933,6 +1950,7 @@ function gshell(inner){ return `<div class="land">
       <li><b>${ico('steth',15)}</b><span>Exclusif à la faculté de Laghouat</span></li>
       <li><b>${ico('sparkles',15)}</b><span>100 % gratuit</span></li>
       <li><b>${ico('cloud',15)}</b><span>Le Drive de chaque année, intégré à l'application</span></li>
+      <li><b>${ico('cloudoff',15)}</b><span>Fonctionne même sans Internet, une fois installée</span></li>
       <li><b>${ico('check',15)}</b><span>Un design simple et confortable</span></li>
     </ol>
     <div class="lst">${gstats().map(([n,l])=>`<div><b data-n="${n}">0</b><span>${l}</span></div>`).join('')}</div>
@@ -2119,6 +2137,10 @@ function act(a,v,el,ev){
     case 'fnext': if(S.fl&&S.fl.i<S.fl.deck.length){ S.fl.i++; S.fl.flip=false; render(true);} return;
     case 'fprev': if(S.fl&&S.fl.i>0){ S.fl.i--; S.fl.flip=false; render(true);} return;
     case 'stats': S.view='stats'; render(); scrollTo(0,0); return;
+    case 'tge': { const i=S.fes.indexOf(v); if(i<0) S.fes.push(v); else if(S.fes.length>1) S.fes.splice(i,1);
+      S.fes.sort((a,b)=>EXAMS.findIndex(e=>e[0]===a)-EXAMS.findIndex(e=>e[0]===b)); S.fe=S.fes[0]; LS.set('mt_fes',S.fes); LS.set('mt_fe2',S.fe); render(true); return; }
+    case 'eall': S.fes=EXAMS.map(e=>e[0]); S.fe=S.fes[0]; LS.set('mt_fes',S.fes); render(true); return;
+    case 'eone': S.fes=[S.fes[0]||EXAMS[0][0]]; S.fe=S.fes[0]; LS.set('mt_fes',S.fes); render(true); return;
     case 'tgc': { const i=S.fcs.indexOf(v); i<0?S.fcs.push(v):S.fcs.splice(i,1); LS.set('mt_fcs',S.fcs); render(true); return; }
     case 'fall': S.fcs=COURSES.map(c=>c[0]).filter(k=>Q.some(q=>q.c===k)); LS.set('mt_fcs',S.fcs); render(true); return;
     case 'dclose': S.drop=null; render(true); return;
