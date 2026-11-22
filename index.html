@@ -947,7 +947,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261122182049';   // version du build (remplacée à la compilation)
+const BUILDV='20261122183659';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
