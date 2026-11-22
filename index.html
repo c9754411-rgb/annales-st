@@ -812,9 +812,9 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 @media(max-width:620px){.brandh{margin:0 24px 0 4px}}
 .brandh::before{content:none}
 /* en-tête : bleu clair sous le logo, puis dégradé souple vers le bleu foncé à droite */
-.hdr{background:linear-gradient(90deg,#e3ecff 0px,#d3e1ff 165px,#a9b6ee 205px,#6c6cc9 240px,#3a379a 275px,#2d2a78 330px,#1d1b4f 100%)!important}
-.hdr>.hbtn[data-a="sb"]{background:#2d2a78;color:#fff}
-@media(max-width:620px){.hdr{background:linear-gradient(90deg,#e3ecff 0px,#d3e1ff 150px,#9aa6e8 180px,#5653b5 210px,#2d2a78 250px,#1d1b4f 100%)!important}}
+.hdr{background:linear-gradient(90deg,color-mix(in srgb,var(--navy2) 10%,#fff) 0px,color-mix(in srgb,var(--navy2) 17%,#fff) 165px,color-mix(in srgb,var(--navy2) 40%,#fff) 205px,color-mix(in srgb,var(--navy2) 68%,#fff) 240px,color-mix(in srgb,var(--navy2) 80%,var(--acc3,var(--navy2))) 275px,var(--navy2) 330px,var(--navy) 100%)!important}
+.hdr>.hbtn[data-a="sb"]{background:var(--navy2);color:#fff}
+@media(max-width:620px){.hdr{background:linear-gradient(90deg,color-mix(in srgb,var(--navy2) 10%,#fff) 0px,color-mix(in srgb,var(--navy2) 17%,#fff) 150px,color-mix(in srgb,var(--navy2) 40%,#fff) 180px,color-mix(in srgb,var(--navy2) 72%,#fff) 210px,var(--navy2) 250px,var(--navy) 100%)!important}}
 .brandh img{background:none;border-radius:0;padding:0;box-shadow:none;height:48px;max-width:184px}
 @media(max-width:620px){.brandh img{height:36px;max-width:120px}.brandh::before{top:-6px;bottom:-6px;left:-8px;right:-38px}}
 </style>
@@ -947,7 +947,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261122183659';   // version du build (remplacée à la compilation)
+const BUILDV='20261122192137';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
