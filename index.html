@@ -2,8 +2,7 @@
 <html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#161142"><meta name="apple-mobile-web-app-capable" content="yes">
-<title>Examens Médecine du Travail</title>
-
+<title>MedLagh · Examens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
 <style>
@@ -682,6 +681,75 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .gate .gbadge{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px}
 .gate .gw{background:rgba(245,158,11,.16);color:var(--orange2)}
 .gate .gb{background:rgba(211,47,47,.14);color:var(--bad)}
+
+.hb{display:flex;flex-direction:column;gap:9px}
+.hbr{display:grid;grid-template-columns:minmax(80px,40%) 1fr auto;gap:4px 10px;align-items:center;font-size:.84rem}
+.hbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hbt{height:12px;border-radius:99px;background:var(--surface2);overflow:hidden}
+.hbt i{display:block;height:100%;border-radius:99px}
+.hbr b{font-variant-numeric:tabular-nums;min-width:2.6em;text-align:right}
+.hbr small{grid-column:1/-1;margin-top:-2px;color:var(--muted);font-size:.74rem}
+.cols{display:flex;align-items:stretch;gap:4px;height:200px;padding-top:4px;border-bottom:1px solid var(--line);overflow:hidden}
+.colc{flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}
+.colc b{font-size:.7rem;font-variant-numeric:tabular-nums;color:var(--muted);min-height:1em}
+.colb{flex:1;width:100%;display:flex;align-items:flex-end}
+.colb i{display:block;width:100%;border-radius:6px 6px 0 0;min-height:2px}
+.colc span{font-size:.64rem;color:var(--muted);white-space:nowrap;margin-bottom:2px}
+.donut2{width:150px;height:150px;border-radius:50%;margin:6px auto 4px;display:grid;place-items:center}
+.donut2>div{width:98px;height:98px;border-radius:50%;background:var(--surface);display:grid;place-items:center;text-align:center;font-weight:900;font-size:1.15rem;line-height:1.1}
+.donut2 small{display:block;font-size:.66rem;font-weight:600;color:var(--muted)}
+.dlg{list-style:none;padding:0;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-size:.84rem}
+.dlg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.mdist{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.mdist .donut2{margin:0}
+.lsv{width:100%;height:auto;display:block;overflow:visible}
+.lsv .gl{stroke:var(--line)}
+.lsv .gt{font-size:13px;fill:var(--muted)}
+.lsv .lpl{fill:none;stroke:var(--acc3);stroke-width:3;stroke-linejoin:round}
+.lsv .lpt{fill:var(--acc3)}
+.lbls{display:flex;justify-content:space-between;font-size:.7rem;color:var(--muted);margin-top:4px}
+.actk{display:flex;gap:24px;flex-wrap:wrap;margin-bottom:14px}
+.actk b{display:block;font-size:1.5rem;font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.actk span{font-size:.78rem;color:var(--muted)}
+.cdwrap{text-align:center}
+.cdlab{margin:0 0 10px;font-weight:700;color:var(--muted)}
+.cd{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.cdb{min-width:84px;padding:14px 10px;border-radius:16px;background:linear-gradient(135deg,var(--navy2),var(--acc3));color:#fff}
+.cdb b{display:block;font-size:clamp(2.1rem,7vw,3rem);font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
+.cdb span{font-size:.72rem;opacity:.9}
+.wrapseg{flex-wrap:wrap;height:auto}
+.hdr .tt{min-width:0;flex:1 1 0}.hdr .tt span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.face.qfront{align-items:stretch;justify-content:flex-start;text-align:left}
+.face.front.qfront{color:#fff}
+.qlab{font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.8;margin-bottom:10px}
+.qtxt{font-size:clamp(1rem,2.8vw,1.15rem);line-height:1.5;font-weight:600}
+.qopts,.qans{margin:14px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.qopts li,.qans li{line-height:1.45;font-size:.96rem}
+.qopts li b,.qans li b{display:inline-block;min-width:1.6em}
+.qans li{font-weight:600}
+.qexp{margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--surface2);font-size:.92rem;line-height:1.5}
+
+.lhero{background:linear-gradient(165deg,#f1f8ff 0%,#cfe6ff 50%,#9fcbff 100%);color:#13185a}
+.lsky{background:none}
+.lgrid{opacity:.35}
+.lecg path{stroke:#2f5fd0}
+.lbrand{margin-bottom:22px}
+.lbrand img.lwide{height:150px;width:auto;max-width:92%;object-fit:contain;background:none;border-radius:0;padding:0;margin:0}
+.lin h1{color:#13185a}
+.lin h1 em{color:#c2410c}
+.lp{color:#243066}
+.lst b{color:#c2410c}
+.lst span{color:#33407a}
+.lben{margin:0 0 26px;padding:0;list-style:none;display:grid;gap:9px;font-size:.98rem;color:#13185a;font-weight:600}
+.lben li{display:flex;gap:10px;align-items:center}
+.lben li b{flex:none;width:24px;height:24px;border-radius:50%;background:#13185a;color:#fff;display:grid;place-items:center;font-size:.78rem}
+.accs{flex-wrap:nowrap;justify-content:space-between;gap:6px;padding:6px 16px 10px}
+.accs button{width:24px;height:24px;flex:none}
+.bk{display:flex;gap:12px;align-items:flex-start}
+.bkimg{flex:none;width:96px;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in}
+.bkimg img{display:block;width:100%;height:auto}
+.brandh img{background:none;border-radius:0;padding:0;height:44px;max-width:170px}
+@media(max-width:620px){.brandh img{height:34px;max-width:118px;padding:0;background:none}}
 </style>
 
 </head><body>
@@ -789,15 +857,18 @@ let COURSES=[], CN={}, EXAMS=[], EN={}, REALEX=[], CAPS={}, TMPC=[];
 function setData(d){ DATA=d; Q=d.q||[]; QI=Object.fromEntries(Q.map(q=>[q.id,q]));
   COURSES=d.courses||[]; CN=Object.fromEntries(COURSES);
   EXAMS=d.exams||[]; EN=Object.fromEntries(EXAMS); REALEX=EXAMS.filter(e=>!e[0].startsWith('blanc'));
-  CAPS=d.caps||{}; TMPC=d.cards||[]; SIDX=null; IMGD=null; IMGL=false; }
+  CAPS=d.caps||{}; TMPC=d.cards||[]; BOOK=d.book||[]; SIDX=null; IMGD=null; IMGL=false; }
 /* ---------- catalogue des modules ---------- */
 const MODS=[
- {id:'gygy',y:5,name:'Gynécologie-Obstétrique',sub:'Pr OUZIRI',     nq:149,nex:6,ntip:31, ncard:65},
- {id:'pedia',y:5,name:'Pédiatrie',            sub:'Module de 5ᵉ année',nq:272,nex:5,ntip:101,ncard:0},
+ {id:'gygy',y:5,name:'Gynécologie-Obstétrique',book:'Gynéco-Obstétrique en poche',sub:'Pr OUZIRI',     nq:149,nex:6,ntip:31, ncard:149},
+ {id:'pedia',y:5,name:'Pédiatrie',            sub:'Dr. KADI',nq:272,nex:5,ntip:101,ncard:0},
  {id:'ste', y:6,name:'Médecine du travail',    sub:'Dr S. LEBOUABI',nq:446,nex:8,ntip:131,ncard:87}
 ];
 const MIDS=MODS.map(m=>m.id), MOD=Object.fromEntries(MODS.map(m=>[m.id,m]));
 const YEARS=[...new Set(MODS.map(m=>m.y))].sort();
+/* ouverture des modules décidée dans l'admin : /mods/<id> = false pour fermer ; absent = ouvert */
+let MODST={}; const isOpen=m=>MODST[m.id]!==false;
+async function loadMods(){ try{ const r=await fetch(FB.url.replace(/\/$/,'')+'/mods.json',{cache:'no-store'}); if(r.ok) MODST=(await r.json())||{}; }catch(e){} }
 let CUR='', YEAR=0;
 /* les clés ci-dessous sont propres à chaque module : mt_hist_ste, mt_hist_gygy… */
 const MSCOPE=new Set(['mt_hist','mt_fav','mt_notes','mt_last','mt_hl','mt_flk','mt_sessions','mt_fcs','mt_fy','mt_fe2','mt_ft','mt_by2','mt_fdeck','mt_fdir','mt_lastsave','mt_order2','mt_eorder']);
@@ -895,6 +966,7 @@ const GRACE=7*24*3600*1000;      // tolérance hors ligne pour un accès déjà 
 async function onAuth(u,tok){
   AU.u=u; AU.tok=tok; AU.err='';
   if(!u){ AU.state='out'; AU.node=null; render(); return; }
+  await loadMods();
   try{
     const r=await fetch(SY.b()+'/users/'+u.uid+'.json'+SY.q(),{cache:'no-store'});
     if(!r.ok) throw new Error('http '+r.status);
@@ -1015,7 +1087,7 @@ function vYears(){
     </div>`);
 }
 function vMods(){
-  const ms=MODS.filter(m=>m.y===YEAR), lock=MODS.filter(m=>!AU.acc.includes(m.y));
+  const ms=MODS.filter(m=>m.y===YEAR&&isOpen(m)), lock=MODS.filter(m=>m.y===YEAR&&!isOpen(m));
   return mshell('Vos modules',ord(YEAR)+' année · Faculté de médecine de Laghouat',
    `<div class="mcards">${ms.map(m=>{ const p=mprog(m.id), pc=m.nq?Math.round(p.n*100/m.nq):0;
       return `<button class="mcard" data-a="openmod" data-v="${m.id}">
@@ -1026,7 +1098,7 @@ function vMods(){
         <span class="mgo">${pc?'Reprendre':'Commencer'} §next§</span></button>`; }).join('')}
     ${lock.map(m=>`<div class="mcard off"><div class="mct"><b>${esc(m.name)}</b><span>${esc(m.sub)} · ${ord(m.y)} année</span></div>
         <div class="mcs">${m.nq} questions · ${m.nex} examens</div>
-        <div class="mcp">§lock§ Accès non ouvert pour cette année</div></div>`).join('')}</div>`,
+        <div class="mcp">§lock§ Module pas encore ouvert</div></div>`).join('')}</div>`,
    AU.acc.length>1?`<button class="lnk" data-a="years">Changer d'année</button>`:'');
 }
 function vLoading(){ return mshell('Ouverture du module…','Déchiffrement du contenu',
@@ -1034,7 +1106,7 @@ function vLoading(){ return mshell('Ouverture du module…','Déchiffrement du c
 /* ---------- vues ---------- */
 function header(){
   const inQ=S.view==='quiz';
-  return `<div class="hdr"><button class="hbtn" data-a="sb" title="Menu" aria-label="Menu">${ico('menu')}</button><div class="brandh"><img src="${LOGOW}" alt="MedLagh"></div><div class="tt"><b>${esc((MOD[CUR]||{}).name||'MedLagh')}</b><span>${esc((MOD[CUR]||{}).sub||'')}${YEAR?' · '+ord(YEAR)+' année':''}</span></div>
+  return `<div class="hdr"><button class="hbtn" data-a="sb" title="Menu" aria-label="Menu">${ico('menu')}</button><div class="brandh"><img src="${LOGOWD}" alt="MedLagh"></div><div class="tt"><b>${esc((MOD[CUR]||{}).name||'MedLagh')}</b><span>${esc((MOD[CUR]||{}).sub||'')}${YEAR?' · '+ord(YEAR)+' année':''}</span></div>
    ${MODS.filter(m=>AU.acc.includes(m.y)).length>1||AU.acc.length>1?`<button class="hbtn" data-a="mods" title="Changer de module" aria-label="Changer de module">${ico('grid')}</button>`:''}
    ${inQ?`<button class="hbtn" data-a="home" title="Accueil" aria-label="Accueil">${ico('home')}</button>`:''}
    ${inQ?`<button class="hbtn" data-a="sound" title="Son" aria-label="Couper ou activer le son">${S.sound?ico('vol'):ico('mute')}</button>`:''}
@@ -1067,20 +1139,15 @@ function sidebar(){
    ${hasDocs()?it('nav','docs','pdf','Documents PDF',v==='docs'):''}
    <div class="sep"></div>
    ${it('theme','','moon',isDark()?'Thème clair':'Thème sombre',false)}
-   ${it('caseauto','','clip',(S.caseAuto?'✓ ':'')+'Masquer le cas après Q1',S.caseAuto)}
    <div class="grp">Couleurs</div>
    <div class="accs">${[['','#2d2a78','Classique'],['rose','#ec4899','Rose'],['violet','#8b5cf6','Violet'],['vert','#10b981','Vert'],['ocean','#0ea5e9','Océan'],['rouge','#e11d48','Bordeaux'],['noir','#374151','Graphite']].map(([k,c,n])=>`<button data-a="acc" data-v="${k}" class="${(S.acc||'')===k?'on':''}" style="background:${c}" title="${n}" aria-label="Thème ${n}"></button>`).join('')}</div>
-   <div class="grp">Changer d'appareil</div>
-   ${it('save','','save','Sauvegarder',false)}
-   ${it('restore','','up','Restaurer',false)}
-   <p class="sbnote">Vous changez d'appareil ? Sauvegardez ici, puis touchez « Restaurer » sur l'autre appareil : les deux progressions sont fusionnées.</p>
   </nav><div class="scrim ${S.sbOpen?'open':''}" data-a="sbclose"></div>`;
 }
-function vMastery(){ const done=Object.keys(S.hist).filter(k=>QI[k]); return `${header()}<div class="wrap">${mastery()}${done.length?`<div class="card" style="margin-top:16px"><p class="sec">Mes points faibles</p>${weak()}<button class="btn" style="margin-top:10px" data-a="reset">Effacer ma progression</button></div>`:''}<div class="foot">© BABAAISSA Zakaria</div></div>`; }
+function vMastery(){ const done=Object.keys(S.hist).filter(k=>QI[k]); return `${header()}<div class="wrap">${mastery()}${actCard()}${evoCard()}${done.length?`<div class="card" style="margin-top:16px"><p class="sec">Mes points faibles</p>${weak()}<button class="btn" style="margin-top:10px" data-a="reset">Effacer ma progression</button></div>`:''}</div>`; }
 function docsHTML(){ const r=R();
   return r.pdfs.map(([f,t,sub])=>`<a href="${f}" target="_blank" rel="noopener" download data-pdf="${f}"><span class="ic">§pdf§</span><div>${esc(t)}<span>${esc(sub)}</span></div></a>`).join('')
    +(r.poly?`<a href="${dlink(r.poly)}" target="_blank" rel="noopener"><span class="ic">§pdf§</span><div>Polycopié du cours<span>${esc(r.polysub)}</span></div></a>`:''); }
-function vDocs(){ return `${header()}<div class="wrap"><div class="card"><p class="sec">§download§ Documents PDF</p>${hasDocs()?`<div class="dl">${docsHTML()}</div>`:'<p class="muted">Aucun document pour ce module pour l’instant.</p>'}</div><div class="foot">© BABAAISSA Zakaria</div></div>`; }
+function vDocs(){ return `${header()}<div class="wrap"><div class="card"><p class="sec">§download§ Documents PDF</p>${hasDocs()?`<div class="dl">${docsHTML()}</div>`:'<p class="muted">Aucun document pour ce module pour l’instant.</p>'}</div></div>`; }
 function mpicker(){
   const val=S.fcs; const label=val.length===0?'Tous les cours':val.length===1?CN[val[0]]:val.length+' cours sélectionnés';
   let h=`<div class="pick"><button class="pickbtn ${val.length?'on':''}" data-a="drop" data-v="fcs"><span>${esc(label)}</span><em>${val.length?'':'▾'}</em>${val.length?`<em data-a="clr" data-v="fcs">✕</em>`:''}</button>`;
@@ -1157,7 +1224,7 @@ function vHome(){
     </div></div>
    </div>
   </div>
-  <div class="foot">© BABAAISSA Zakaria</div></div>`;
+  </div>`;
 }
 function weak(){
   const by={}; for(const [k,v] of Object.entries(S.hist)){ const q=QI[k]; if(!q) continue; by[q.c]=by[q.c]||[0,0]; by[q.c][1]++; if(v.ok) by[q.c][0]++; }
@@ -1178,7 +1245,7 @@ function vCourses(){
   <div class="clist">${rows.map(r=>{const L=clink(r.k), au=authOf(r.k), inner=`${L?'<i>↗</i>':''}<span>${esc(r.n)}${au?`<small style="display:block;color:var(--muted);font-size:.74rem">${esc(au)}</small>`:''}</span><b>${r.tot} Q · ${r.inEx}/${REALEX.length} examens</b>`;
     return L?`<a href="${L}" target="_blank" rel="noopener">${inner}</a>`:`<a class="nolink">${inner}</a>`;}).join('')}
   ${R().poly?`<a href="${dlink(R().poly)}" target="_blank" rel="noopener"><i>↗</i><span><b style="color:var(--ink);margin:0;font-size:1rem">Polycopié complet du module</b></span><b>PDF</b></a>`:''}</div></div>
-  <div class="foot">© BABAAISSA Zakaria</div></div>`;
+  </div>`;
 }
 function vStats(){
   const rows=courseRows().sort((a,b)=>b.tot-a.tot||b.inEx-a.inEx);
@@ -1193,6 +1260,7 @@ function vStats(){
     <div class="tile t3" style="cursor:default"><span class="ic">§steth§</span><div><b>${Q.filter(q=>q.case&&!q.exam.startsWith('blanc')).length}</b><span>questions de cas cliniques</span></div></div>
     <div class="tile t4" style="cursor:default"><span class="ic">§check§</span><div><b>${done.length}</b><span>questions déjà faites</span></div></div>
   </div>
+  ${statsCharts(rows)}
   <div class="card"><p class="sec">§chart§ Fréquence par cours et par examen</p>
   <div class="tscroll"><table class="st"><tr><th>Cours</th>${REALEX.map(([,n])=>`<th>${n.replace('Janvier','Janv.')}</th>`).join('')}<th>Total</th><th>Ma réussite</th></tr>
   ${rows.map(r=>`<tr><td>${clink(r.k)?`<a href="${clink(r.k)}" target="_blank" rel="noopener" title="Ouvrir le cours">${esc(r.n)} <span style="color:var(--sky)">↗</span></a>`:esc(r.n)}</td>${r.per.map(v=>`<td>${heat(v)}</td>`).join('')}<td><b>${r.tot}</b><div class="muted" style="font-size:.72rem">${r.inEx}/${REALEX.length} ex.</div></td>
@@ -1200,7 +1268,90 @@ function vStats(){
   <tr><td><b>Total</b></td>${REALEX.map(([e])=>`<td><b>${Q.filter(q=>q.exam===e).length}</b></td>`).join('')}<td><b>${Q.length}</b></td><td></td></tr></table></div>
   ${always.length?`<p class="muted" style="font-size:.85rem;margin-bottom:0">Tombés à chaque examen : <b style="color:var(--ink)">${always.map(esc).join(', ')}</b>.</p>`:''}</div>
   ${hasDocs()?`<div class="card" style="margin-top:16px"><p class="sec">§download§ Documents PDF</p><div class="dl">${docsHTML()}</div></div>`:''}
-  <div class="foot">© BABAAISSA Zakaria</div></div>`;
+  </div>`;
+}
+
+
+/* ---------- graphiques (CSS et SVG, sans bibliothèque) ---------- */
+const hbars=(rows,unit)=>{ const mx=Math.max(1,...rows.map(r=>r[1]));
+  return `<div class="hb">${rows.map(([l,v,col,sub])=>`<div class="hbr"><span class="hbl" title="${esc(l)}">${esc(l)}</span><div class="hbt"><i style="width:${(v/mx*100).toFixed(1)}%;background:${col||'var(--orange)'}"></i></div><b>${v}${unit||''}</b>${sub?`<small>${esc(sub)}</small>`:''}</div>`).join('')}</div>`; };
+const cols=(vals,labs,col)=>{ const mx=Math.max(1,...vals);
+  return `<div class="cols">${vals.map((v,i)=>`<div class="colc" title="${esc(labs[i])} : ${v}"><b>${v||''}</b><div class="colb"><i style="height:${(v/mx*100).toFixed(1)}%;background:${col}"></i></div><span>${esc(labs[i])}</span></div>`).join('')}</div>`; };
+const donut=(parts,center)=>{ const tot=parts.reduce((a,p)=>a+p[0],0)||1; let a=0;
+  const st=parts.filter(p=>p[0]>0).map(([v,col])=>{ const s0=a; a+=v/tot*100; return `${col} ${s0.toFixed(2)}% ${a.toFixed(2)}%`; });
+  return `<div class="donut2" style="background:conic-gradient(${st.join(',')||'var(--surface2) 0 100%'})"><div>${center}</div></div>`; };
+const dleg=parts=>`<ul class="dlg">${parts.map(([v,col,l])=>`<li><i style="background:${col}"></i>${esc(l)} <b>${v}</b></li>`).join('')}</ul>`;
+const linesvg=(vals,labs)=>{ const W=600,H=170,P=22; const n=vals.length; const x=i=>P+i*(W-2*P)/Math.max(1,n-1); const y=v=>H-P-(v/100)*(H-2*P);
+  const pts=vals.map((v,i)=>v==null?null:[x(i),y(v)]).filter(Boolean);
+  return `<svg class="lsv" viewBox="0 0 ${W} ${H}" role="img" aria-label="Évolution de la réussite par jour">
+    ${[0,50,100].map(g=>`<line x1="${P}" x2="${W-P}" y1="${y(g)}" y2="${y(g)}" class="gl"/><text x="0" y="${y(g)+4}" class="gt">${g}%</text>`).join('')}
+    ${pts.length>1?`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" class="lpl"/>`:''}
+    ${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" class="lpt"/>`).join('')}</svg>
+    <div class="lbls">${labs.map((l,i)=>`<span>${i%2?'':esc(l)}</span>`).join('')}</div>`; };
+const DAYK=t=>{ const d=new Date(t); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); };
+function dayStats(n){ const out=[], now=new Date();
+  for(let i=n-1;i>=0;i--){ const d=new Date(now.getFullYear(),now.getMonth(),now.getDate()-i); out.push({k:DAYK(d.getTime()),l:d.getDate()+'/'+(d.getMonth()+1),n:0,ok:0}); }
+  const idx=Object.fromEntries(out.map((o,i)=>[o.k,i]));
+  Object.entries(S.hist).forEach(([id,h])=>{ if(!QI[id]||!h.at) return; const i=idx[DAYK(h.at)]; if(i===undefined) return; out[i].n++; if(h.ok) out[i].ok++; });
+  return out; }
+function actCard(){
+  const D=dayStats(14), tot=D.reduce((a,d)=>a+d.n,0), wk=D.slice(-7).reduce((a,d)=>a+d.n,0), all=Object.keys(S.hist).filter(k=>QI[k]).length;
+  return `<div class="card" style="margin-top:16px"><p class="sec">§chart§ Mon activité</p>
+   <div class="actk"><div><b>${wk}</b><span>QCM cette semaine</span></div><div><b>${tot}</b><span>sur les 14 derniers jours</span></div><div><b>${all}</b><span>QCM faits au total</span></div></div>
+   ${cols(D.map(d=>d.n),D.map(d=>d.l),'var(--acc3)')}
+   <p class="muted" style="font-size:.8rem;margin:8px 0 0">Une question est comptée le jour de votre dernière réponse.</p></div>`; }
+const EXAM_T=Date.UTC(2026,11,5,8,0,0);   /* 5 décembre 2026, 9 h heure de Lagos (UTC+1) */
+function cdHTML(){ const s=Math.floor(Math.max(0,EXAM_T-Date.now())/1000);
+  const d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), x=s%60;
+  const b=(v,l)=>`<div class="cdb"><b>${String(v).padStart(2,'0')}</b><span>${l}</span></div>`;
+  return b(d,'jours')+b(h,'heures')+b(m,'minutes')+b(x,'secondes'); }
+function tickCD(){ const el=document.getElementById('cd'); if(el) el.innerHTML=cdHTML(); }
+function evoCard(){ const D=dayStats(14), pcs=D.map(d=>d.n?Math.round(d.ok/d.n*100):null);
+  return `<div class="card" style="margin-top:16px"><p class="sec">§flame§ Mon évolution</p>
+   <div class="cdwrap"><p class="cdlab">Examen dans</p><div class="cd" id="cd">${cdHTML()}</div></div>
+   <p class="lbl" style="margin-top:18px">Réussite par jour · 14 derniers jours</p>
+   ${pcs.some(v=>v!=null)?linesvg(pcs,D.map(d=>d.l)):'<p class="muted">Répondez à quelques questions pour voir votre évolution.</p>'}</div>`; }
+setInterval(tickCD,1000);
+function statsCharts(rows){
+  const exQ=REALEX.map(([k,n])=>[n.replace('Promo ',''), Q.filter(q=>q.exam===k).length]);
+  const topC=rows.slice(0,12).map(r=>[r.n.replace(/ \(.*\)/,''), r.tot, 'var(--orange)', r.inEx+'/'+REALEX.length+' examens']);
+  const cases=Q.filter(q=>q.case&&!q.exam.startsWith('blanc')).length, iso=Q.filter(q=>!q.case&&!q.exam.startsWith('blanc')).length;
+  const exR=REALEX.map(([k,n])=>{ const h=Q.filter(q=>q.exam===k&&S.hist[q.id]); return [n.replace('Promo ',''), h.length?Math.round(h.filter(q=>S.hist[q.id].ok).length/h.length*100):null, h.length]; }).filter(r=>r[1]!=null);
+  return `<div class="grid2"><div class="card"><p class="sec">§flame§ Cours les plus interrogés</p>${hbars(topC)}</div>
+  <div class="card"><p class="sec">§steth§ Types de questions</p>
+    ${donut([[cases,'var(--acc3)'],[iso,'var(--orange)']], Math.round(cases/((cases+iso)||1)*100)+'%<small>cas cliniques</small>')}
+    ${dleg([[cases,'var(--acc3)','Cas cliniques'],[iso,'var(--orange)','QCM isolés']])}
+    <p class="sec" style="margin-top:20px">§check§ Ma réussite par examen</p>
+    ${exR.length?hbars(exR.map(r=>[r[0],r[1],'var(--good)',r[2]+' faites']),'%'):'<p class="muted">Pas encore de réponse.</p>'}</div></div>`; }
+function vFlashQA(){
+  const TC=Object.fromEntries(TMPC.map(c=>[c.n,c])); const F=S.fl;
+  if(!/^(all|rev|e:)/.test(S.fdeck)) S.fdeck='all';
+  const known=TMPC.filter(c=>S.flk[c.n]==='ok').length, rev=TMPC.filter(c=>S.flk[c.n]==='ko').length;
+  const exams=EXAMS.filter(([k])=>TMPC.some(c=>c.x===k));
+  const decks=[['all','Toutes ('+TMPC.length+')']].concat(exams.map(([k,n])=>['e:'+k,n.replace('Promo ','')+' ('+TMPC.filter(c=>c.x===k).length+')']),[['rev','À revoir ('+rev+')']]);
+  let h=`${header()}<div class="wrap"><div class="row back"><button class="btn" data-a="home">← Accueil</button><span class="muted" style="font-size:.85rem;margin-left:auto">✓ ${known} sues · ✗ ${rev} à revoir</span></div>
+  <div class="card"><p class="sec">§cards§ Flashcards · questions d'examen</p>
+   <p class="lbl">Paquet</p><div class="seg wrapseg">${decks.map(([k,n])=>`<button data-a="fdeck" data-v="${k}" class="${S.fdeck===k?'on':''}" ${k==='rev'&&!rev?'disabled':''}>${esc(n)}</button>`).join('')}</div>
+   <div class="row" style="margin-top:14px"><button class="btn navy" data-a="fstart">§play§ Dans l'ordre</button><button class="btn orange" data-a="fshuf">§shuffle§ Mélanger</button><span class="muted" style="font-size:.8rem">${deckOf(S.fdeck).length} cartes</span></div>
+   <p class="muted" style="font-size:.8rem;margin:10px 0 0">Recto : la question. Verso : la ou les bonnes réponses et l'astuce.</p></div>`;
+  if(F&&F.deck.length){
+    if(F.i>=F.deck.length){
+      h+=`<div class="card fl-done" style="margin-top:16px"><div style="font-size:3rem">§sparkles§</div><p style="font-size:1.4rem;font-weight:900;margin:.3em 0">Paquet terminé</p><p class="muted">✓ ${F.ok} sues · ✗ ${F.ko} à revoir</p><div class="row" style="justify-content:center;margin-top:12px"><button class="btn orange" data-a="fshuf">§shuffle§ Recommencer</button>${rev?`<button class="btn red" data-a="frev">Revoir mes ✗ (${rev})</button>`:''}</div></div>`;
+    } else {
+      const c=TC[F.deck[F.i]]; const st=S.flk[c.n];
+      h+=`<div style="margin-top:16px;max-width:820px;margin-left:auto;margin-right:auto"><div class="fl-top"><b>Carte ${F.i+1} / ${F.deck.length}</b>${st?`<span class="gchip ${st==='ok'?'g2':'fchip'}">${st==='ok'?'✓ déjà sue':'✗ à revoir'}</span>`:''}<span class="muted" style="margin-left:auto;font-size:.78rem">${esc(c.lab)} · Q${esc(c.num)}</span></div>
+       <div class="fl-prog"><i style="width:${F.i/F.deck.length*100}%"></i></div></div>
+       <div class="flip"><div class="fcard ${F.flip?'on':''}" data-a="fflip" id="fcard">
+        <div class="face front qfront"><div class="qlab">Question${c.m?' · plusieurs réponses possibles':''}</div><div class="qtxt">${rich(c.q).replace(/\n/g,'<br>')}</div>
+          <ol class="qopts">${c.o.map(([l,t])=>`<li><b>${esc(l)}</b> <span>${rich(t)}</span></li>`).join('')}</ol><div class="hint">Touchez pour voir la réponse</div></div>
+        <div class="face back qfront"><div class="qlab">Réponse</div>
+          <ul class="qans">${c.a.map(([l,t])=>`<li><b>${esc(l)}</b> <span>${rich(t)}</span></li>`).join('')}</ul>
+          ${c.e?`<div class="qexp"><b>Astuce</b><br>${rich(c.e)}</div>`:''}</div></div></div>
+       <div class="fl-act">${F.flip?`<button class="btn red" data-a="fgrade" data-v="ko">✗ À revoir</button><button class="btn green" data-a="fgrade" data-v="ok">✓ Je savais</button>`:`<button class="btn navy" data-a="fflip">§repeat§ Retourner</button>`}</div>
+       <div class="nav" style="max-width:820px;margin:14px auto 0"><button class="btn" data-a="fprev" ${F.i?'':'disabled'}>§prev§</button><div class="sp"></div><button class="btn" data-a="fnext">§next§</button></div>`;
+    }
+  }
+  return h+`</div>`;
 }
 
 /* ---------- maîtrise ---------- */
@@ -1224,6 +1375,7 @@ function mastery(){
      <div class="muted" style="font-size:.86rem;margin-top:2px">Il reste <b style="color:var(--bad)">${lac} lacunes</b> : questions jamais faites, encore fausses, ou ratées au premier essai.</div></div></div>
    ${sbar(C,tot)}
    <div class="lchips">${LACS.map(chip).join('')}</div>
+   <div class="mdist">${donut(LACS.map(([k,,,col])=>[C[k],col]),pc+'%')}${dleg(LACS.map(([k,t,,col])=>[C[k],col,t]))}</div>
    ${lac?`<button class="go" style="margin-top:12px" data-a="lac" data-v="frg,ko,non">${ico('play',18,'ii')} Réviser mes ${lac} lacunes</button>`:'<p class="muted" style="margin-top:12px">Tout est acquis du premier coup. Bravo.</p>'}
    <p class="lbl" style="margin-top:20px">Par cours</p>
    <div class="mast">${rows.map(r=>{ const m=r.c.acq/r.tot, l=r.tot-r.c.acq;
@@ -1235,7 +1387,8 @@ function mastery(){
 }
 /* ---------- flashcards TMP ---------- */
 const GRP={1:['Groupe 1','Intoxications · liste indicative'],2:['Groupe 2','Infections · liste limitative'],3:['Groupe 3','Ambiances & attitudes · liste limitative']};
-function deckOf(k){ let L=TMPC;
+function deckOf(k){ if(TMPC.length&&TMPC[0].q!==undefined){ if(k.startsWith('e:')) return TMPC.filter(c=>c.x===k.slice(2)).map(c=>c.n); if(k==='rev') return TMPC.filter(c=>S.flk[c.n]==='ko').map(c=>c.n); return TMPC.map(c=>c.n); }
+  let L=TMPC;
   if(k==='exam') L=TMPC.filter(c=>c.f).sort((a,b)=>b.f-a.f);
   else if(k==='g1'||k==='g2'||k==='g3') L=TMPC.filter(c=>c.g===+k[1]);
   else if(k==='rev') L=TMPC.filter(c=>S.flk[c.n]==='ko');
@@ -1249,7 +1402,7 @@ let TIMGS=null, TIMGL=false;
 function TIMG(p){ if(TIMGS) return TIMGS[p]||''; if(!TIMGL){ TIMGL=true; fetch('tmpimg.json').then(r=>r.json()).then(j=>{ TIMGS=j; if(S.view==='flash') render(true); }).catch(()=>{ TIMGS={}; }); } return 'data:image/gif;base64,R0lGODlhAQABAAAAACw='; }
 function startFlash(shuffle){ let d=deckOf(S.fdeck); if(shuffle){ for(let i=d.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[d[i],d[j]]=[d[j],d[i]];} }
   S.fl={deck:d,i:0,flip:false,ok:0,ko:0}; S.view='flash'; render(); const fc=document.querySelector('.fl-top'); if(fc) fc.scrollIntoView({block:'start'}); else scrollTo(0,0); }
-function vFlash(){
+function vFlash(){ if(TMPC.length&&TMPC[0].q!==undefined) return vFlashQA();
   const TC=Object.fromEntries(TMPC.map(c=>[c.n,c])); const F=S.fl;
   const known=TMPC.filter(c=>S.flk[c.n]==='ok').length, rev=TMPC.filter(c=>S.flk[c.n]==='ko').length;
   const decks=[['exam','§flame§ Tombés aux examens'],['all','Les 87 tableaux'],['g1','Groupe 1'],['g2','Groupe 2'],['g3','Groupe 3'],['rev','À revoir ('+rev+')']];
@@ -1276,7 +1429,7 @@ function vFlash(){
        <div class="nav" style="max-width:820px;margin:14px auto 0"><button class="btn" data-a="fprev" ${F.i?'':'disabled'}>§prev§</button><div class="sp"></div><button class="btn" data-a="fnext">§next§</button></div>`;
     }
   }
-  return h+`<div class="foot">© BABAAISSA Zakaria</div></div>`;
+  return h+`</div>`;
 }
 
 /* ---------- sauvegarde / restauration ---------- */
@@ -1333,7 +1486,17 @@ function snippet(text,w){ const t=String(text).replace(/\*\*|\[\[|\]\]/g,''); co
   for(const x of w){ const nn=norm(sn); let out='', k=0, j; const src=sn; let res=''; let last=0; let idx=nn.indexOf(x);
     if(idx<0) continue; res=''; last=0; while(idx>=0){ res+=esc(src.slice(last,idx))+'<mark class="sm">'+esc(src.slice(idx,idx+x.length))+'</mark>'; last=idx+x.length; idx=nn.indexOf(x,last); } res+=esc(src.slice(last)); h=res; break; }
   return h; }
-function resultsHTML(){ const r=searchQ(S.gq||''); if(!(S.gq||'').trim()) return `<p class="muted">Tapez un mot-clé : amiante, 21 jours, plombémie, TMP 42, Caplan…</p>`;
+const KWS={gygy:['pré-éclampsie','hémorragie de la délivrance','bassin','Bracht','cancer du col','diabète gestationnel'],ste:['amiante','21 jours','plombémie','TMP 42','Caplan'],pedia:['nouveau-né','ictère','asthme','convulsions']};
+const kwList=()=>(KWS[CUR]||KWS.ste).join(', ');
+const QL=qid=>QI[qid]?`${QI[qid].label} · Q${QI[qid].n}`:qid;
+function bookSearch(term){ const w=norm(term).split(/\s+/).filter(x=>x.length>1); if(!w.length) return []; return (BOOK||[]).filter(p=>w.every(x=>norm(p.t).includes(x))).map(p=>({p,w})); }
+function bookResults(){ const r=bookSearch(S.gq||''); const bn=(MOD[CUR]||{}).book||'le livre';
+  if(!(S.gq||'').trim()) return `<p class="muted">Recherchez dans les pages de « ${esc(bn)} » : ${esc(kwList())}…</p>`;
+  if(!r.length) return `<p class="muted">Aucune page de « ${esc(bn)} » ne contient « ${esc(S.gq)} ».</p>`;
+  return `<p class="muted" style="margin:0 0 10px"><b style="color:var(--ink)">${r.length} page${r.length>1?'s':''}</b> dans « ${esc(bn)} »</p>`+
+   r.slice(0,40).map(({p,w})=>`<div class="sres bk"><button class="bkimg" data-a="zoom" data-v="url:${esc(MP()+p.f)}" aria-label="Agrandir la page"><img src="${esc(MP()+p.f)}" alt="Page du livre" loading="lazy"></button><div style="min-width:0"><div class="pills">${p.q.slice(0,3).map(qid=>`<span class="pill">${esc(QL(qid))}</span>`).join('')}</div><div class="ssn">${snippet(p.t,w)}</div></div></div>`).join('')+(r.length>40?`<p class="muted">+ ${r.length-40} autres pages.</p>`:'');
+}
+function resultsHTML(){ const r=searchQ(S.gq||''); if(!(S.gq||'').trim()) return `<p class="muted">Tapez un mot-clé : ${esc(kwList())}…</p>`;
   if(!r.length) return `<p class="muted">Aucun résultat pour « ${esc(S.gq)} ».</p>`;
   return `<div class="row" style="margin-bottom:10px"><b>${r.length} question${r.length>1?'s':''}</b><button class="btn green" data-a="gsgo" data-v="0" style="margin-left:auto">§play§ Réviser ces questions</button></div>`+
    r.slice(0,80).map((x,i)=>`<button class="sres" data-a="gsgo" data-v="${i}"><div class="pills"><span class="pill">${esc(x.q.label)} · Q${x.q.n}</span><span class="pill" style="background:var(--surface2);color:var(--ink)">${esc(CN[x.q.c])}</span>${x.q.case?'<span class="pill o">Cas clinique</span>':''}</div>
@@ -1341,6 +1504,7 @@ function resultsHTML(){ const r=searchQ(S.gq||''); if(!(S.gq||'').trim()) return
 }
 
 let CTXT=null, CTXT_LOADING=false;
+let BOOK=[];
 function loadCourses(){ if(CTXT||CTXT_LOADING) return; CTXT_LOADING=true;
   fetch('courses.json').then(r=>r.json()).then(j=>{ CTXT=[]; for(const [c,L] of Object.entries(j)) for(const [pg,t] of L) CTXT.push({c,pg,t,n:norm(t)}); refreshSearch(); }).catch(()=>{ CTXT=[]; CTXT_ERR=true; refreshSearch(); }); }
 let CTXT_ERR=false;
@@ -1355,7 +1519,7 @@ function courseResults(){
 function hlAll(text,w){ const n=norm(text); const marks=[]; for(const x of w){ let i=n.indexOf(x); while(i>=0){ marks.push([i,i+x.length]); i=n.indexOf(x,i+x.length); } }
   marks.sort((a,b)=>a[0]-b[0]); let h='',last=0; for(const [a,b] of marks){ if(a<last) continue; h+=esc(text.slice(last,a))+'<mark class="sm">'+esc(text.slice(a,b))+'</mark>'; last=b; } return h+esc(text.slice(last)); }
 function searchBody(){ const tq=(S.gq||'').trim(); const nq=tq?searchQ(S.gq).length:0, nc=tq&&CTXT?searchC(S.gq).length:0; const tab=S.gtab||'q';
-  return `<div class="seg" style="margin-bottom:12px"><button data-a="gtab" data-v="q" class="${tab==='q'?'on':''}">§qlist§ Questions d'examens${tq?` (${nq})`:''}</button><button data-a="gtab" data-v="c" class="${tab==='c'?'on':''}">§bookopen§ Cours officiels${tq&&CTXT?` (${nc})`:''}</button></div>`+(tab==='q'?resultsHTML():courseResults()); }
+  return `<div class="seg" style="margin-bottom:12px"><button data-a="gtab" data-v="q" class="${tab==='q'?'on':''}">§qlist§ Questions d'examens${tq?` (${nq})`:''}</button><button data-a="gtab" data-v="c" class="${tab==='c'?'on':''}">§bookopen§ Cours officiels${tq&&CTXT?` (${nc})`:''}</button>${BOOK&&BOOK.length?`<button data-a="gtab" data-v="b" class="${tab==='b'?'on':''}">§book§ Livre en poche${tq?` (${bookSearch(S.gq).length})`:''}</button>`:''}</div>`+(tab==='q'?resultsHTML():tab==='b'?bookResults():courseResults()); }
 function refreshSearch(){ const r=document.getElementById('gsres'); if(r) r.innerHTML=searchBody().replace(/§(\w+)§/g,(m,k)=>IC[k]?ico(k,16):''); }
 /* ---------- lecteur de cours (PDF.js) ---------- */
 const PJS='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/';
@@ -1386,8 +1550,8 @@ async function paintReader(){ const R=S.rd, tk=++RDT; const box=document.getElem
   if(first) setTimeout(()=>{ const r=first.getBoundingClientRect(); scrollTo(0,scrollY+r.top-innerHeight/3); box.scrollLeft=Math.max(0,first.offsetLeft-box.clientWidth/3); },60); }
 function L_mul(a,b){ return [a[0]*b[0]+a[2]*b[1],a[1]*b[0]+a[3]*b[1],a[0]*b[2]+a[2]*b[3],a[1]*b[2]+a[3]*b[3],a[0]*b[4]+a[2]*b[5]+a[4],a[1]*b[4]+a[3]*b[5]+a[5]]; }
 function vSearch(){ loadCourses(); return `${header()}<div class="wrap"><div class="card"><p class="sec">§search§ Recherche dans les examens et les cours</p>
-  <div class="sbox">${ico('search',20)}<input id="gs" type="search" placeholder="Rechercher : amiante, 21 jours, plombémie, TMP 42…" value="${esc(S.gq||'')}" autocomplete="off"></div>
-  <div id="gsres" style="margin-top:14px">${searchBody()}</div></div><div class="foot">© BABAAISSA Zakaria</div></div>`; }
+  <div class="sbox">${ico('search',20)}<input id="gs" type="search" placeholder="Rechercher : ${esc(kwList())}…" value="${esc(S.gq||'')}" autocomplete="off"></div>
+  <div id="gsres" style="margin-top:14px">${searchBody()}</div></div></div>`; }
 const fsOK=()=>!!(document.fullscreenEnabled||document.webkitFullscreenEnabled);
 const isFS=()=>!!(document.fullscreenElement||document.webkitFullscreenElement);
 function toggleFS(){ try{ if(isFS()) (document.exitFullscreen||document.webkitExitFullscreen).call(document); else { const e=document.documentElement; (e.requestFullscreen||e.webkitRequestFullscreen).call(e); } }catch(e){ toast('Plein écran indisponible ici'); } }
@@ -1539,7 +1703,7 @@ function vQuiz(){
     { const wa=warnSplit(q)[1]; h+=`<div class="card comm"><h3>§msg§ Commentaire :</h3>${wa.length?`<div class="note wrem"><b>Remarque :</b> ${wa.map(rich).join(' ')}</div>`:''}<div class="gx">${noteHTML(q.g)}</div>${q.tip?`<div class="astuce"><b class="ah">§bulb§ Astuce</b><div class="at">${rich(q.tip)}</div></div>`:''}`; }
     if(q.cs) h+=`<div class="csum"><b class="h">§pdf§ Résumé du cas clinique</b>${rich(q.cs)}</div>`;
     if((q.o||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§bookopen§ Cours officiel · ${authQ(q)} <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${q.o.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${q.o.map(([src,pg])=>`<img loading="lazy" src="${oimg(src)}" data-a="zoom" data-v="url:${src}" alt="Cours officiel, page ${pg}">`).join('')}</div>`;
-    if((q.k||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§book§ Rappel du livre « Gynéco-Obstétrique en poche » · © BABAAISSA Zakaria <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${q.k.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${q.k.map(([src,pg])=>`<img loading="lazy" src="${MP()+src}" data-a="zoom" data-v="url:${src}" alt="Livre en poche, page ${pg}">`).join('')}</div>`;
+    if((q.k||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§book§ Rappel du livre « Gynéco-Obstétrique en poche » <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${q.k.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${q.k.map(([src,pg])=>`<img loading="lazy" src="${MP()+src}" data-a="zoom" data-v="url:${src}" alt="Livre en poche, page ${pg}">`).join('')}</div>`;
     if((q.s||[]).length) h+=`<details class="cap poly" ${(q.o||[]).length?'':'open'}><summary class="lbl" style="margin-top:12px;cursor:pointer">§pdf§ Résumé · polycopié ${esc((MOD[CUR]||{}).sub||'')} ▾</summary>${q.s.map(k=>CAPS['s:'+k]?`<img loading="lazy" src="${cimg('s:'+k)}" data-a="zoom" data-v="s:${k}" alt="Extrait du polycopié">`:'').join('')}</details>`;
     for(const t of (q.t||[])){ if(!CAPS['t:'+t]) continue; const hid=S.hideT.has(t);
       h+=`<div class="tmp"><div class="th">§clip§ Tableau de maladie professionnelle n° ${t}<button class="btn" style="padding:.25em .7em;font-size:.8rem" data-a="tmp" data-v="${t}">${hid?'Afficher':'Masquer'}</button></div>${hid?'':`<img loading="lazy" src="${cimg('t:'+t)}" data-a="zoom" data-v="t:${t}" alt="Tableau n° ${t}">`}</div>`; }
@@ -1583,7 +1747,7 @@ function vEnd(){
    <div class="row" style="margin-top:12px"><button class="btn green" data-a="review">§bookopen§ Voir la correction</button><button class="btn orange" data-a="redo" ${wrong.length?'':'disabled'}>§err§ Refaire mes erreurs (${wrong.length})</button><button class="btn" data-a="home">Accueil</button></div></div></div></div>
   <div class="grid2" style="margin-top:16px"><div class="card"><p class="sec">Par cours</p>${Object.entries(by).sort((a,b)=>a[1][0]/a[1][1]-b[1][0]/b[1][1]).map(([c,[o,t]])=>bar(CN[c],o,t)).join('')}</div>
   <div class="card"><p class="sec">À revoir</p>${wrong.length?wrong.map(i=>{const q=QI[i];return `<div class="wl" data-a="jump" data-v="${ids.indexOf(i)}"><span style="color:var(--bad);font-weight:900">✗</span><span><b>Qst ${ids.indexOf(i)+1}</b> · ${esc(q.label)} — ${esc(q.stem.slice(0,100))}${q.stem.length>100?'…':''}</span></div>`}).join(''):'<p class="muted">Aucune erreur</p>'}</div></div>
-  <div class="foot">© BABAAISSA Zakaria</div></div>`;
+  </div>`;
 }
 function gstats(){ const S4=k=>MODS.reduce((a,m)=>a+(m[k]||0),0);
   return [[S4('nq'),'questions corrigées'],[S4('nex'),'examens'],[S4('ntip'),'astuces'],[S4('ncard'),'flashcards']];
@@ -1593,12 +1757,18 @@ const ECG=`<svg class="lecg" viewBox="0 0 1200 70" preserveAspectRatio="none" ar
 function gshell(inner){ return `<div class="land">
   <div class="lhero"><div class="lsky"></div><div class="lgrid"></div>${ECG}<div class="lin">
     <div class="lbrand"><img class="lwide" src="${LOGOW}" alt="MedLagh"></div>
-    <h1>Les annales de la fac de Laghouat, <em>corrigées et commentées</em>.</h1>
-    <p class="lp">Chaque question des examens passés, avec la bonne réponse, le commentaire qui l'explique
-      et la page du cours en face. ${MODS.map(m=>m.name).join(' · ')} — et votre progression vous suit
-      d'un appareil à l'autre.</p>
+    <h1>Vos examens de Laghouat, <em>expliquées par le cours</em>.</h1>
+    <p class="lp">Toutes les questions des examens passés, avec la bonne réponse et la page du cours qui l'explique.</p>
+    <ol class="lben">
+      <li><b>1</b><span>Exclusif à la faculté de Laghouat</span></li>
+      <li><b>2</b><span>Explications tirées des cours officiels</span></li>
+      <li><b>3</b><span>Flashcards pour réviser en quelques minutes</span></li>
+      <li><b>4</b><span>Examens blancs pour vous tester en conditions réelles</span></li>
+      <li><b>5</b><span>100 % gratuit</span></li>
+      <li><b>6</b><span>Le Drive de chaque année, intégré à l'application</span></li>
+      <li><b>7</b><span>Un design simple et confortable</span></li>
+    </ol>
     <div class="lst">${gstats().map(([n,l])=>`<div><b data-n="${n}">0</b><span>${l}</span></div>`).join('')}</div>
-    <p class="lcr">© BABAAISSA Zakaria</p>
   </div></div>
   <div class="lpane"><div class="gate">${inner}</div></div></div>`; }
 function animStats(){
@@ -1624,7 +1794,7 @@ function vGate(){
    <button class="btn" style="width:100%;margin-top:8px" data-a="signout">Utiliser un autre compte</button>`); }
   if(AU.state==='blocked') return gshell(`<div class="gbadge gb">§lock§</div>
    <h2>Accès suspendu</h2>
-   <p class="gt">Contactez BABAAISSA Zakaria pour le rétablir. Votre progression est conservée.</p>
+   <p class="gt">Contactez l'administrateur pour le rétablir. Votre progression est conservée.</p>
    <button class="btn" style="width:100%" data-a="signout">Se déconnecter</button>`);
   return gshell(`<div class="gbadge gb">§cloudoff§</div>
    <h2>Connexion impossible</h2>

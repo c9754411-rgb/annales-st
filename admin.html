@@ -99,6 +99,7 @@ $('#out').onclick=()=>signOut(auth).then(()=>location.reload());
 async function render(u){
   let err='';
   try{ USERS=(await api('/users.json'))||{}; }catch(e){ err=e.message; USERS={}; }
+  let MODST={}; try{ MODST=(await api('/mods.json'))||{}; }catch(e){ err=err||e.message; }
   const YEARS=[5,6];
   const yrs=v=>YEARS.filter(y=>((v&&v.acc)||{})[y]===true);
   const L=Object.entries(USERS).map(([uid,v])=>({uid,p:v.profile||{},acc:yrs(v),blocked:v.blocked===true,seen:v.seen||{}}));
@@ -112,6 +113,13 @@ async function render(u){
      <td class="sm">${x.seen.n?`${x.seen.n} faites · ${x.seen.ok||0} justes`:'<span class="muted">—</span>'}</td>
      <td class="ycell">${[5,6].map(y=>`<button class="ych ${x.acc.includes(y)?'on':''}" data-y="${x.uid}|${y}" title="${x.acc.includes(y)?'Retirer la '+y+'e année':'Ouvrir la '+y+'e année'}">${y}<sup>e</sup></button>`).join('')}</td>
      <td><button class="danger sm" data-del="${x.uid}">Supprimer</button></td></tr>`;
+  const MODLIST=[['gygy','Gynécologie-Obstétrique','5ᵉ année'],['pedia','Pédiatrie','5ᵉ année'],['ste','Médecine du travail','6ᵉ année']];
+  const modcard=`<div class="card"><h2>Modules ouverts aux étudiants</h2>
+     <p class="sm muted" style="margin-top:0">Activez ou fermez chaque module. Un module fermé n'apparaît plus dans la liste de l'étudiant.</p>
+     ${MODLIST.map(([id,n,y])=>{ const on=MODST[id]!==false; return `<div class="row" style="justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)">
+        <div><b>${n}</b> <span class="sm muted">· ${y}</span></div>
+        <div class="row"><span class="pill ${on?'p-ok':'p-no'}">${on?'ouvert':'fermé'}</span><button class="sw ${on?'on':''}" data-mod="${id}" title="${on?'Fermer':'Ouvrir'} ce module" aria-label="${on?'Fermer':'Ouvrir'} ${n}"><i></i></button></div></div>`; }).join('')}
+   </div>`;
   $('#app').innerHTML=`
    <div class="card"><h2>Votre identifiant d'administrateur</h2>
      <p class="sm muted" style="margin-top:0">À coller dans les règles Firebase, à la place de <code>UID_ADMIN</code>.</p>
@@ -123,6 +131,7 @@ async function render(u){
      <div><b>${L.filter(x=>x.acc.includes(5)).length}/${L.filter(x=>x.acc.includes(6)).length}</b><span>5<sup>e</sup> / 6<sup>e</sup> année</span></div>
      <div><b>${used}</b><span>actifs cette semaine</span></div>
      <div><b>${off.length}</b><span>sans accès</span></div></div></div>
+   ${modcard}
    ${wait.length?`<div class="card" style="border-color:var(--orange)">
      <h2>Demandes en attente <span class="pill p-no">${wait.length}</span></h2>
      <div class="tw"><table><tbody>${wait.map(x=>`<tr>
@@ -137,6 +146,8 @@ async function render(u){
    ${off.length?`<div class="card"><h2>Sans accès</h2>
      <div class="tw"><table class="tbl"><tbody>${off.map(line).join('')}</tbody></table></div></div>`:''}`;
 
+  document.querySelectorAll('[data-mod]').forEach(b=>b.onclick=async()=>{ const id=b.dataset.mod, on=MODST[id]!==false;
+    try{ await api('/mods/'+id+'.json','PUT',!on); toast(on?'Module fermé':'Module ouvert'); render(u); }catch(e){ toast(e.message); }});
   $('#cpuid').onclick=()=>{navigator.clipboard.writeText(u.uid);toast('UID copié')};
   const setYear=async(uid,y,val)=>{ await api('/users/'+uid+'/acc/'+y+'.json','PUT',val); };
   document.querySelectorAll('[data-ok]').forEach(b=>b.onclick=async()=>{
