@@ -8,7 +8,7 @@
 <style>
 :root{
   --bg:#eef0f7; --surface:#ffffff; --surface2:#f4f5fb; --ink:#161a33; --muted:#5f6584; --line:#dfe2ee;
-  --navy:#1d1b4f; --navy2:#2d2a78; --orange:#f59e0b; --orange2:#ff8a00; --sky:#0ea5e9; --skyink:#062a3d;
+  --navy:#2b0a3d; --navy2:#4a1a66; --orange:#f59e0b; --orange2:#ff8a00; --sky:#0ea5e9; --skyink:#062a3d;
   --good:#1f8b3a; --goodbg:#e3f6e8; --bad:#d32f2f; --badbg:#fde7e7; --sel:#fff1c9; --selb:#f2b705;
   --kw:#e11d48; --bn:#0b6fc4; --vio:#7c3aed;
   --t1:#ffe3a3; --t2:#9fefd2; --t3:#d8cbff; --t4:#ffc4d3;
@@ -16,11 +16,11 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0c0e1c; --surface:#161a31; --surface2:#1d2240; --ink:#eceefe; --muted:#a2a8cc; --line:#2b3157;
-  --navy:#120f3a; --navy2:#272263; --sky:#38bdf8; --skyink:#04202f; --good:#3ecf6b; --goodbg:#11331f; --bad:#ff5c5c; --badbg:#3b1518;
+  --navy:#1e0730; --navy2:#3a1352; --sky:#38bdf8; --skyink:#04202f; --good:#3ecf6b; --goodbg:#11331f; --bad:#ff5c5c; --badbg:#3b1518;
   --sel:#3a3112; --selb:#f2b705; --kw:#ff5c86; --bn:#5cb6ff; --vio:#a78bfa; --t1:#5a4512; --t2:#0f4a3a; --t3:#33285e; --t4:#5a2234; --shadow:none; color-scheme:dark;}}
 :root[data-theme="dark"]{
   --bg:#0c0e1c; --surface:#161a31; --surface2:#1d2240; --ink:#eceefe; --muted:#a2a8cc; --line:#2b3157;
-  --navy:#120f3a; --navy2:#272263; --sky:#38bdf8; --skyink:#04202f; --good:#3ecf6b; --goodbg:#11331f; --bad:#ff5c5c; --badbg:#3b1518;
+  --navy:#1e0730; --navy2:#3a1352; --sky:#38bdf8; --skyink:#04202f; --good:#3ecf6b; --goodbg:#11331f; --bad:#ff5c5c; --badbg:#3b1518;
   --sel:#3a3112; --selb:#f2b705; --kw:#ff5c86; --bn:#5cb6ff; --vio:#a78bfa; --t1:#5a4512; --t2:#0f4a3a; --t3:#33285e; --t4:#5a2234; --shadow:none; color-scheme:dark;}
 *{box-sizing:border-box}
 html{font-size:clamp(16px,0.45vw + 14px,18.5px);-webkit-text-size-adjust:100%}
@@ -405,11 +405,11 @@ mark.rdhl{position:absolute;background:rgba(255,214,0,.45);border-radius:3px;mix
 @media(max-width:440px){.nav{gap:6px}.nav .btn{padding:.55em .65em;font-size:.88rem;white-space:nowrap}}
 .hlbar .sw.def{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--orange)}
 
-:root{--acc3:#5b3fd6;--hdrg:#3b33a8;--accsh:rgba(60,40,180,.3);--acctint:rgba(91,63,214,.06)}
+:root{--acc3:#7b3fa8;--hdrg:#4a1a66;--accsh:rgba(74,26,102,.3);--acctint:rgba(123,63,168,.06)}
 :root[data-acc="rose"]{--navy:#7a1f4e;--navy2:#b02a6f;--acc3:#ec4899;--hdrg:#db2777;--orange:#f472b6;--orange2:#db2777;--accsh:rgba(219,39,119,.3);--acctint:rgba(236,72,153,.07);--sky:#ec4899;--skyink:#fff;--t1:#ffd6e8;--t2:#fbcfe8;--t3:#f5d0fe;--t4:#fecdd3;--vio:#c026d3}
 :root[data-acc="violet"]{--navy:#3b0764;--navy2:#6d28d9;--acc3:#a855f7;--hdrg:#7c3aed;--orange:#c084fc;--orange2:#9333ea;--accsh:rgba(124,58,237,.3);--acctint:rgba(168,85,247,.07);--sky:#8b5cf6;--skyink:#fff;--t1:#ede9fe;--t2:#e9d5ff;--t3:#f3e8ff;--t4:#fae8ff}
 :root[data-acc="vert"]{--navy:#064e3b;--navy2:#047857;--acc3:#10b981;--hdrg:#059669;--orange:#f59e0b;--orange2:#d97706;--accsh:rgba(5,150,105,.3);--acctint:rgba(16,185,129,.07);--sky:#10b981;--skyink:#032b20;--t1:#d1fae5;--t2:#a7f3d0;--t3:#ccfbf1;--t4:#fef3c7}
-:root[data-acc="ocean"]{--navy:#0c3a5b;--navy2:#0369a1;--acc3:#0ea5e9;--hdrg:#0284c7;--orange:#f97316;--orange2:#ea580c;--accsh:rgba(2,132,199,.3);--acctint:rgba(14,165,233,.07);--sky:#0ea5e9;--skyink:#062a3d;--t1:#e0f2fe;--t2:#bae6fd;--t3:#cffafe;--t4:#ffedd5}
+:root[data-acc="ocean"]{--navy:#1c6fa8;--navy2:#2f8fcf;--acc3:#38a3e0;--hdrg:#2a86c4;--orange:#f97316;--orange2:#ea580c;--accsh:rgba(2,132,199,.3);--acctint:rgba(14,165,233,.07);--sky:#0ea5e9;--skyink:#062a3d;--t1:#e0f2fe;--t2:#bae6fd;--t3:#cffafe;--t4:#ffedd5}
 :root[data-acc="rouge"]{--navy:#5b1414;--navy2:#9f1239;--acc3:#e11d48;--hdrg:#be123c;--orange:#f59e0b;--orange2:#d97706;--accsh:rgba(190,18,60,.3);--acctint:rgba(225,29,72,.06);--sky:#e11d48;--skyink:#fff;--t1:#ffe4e6;--t2:#fecaca;--t3:#fde68a;--t4:#fce7f3}
 :root[data-acc="noir"]{--navy:#111827;--navy2:#374151;--acc3:#6b7280;--hdrg:#1f2937;--orange:#f59e0b;--orange2:#d97706;--accsh:rgba(17,24,39,.3);--acctint:rgba(107,114,128,.08);--sky:#475569;--skyink:#fff;--t1:#f3f4f6;--t2:#e5e7eb;--t3:#e2e8f0;--t4:#fef3c7}
 :root[data-theme="dark"][data-acc] {--t1:color-mix(in srgb,var(--acc3) 22%,#161a31);--t2:color-mix(in srgb,var(--acc3) 16%,#161a31);--t3:color-mix(in srgb,var(--orange) 18%,#161a31);--t4:color-mix(in srgb,var(--acc3) 28%,#161a31)}
@@ -947,7 +947,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261122192137';   // version du build (remplacée à la compilation)
+const BUILDV='20261122225516';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1082,7 +1082,7 @@ const S={caseQ:{}, caseAuto:LS.get('mt_caseauto',true), view:'home', theme:LS.ge
   drop:null, dq:'', zoom:null, sess:LS.get('mt_last',null), open:new Set(), hideT:new Set(), shownote:false, hl:LS.get('mt_hl',{}), noside:LS.get('mt_noside',false), sbOpen:false, sbMini:LS.get('mt_sbmini',false), pen:null, hlbar:false, hlc:LS.get('mt_hlc','#ffe066'), flk:LS.get('mt_flk',{}), fdeck:LS.get('mt_fdeck','exam'), fdir:LS.get('mt_fdir','num'), fl:null};
 if(!Array.isArray(S.fcs)) S.fcs=[];
 document.documentElement.dataset.theme=S.theme||'light';
-S.acc=LS.get('mt_acc',''); if(S.acc) document.documentElement.dataset.acc=S.acc;
+S.acc=LS.get('mt_acc','ocean'); if(S.acc) document.documentElement.dataset.acc=S.acc;
 const isDark=()=>{const t=document.documentElement.dataset.theme;return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches};
 /* sons (extraits de la vidéo) */
 const SFX={}; function play(k){ if(!S.sound) return; try{ if(!SFX[k]) SFX[k]=new Audio(SND[k]); SFX[k].currentTime=0; SFX[k].play().catch(()=>{}); }catch(e){} }
@@ -1216,7 +1216,7 @@ function sidebar(){
    <div class="sep"></div>
    ${it('theme','','moon',isDark()?'Thème clair':'Thème sombre',false)}
    <div class="grp">Couleurs</div>
-   <div class="accs">${[['','#2d2a78','Classique'],['rose','#ec4899','Rose'],['violet','#8b5cf6','Violet'],['vert','#10b981','Vert'],['ocean','#0ea5e9','Océan'],['rouge','#e11d48','Bordeaux'],['noir','#374151','Graphite']].map(([k,c,n])=>`<button data-a="acc" data-v="${k}" class="${(S.acc||'')===k?'on':''}" style="background:${c}" title="${n}" aria-label="Thème ${n}"></button>`).join('')}</div>
+   <div class="accs">${[['ocean','#2f8fcf','Bleu ciel'],['','#2b0a3d','Classique'],['rose','#ec4899','Rose'],['violet','#8b5cf6','Violet'],['vert','#10b981','Vert'],['rouge','#e11d48','Bordeaux'],['noir','#374151','Graphite']].map(([k,c,n])=>`<button data-a="acc" data-v="${k}" class="${(S.acc||'')===k?'on':''}" style="background:${c}" title="${n}" aria-label="Thème ${n}"></button>`).join('')}</div>
   </nav><div class="scrim ${S.sbOpen?'open':''}" data-a="sbclose"></div>`;
 }
 function vMastery(){ const done=Object.keys(S.hist).filter(k=>QI[k]); return `${header()}<div class="wrap">${mastery()}${actCard()}${evoCard()}${done.length?`<div class="card" style="margin-top:16px"><p class="sec">Mes points faibles</p>${weak()}<button class="btn" style="margin-top:10px" data-a="reset">Effacer ma progression</button></div>`:''}</div>`; }
@@ -1886,7 +1886,7 @@ function vQuiz(){
   if(done){
     { const wa=warnSplit(q)[1]; h+=`<div class="card comm"><h3>§msg§ Commentaire :</h3>${wa.length?`<div class="note wrem"><b>Remarque :</b> ${wa.map(rich).join(' ')}</div>`:''}<div class="gx">${noteHTML(q.g)}</div>${q.tip?`<div class="astuce"><b class="ah">§bulb§ Astuce</b><div class="at">${rich(q.tip)}</div></div>`:''}`; }
     if(q.cs) h+=`<div class="csum"><b class="h">§pdf§ Résumé du cas clinique</b>${rich(q.cs)}</div>`;
-    if((q.o||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§bookopen§ Cours officiel · ${authQ(q)} <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${q.o.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${q.o.map(([src,pg])=>`<img loading="lazy" src="${oimg(src)}" data-a="zoom" data-v="url:${src}" alt="Cours officiel, page ${pg}">`).join('')}</div>`;
+    if((q.o||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§bookopen§ Cours officiel · ${authQ(q)}${CN[q.c]?' · '+esc(CN[q.c]):''} <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${[...new Set(q.o.map(x=>'p. '+x[1]))].join(', ')} · toucher pour agrandir</span></div>${q.o.map(([src,pg])=>`<img loading="lazy" src="${oimg(src)}" data-a="zoom" data-v="url:${src}" alt="Cours officiel, page ${pg}">`).join('')}</div>`;
     if((q.k||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§book§ Rappel du livre « Gynéco-Obstétrique en poche » <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${q.k.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${q.k.map(([src,pg])=>`<img loading="lazy" src="${MP()+src}" data-a="zoom" data-v="url:${src}" alt="Livre en poche, page ${pg}">`).join('')}</div>`;
     if((q.s||[]).length) h+=`<details class="cap poly" ${(q.o||[]).length?'':'open'}><summary class="lbl" style="margin-top:12px;cursor:pointer">§pdf§ Résumé · polycopié ${esc((MOD[CUR]||{}).sub||'')} ▾</summary>${q.s.map(k=>CAPS['s:'+k]?`<img loading="lazy" src="${cimg('s:'+k)}" data-a="zoom" data-v="s:${k}" alt="Extrait du polycopié">`:'').join('')}</details>`;
     for(const t of (q.t||[])){ if(!CAPS['t:'+t]) continue; const hid=S.hideT.has(t);
