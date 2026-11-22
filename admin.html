@@ -22,11 +22,9 @@ button:hover{border-color:var(--navy2)}
 .orange{background:var(--orange);color:#1b1300;border-color:var(--orange)}
 .danger{color:var(--bad)}
 input{font:inherit;border:1.5px solid var(--line);border-radius:10px;padding:.55em .8em;background:var(--surface2);color:var(--ink);outline:none}
-input:focus{border-color:var(--navy2)}
 table{width:100%;border-collapse:collapse;font-size:.92rem}
 th,td{padding:.6em .5em;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
 th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-weight:800;letter-spacing:.12em;font-size:1.02rem}
 .sw{position:relative;width:44px;height:25px;border-radius:99px;background:#c6c9d6;border:0;padding:0;transition:.15s}
 .sw.on{background:var(--good)}
 .sw i{position:absolute;top:3px;left:3px;width:19px;height:19px;border-radius:50%;background:#fff;transition:.15s}
@@ -43,13 +41,10 @@ th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--mu
 .stat{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:4px}
 .stat div b{display:block;font-size:1.7rem;font-weight:900;line-height:1}
 .stat div span{font-size:.78rem;color:var(--muted)}
-.ycell{white-space:nowrap}
-.ych{min-width:42px;padding:.34em .55em;margin-right:5px;border-radius:9px;border:1px solid var(--line);
- background:var(--surface2);color:var(--muted);font-weight:800;font-size:.82rem;cursor:pointer}
-.ych.on{background:var(--good,#2e9d46);border-color:var(--good,#2e9d46);color:#fff}
-.ych sup{font-size:.62em}
+.ych{min-width:64px;padding:.34em .6em;margin-right:6px;border-radius:9px;border:1px solid var(--line);background:var(--surface2);color:var(--muted);font-weight:800;font-size:.8rem;cursor:pointer;white-space:nowrap}
+.ych.on{background:var(--good);border-color:var(--good);color:#fff}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
-@media(max-width:620px){.tbl th:nth-child(3),.tbl td:nth-child(3){display:none}.tw table{min-width:400px}}
+@media(max-width:620px){.tw table{min-width:520px}}
 </style></head><body>
 <div class="hdr"><b>Accès étudiants · MedLagh</b><span class="who" id="who"></span>
   <button id="out" style="display:none">Se déconnecter</button></div>
@@ -67,18 +62,25 @@ import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChang
 
 const CFG = { apiKey:'AIzaSyCmgBrtwDbkjkTbjmufnop41nNl7hfq_pI', authDomain:'annales-ste.firebaseapp.com', projectId:'annales-ste' };
 const DB  = 'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app';
+/* modules : identifiant, nom, année (5 ou 6) */
+const MODS_A = [
+  {id:'gygy', n:'Gynéco-Obstétrique', s:'Gynéco', y:5},
+  {id:'pedia', n:'Pédiatrie', s:'Pédiatrie', y:5},
+  {id:'ste', n:'Médecine du travail', s:'Méd. travail', y:6}
+];
+const MODL = [['gygy','Gynécologie-Obstétrique · 5ᵉ année'],['pedia','Pédiatrie · 5ᵉ année'],['ste','Médecine du travail · 6ᵉ année']];
 
 const auth=getAuth(initializeApp(CFG));
 const $=s=>document.querySelector(s);
 const toast=m=>{const t=$('#toast');t.textContent=m;t.className='on';clearTimeout(t._h);t._h=setTimeout(()=>t.className='',3200)};
-let TOK=null, USERS={};
+let TOK=null, USERS={}, MODST={};
 
 const api=async(path,method,body)=>{
   const o={method:method||'GET'};
   if(body!==undefined){ o.headers={'Content-Type':'application/json'}; o.body=JSON.stringify(body); }
   const r=await fetch(DB.replace(/\/$/,'')+path+'?auth='+TOK,o);
   if(!r.ok) throw new Error(r.status===401||r.status===403
-    ? "Accès refusé : votre UID n'est pas encore inscrit dans les règles de la base (étape 6 du guide)."
+    ? "Accès refusé : vérifiez les règles Firebase (bloc « mods » et « users »)."
     : 'Erreur '+r.status);
   return r.json();
 };
@@ -86,6 +88,11 @@ const dt=t=>t?new Date(t).toLocaleString('fr-FR',{dateStyle:'short',timeStyle:'s
 const ago=t=>{ if(!t) return 'jamais'; const d=(Date.now()-t)/86400000;
   return d<1?"aujourd'hui":d<2?'hier':d<30?Math.floor(d)+' j':dt(t); };
 const esc=x=>String(x==null?'':x).replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));
+
+/* accès d'un étudiant à un module : mods/<id> si la liste existe, sinon ancien accès par année */
+const grantA=(v,id)=>{ const g=v&&v.mods; const m=MODS_A.find(x=>x.id===id);
+  if(g&&typeof g==='object') return g[id]===true;
+  return !!(v&&v.acc&&v.acc[m.y]===true); };
 
 onAuthStateChanged(auth, async u=>{
   if(!u){ $('#who').textContent=''; $('#out').style.display='none'; return; }
@@ -99,65 +106,72 @@ $('#out').onclick=()=>signOut(auth).then(()=>location.reload());
 async function render(u){
   let err='';
   try{ USERS=(await api('/users.json'))||{}; }catch(e){ err=e.message; USERS={}; }
-  let MODST={}; try{ MODST=(await api('/mods.json'))||{}; }catch(e){ err=err||e.message; }
-  const YEARS=[5,6];
-  const yrs=v=>YEARS.filter(y=>((v&&v.acc)||{})[y]===true);
-  const L=Object.entries(USERS).map(([uid,v])=>({uid,p:v.profile||{},acc:yrs(v),blocked:v.blocked===true,seen:v.seen||{}}));
-  const wait=L.filter(x=>!x.acc.length&&!x.blocked);
-  const act =L.filter(x=>x.acc.length);
-  const off =L.filter(x=>x.blocked&&!x.acc.length);
+  try{ MODST=(await api('/mods.json'))||{}; }catch(e){ err=err||e.message; MODST={}; }
+  const L=Object.entries(USERS).map(([uid,v])=>({uid,v,p:v.profile||{},
+     g:MODS_A.filter(m=>grantA(v,m.id)).map(m=>m.id), blocked:v.blocked===true, seen:v.seen||{}}));
+  const wait=L.filter(x=>!x.g.length&&!x.blocked);
+  const act =L.filter(x=>x.g.length);
+  const off =L.filter(x=>x.blocked&&!x.g.length);
   const used=act.filter(x=>x.seen.at&&Date.now()-x.seen.at<7*86400000).length;
+  const cnt=id=>L.filter(x=>x.g.includes(id)).length;
+
+  const modcard=`<div class="card"><h2>Modules ouverts aux étudiants</h2>
+     <p class="sm muted" style="margin-top:0">Interrupteur général : un module fermé n'apparaît à personne. Pour donner l'accès à un étudiant, utilisez ses boutons de module plus bas.</p>
+     ${MODL.map(([id,n])=>{ const on=MODST[id]!==false; return `<div class="row" style="justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)">
+        <div><b>${n}</b></div>
+        <div class="row"><span class="pill ${on?'p-ok':'p-no'}">${on?'ouvert':'fermé'}</span><button class="sw ${on?'on':''}" data-mod="${id}" title="${on?'Fermer':'Ouvrir'} ce module" aria-label="${on?'Fermer':'Ouvrir'} ${n}"><i></i></button></div></div>`; }).join('')}
+   </div>`;
+
+  const grantBtns=x=>MODS_A.map(m=>`<button class="ych ${x.g.includes(m.id)?'on':''}" data-g="${x.uid}|${m.id}" title="${x.g.includes(m.id)?'Retirer':'Donner'} l'accès : ${esc(m.n)}">${esc(m.s)}</button>`).join('');
   const line=x=>`<tr>
      <td><b>${esc(x.p.name)||'<span class="muted">—</span>'}</b><div class="sm muted">${esc(x.p.email)}</div></td>
      <td class="sm">${ago(x.seen.at)}</td>
      <td class="sm">${x.seen.n?`${x.seen.n} faites · ${x.seen.ok||0} justes`:'<span class="muted">—</span>'}</td>
-     <td class="ycell">${[5,6].map(y=>`<button class="ych ${x.acc.includes(y)?'on':''}" data-y="${x.uid}|${y}" title="${x.acc.includes(y)?'Retirer la '+y+'e année':'Ouvrir la '+y+'e année'}">${y}<sup>e</sup></button>`).join('')}</td>
+     <td>${grantBtns(x)}</td>
      <td><button class="danger sm" data-del="${x.uid}">Supprimer</button></td></tr>`;
-  const MODLIST=[['gygy','Gynécologie-Obstétrique','5ᵉ année'],['pedia','Pédiatrie','5ᵉ année'],['ste','Médecine du travail','6ᵉ année']];
-  const modcard=`<div class="card"><h2>Modules ouverts aux étudiants</h2>
-     <p class="sm muted" style="margin-top:0">Activez ou fermez chaque module. Un module fermé n'apparaît plus dans la liste de l'étudiant.</p>
-     ${MODLIST.map(([id,n,y])=>{ const on=MODST[id]!==false; return `<div class="row" style="justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)">
-        <div><b>${n}</b> <span class="sm muted">· ${y}</span></div>
-        <div class="row"><span class="pill ${on?'p-ok':'p-no'}">${on?'ouvert':'fermé'}</span><button class="sw ${on?'on':''}" data-mod="${id}" title="${on?'Fermer':'Ouvrir'} ce module" aria-label="${on?'Fermer':'Ouvrir'} ${n}"><i></i></button></div></div>`; }).join('')}
-   </div>`;
+
   $('#app').innerHTML=`
    <div class="card"><h2>Votre identifiant d'administrateur</h2>
      <p class="sm muted" style="margin-top:0">À coller dans les règles Firebase, à la place de <code>UID_ADMIN</code>.</p>
      <div class="row"><span class="uid" id="uid">${u.uid}</span><button id="cpuid">Copier</button></div></div>
    ${err?`<div class="warn"><b>${esc(err)}</b></div>`:''}
+   ${modcard}
    <div class="card"><div class="stat">
      <div><b>${wait.length}</b><span>en attente</span></div>
-     <div><b>${act.length}</b><span>validés</span></div>
-     <div><b>${L.filter(x=>x.acc.includes(5)).length}/${L.filter(x=>x.acc.includes(6)).length}</b><span>5<sup>e</sup> / 6<sup>e</sup> année</span></div>
+     <div><b>${act.length}</b><span>avec au moins un module</span></div>
+     ${MODS_A.map(m=>`<div><b>${cnt(m.id)}</b><span>${esc(m.s)}</span></div>`).join('')}
      <div><b>${used}</b><span>actifs cette semaine</span></div>
      <div><b>${off.length}</b><span>sans accès</span></div></div></div>
-   ${modcard}
    ${wait.length?`<div class="card" style="border-color:var(--orange)">
      <h2>Demandes en attente <span class="pill p-no">${wait.length}</span></h2>
      <div class="tw"><table><tbody>${wait.map(x=>`<tr>
        <td><b>${esc(x.p.name)||'—'}</b><div class="sm muted">${esc(x.p.email)}</div></td>
        <td class="sm muted">demandé ${ago(x.p.at)}</td>
-       <td style="text-align:right">${[5,6].map(y=>`<button class="orange" data-ok="${x.uid}|${y}">Ouvrir la ${y}<sup>e</sup></button>`).join(' ')}
+       <td style="text-align:right">${MODS_A.map(m=>`<button class="orange" data-ok="${x.uid}|${m.id}">+ ${esc(m.s)}</button>`).join(' ')}
            <button class="danger sm" data-del="${x.uid}">Refuser</button></td></tr>`).join('')}</tbody></table></div></div>`:''}
-   <div class="card"><h2>Étudiants validés</h2>
-     ${act.length?`<div class="tw"><table class="tbl"><thead><tr><th>Étudiant</th><th>Activité</th><th>Progression</th><th>Années</th><th></th></tr></thead>
+   <div class="card"><h2>Étudiants et modules</h2>
+     ${act.length?`<div class="tw"><table><thead><tr><th>Étudiant</th><th>Activité</th><th>Progression</th><th>Accès aux modules</th><th></th></tr></thead>
        <tbody>${act.sort((a,b)=>(b.seen.at||0)-(a.seen.at||0)).map(line).join('')}</tbody></table></div>`
       :'<p class="muted">Personne pour l\'instant.</p>'}</div>
    ${off.length?`<div class="card"><h2>Sans accès</h2>
-     <div class="tw"><table class="tbl"><tbody>${off.map(line).join('')}</tbody></table></div></div>`:''}`;
+     <div class="tw"><table><tbody>${off.map(line).join('')}</tbody></table></div></div>`:''}`;
 
+  $('#cpuid').onclick=()=>{navigator.clipboard.writeText(u.uid);toast('UID copié')};
+  /* écrit toute la liste des modules d'un étudiant (évite de perdre les accès anciens) */
+  const setGrant=async(uid,id,val)=>{
+    const v=(USERS[uid]||{}); const cur={};
+    MODS_A.forEach(m=>cur[m.id]=grantA(v,m.id));
+    cur[id]=val; await api('/users/'+uid+'/mods.json','PUT',cur); };
   document.querySelectorAll('[data-mod]').forEach(b=>b.onclick=async()=>{ const id=b.dataset.mod, on=MODST[id]!==false;
     try{ await api('/mods/'+id+'.json','PUT',!on); toast(on?'Module fermé':'Module ouvert'); render(u); }catch(e){ toast(e.message); }});
-  $('#cpuid').onclick=()=>{navigator.clipboard.writeText(u.uid);toast('UID copié')};
-  const setYear=async(uid,y,val)=>{ await api('/users/'+uid+'/acc/'+y+'.json','PUT',val); };
   document.querySelectorAll('[data-ok]').forEach(b=>b.onclick=async()=>{
-    const [uid,y]=b.dataset.ok.split('|');
-    try{ await setYear(uid,y,true); toast(y+'e année ouverte'); render(u); }catch(e){ toast(e.message); }});
-  document.querySelectorAll('[data-y]').forEach(b=>b.onclick=async()=>{
-    const [uid,y]=b.dataset.y.split('|'), on=b.classList.contains('on');
-    try{ await setYear(uid,y,!on); render(u); }catch(e){ toast(e.message); }});
+    const [uid,id]=b.dataset.ok.split('|');
+    try{ await setGrant(uid,id,true); toast('Accès ouvert'); render(u); }catch(e){ toast(e.message); }});
+  document.querySelectorAll('[data-g]').forEach(b=>b.onclick=async()=>{
+    const [uid,id]=b.dataset.g.split('|'), on=b.classList.contains('on');
+    try{ await setGrant(uid,id,!on); render(u); }catch(e){ toast(e.message); }});
   document.querySelectorAll('[data-del]').forEach(b=>b.onclick=async()=>{
-    const uid=b.dataset.del, nm=(USERS[uid].profile||{}).email||uid;
+    const uid=b.dataset.del, nm=((USERS[uid]||{}).profile||{}).email||uid;
     if(!confirm('Supprimer '+nm+' ?\n\nToute sa progression sera perdue. S\'il se reconnecte, il repartira de zéro et réapparaîtra en attente.')) return;
     try{ await api('/users/'+uid+'.json','DELETE'); await api('/data/'+uid+'.json','DELETE').catch(()=>{});
          toast('Supprimé'); render(u); }catch(e){ toast(e.message); }});

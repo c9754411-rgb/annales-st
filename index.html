@@ -28,7 +28,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:Roboto,system-ui
 button,input{font:inherit;color:inherit}
 button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 /* header */
-.hdr{position:sticky;top:0;z-index:20;background:radial-gradient(1200px 120px at 20% 0,var(--hdrg) 0,transparent 60%),linear-gradient(90deg,var(--navy),var(--navy2));color:#fff;
+.hdr{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#3d3a92 0%,var(--navy2) 55%,var(--navy) 100%);color:#fff;
   padding:8px max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left));display:flex;align-items:center;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
 .hdr .logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--orange),#ef4444);display:grid;place-items:center;flex:none;font-weight:900;font-size:.95rem;letter-spacing:-.03em}
 .hdr .tt{flex:1;min-width:0;line-height:1.15}
@@ -51,6 +51,7 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .tile span{font-size:.85rem}
 .t1{background:var(--t1)} .t2{background:var(--t2)} .t3{background:var(--t3)} .t4{background:var(--t4)}
 .grid2{display:grid;gap:16px}
+.grid2>.card{align-self:start}
 @media(min-width:900px){.grid2{grid-template-columns:1.25fr 1fr}}
 .card{background:var(--surface);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);border:1px solid var(--line)}
 .sec{font-weight:900;font-size:1.12rem;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px;margin:0 0 12px}
@@ -140,7 +141,7 @@ table.t tr:first-child td,table.t th{background:var(--surface2);font-weight:700}
 .opt.done{cursor:default}
 .why{display:block;margin-top:6px;padding:7px 10px;border-radius:9px;background:var(--surface);color:var(--ink);font-weight:400;font-size:.92rem;line-height:1.42}
 .opt.ok .why,.opt.ko .why{background:rgba(255,255,255,.95);color:#161a33}
-.whyb{display:inline-block;margin-top:4px;font-size:.78rem;font-weight:800;color:var(--sky)}
+.whyb{display:inline-block;margin-top:4px;margin-left:10px;font-size:.78rem;font-weight:800;color:var(--sky)}
 .opt.ok .whyb,.opt.ko .whyb{color:#fff}
 .vT{color:var(--good);font-weight:900} .vF{color:var(--bad);font-weight:900}
 .opt.ok .why .vT,.opt.ko .why .vT{color:#1f8b3a} .opt.ok .why .vF,.opt.ko .why .vF{color:#d32f2f}
@@ -228,6 +229,25 @@ mark.hl{color:#111;border-radius:3px;padding:0 1px;box-decoration-break:clone;-w
 .erasing mark.hl{cursor:pointer;outline:1px dashed #333}
 /* courses + stats */
 .clist a.nolink{cursor:default;pointer-events:none;opacity:.85}
+.pbar{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden;margin:0 0 14px}
+.pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--navy2),var(--orange));transition:width .25s}
+.ptab{width:100%;border-collapse:collapse;font-size:.86rem;min-width:620px}
+.ptab th{background:var(--navy2);color:#fff;font-weight:700;padding:.55em .4em;text-align:center;font-size:.8rem}
+.ptab th:first-child{text-align:left}
+.ptab td{padding:.45em .5em;border-bottom:1px solid var(--line);vertical-align:middle}
+.ptab td.pc{text-align:center}
+.ptab tr.pgrp td{background:var(--surface2);font-weight:800;color:var(--navy2)}
+.pchk{width:26px;height:26px;border-radius:7px;border:2px solid var(--muted);background:var(--surface);color:#fff;font-weight:900;display:inline-grid;place-items:center;cursor:pointer;padding:0}
+.pchk.on{background:var(--good);border-color:var(--good)}
+.pgp{float:right;font-weight:700;color:var(--muted);font-size:.8rem}
+.ptab tr.pdone td:first-child{color:var(--good);font-weight:700}
+.pq{display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--muted);min-width:110px}
+.pq i{flex:1;height:6px;border-radius:99px;background:var(--surface2);overflow:hidden;display:block}
+.pq b{display:block;height:100%;background:var(--navy2)}
+.cbtn,.clist-folder{display:flex;align-items:center;gap:10px;width:100%;padding:.65em .2em;border:0;border-bottom:1px solid var(--line);background:transparent;color:inherit;text-align:left;font:inherit;cursor:pointer}
+.cbtn:hover,.clist-folder:hover{background:var(--surface2)}
+.clist-folder{border-bottom:1px solid var(--line);margin-bottom:6px}
+.clist-folder small{display:block;color:var(--muted);font-size:.78rem}
 .clist a{display:flex;align-items:center;gap:10px;padding:.65em .2em;border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
 .clist a:hover{background:var(--surface2)}
 .clist a b{margin-left:auto;font-size:.82rem;color:var(--muted);font-weight:700;white-space:nowrap}
@@ -547,7 +567,7 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .mt{min-height:78px}
 
 /* choix de l'année et du module */
-.pick{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 18px;
+.pickpage{min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 18px;
  background:radial-gradient(900px 500px at 15% -5%,rgba(94,78,214,.12),transparent 65%),var(--bg)}
 .plaque{width:min(100%,880px);background:var(--surface);border:1px solid var(--line);border-radius:26px;
  padding:38px 30px 26px;box-shadow:0 22px 60px rgba(22,26,51,.12);display:flex;flex-direction:column;align-items:center;gap:24px}
@@ -570,7 +590,7 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .yhint{margin:2px 0 0;font-size:.78rem;color:var(--muted);text-align:center;line-height:1.4}
 .pkh h1{font-size:1.5rem;font-weight:900;margin:0 0 6px}
 .pkh p{margin:0;color:var(--muted);font-size:.92rem}
-.pick .mcards,.pick .ycards{margin:0 auto}
+.pickpage .mcards,.pickpage .ycards{margin:0 auto}
 .ycards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,300px));gap:14px;width:min(100%,720px);justify-content:center}
 .ycard{display:block;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:18px;
  padding:20px;cursor:pointer;transition:transform .12s,border-color .12s,box-shadow .12s;font:inherit;color:inherit}
@@ -635,6 +655,7 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .lhero h1{font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:900;line-height:1.14;margin:0 0 16px;letter-spacing:-.01em}
 .lhero h1 em{font-style:normal;color:var(--orange)}
 .lp{font-size:1rem;line-height:1.62;color:#d6d8f6;margin:0 0 30px;max-width:48ch}
+.lpbig{font-size:1.16rem;font-weight:600;color:#fff}
 .lst{display:grid;grid-template-columns:repeat(4,auto);gap:0 0;margin-bottom:34px;
  border-top:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16);padding:16px 0;max-width:560px}
 .lst div{padding:2px 18px;border-left:1px solid rgba(255,255,255,.14)}
@@ -714,9 +735,10 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .cdwrap{text-align:center}
 .cdlab{margin:0 0 10px;font-weight:700;color:var(--muted)}
 .cd{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.cdb{min-width:84px;padding:14px 10px;border-radius:16px;background:linear-gradient(135deg,var(--navy2),var(--acc3));color:#fff}
+.cdb{min-width:84px;padding:14px 10px;border-radius:16px;background:#fff;color:#111;border:1.5px solid var(--line);box-shadow:0 2px 8px rgba(22,26,51,.08)}
 .cdb b{display:block;font-size:clamp(2.1rem,7vw,3rem);font-weight:900;line-height:1;font-variant-numeric:tabular-nums}
-.cdb span{font-size:.72rem;opacity:.9}
+.cdb span{font-size:.72rem;color:#555}
+.cdsm .cdb{min-width:64px;padding:10px 6px}.cdsm .cdb b{font-size:clamp(1.5rem,3vw,2rem)}
 .wrapseg{flex-wrap:wrap;height:auto}
 .hdr .tt{min-width:0;flex:1 1 0}.hdr .tt span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .face.qfront{align-items:stretch;justify-content:flex-start;text-align:left}
@@ -736,6 +758,7 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .lbrand{margin-bottom:22px}
 .lbrand img.lwide{height:150px;width:auto;max-width:92%;object-fit:contain;background:none;border-radius:0;padding:0;margin:0}
 .lin h1{color:#13185a}
+.lpbig{color:#13185a}
 .lin h1 em{color:#c2410c}
 .lp{color:#243066}
 .lst b{color:#c2410c}
@@ -748,8 +771,8 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .bk{display:flex;gap:12px;align-items:flex-start}
 .bkimg{flex:none;width:96px;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in}
 .bkimg img{display:block;width:100%;height:auto}
-.brandh img{background:none;border-radius:0;padding:0;height:44px;max-width:170px}
-@media(max-width:620px){.brandh img{height:34px;max-width:118px;padding:0;background:none}}
+.brandh img{background:#fff;border-radius:10px;padding:4px 9px;box-shadow:0 2px 8px rgba(0,0,0,.25);height:46px;max-width:184px}
+@media(max-width:620px){.brandh img{height:38px;max-width:132px;padding:3px 7px;border-radius:9px}}
 </style>
 
 </head><body>
@@ -796,11 +819,13 @@ const LOCALC={pest:'cours/pest.pdf'};
 const PDFS_STE=[['STE_Synthese_orientee_examen.pdf','Résumé du module','Synthèse orientée examen · PDF'],['STE_Sujets_Lebouabi_2024-2026.pdf','Sujets des examens','2024 – 2026 corrigés · PDF'],['STE_Examens_blancs_1-3.pdf','Examens blancs n°1 à 3','Sujets + corrigés · PDF']];
 const RES={
   ste:{drive:DRIVE,local:LOCALC,auth:AUTH,dauth:'Dr S. LEBOUABI · 2026-2027',poly:POLY,polysub:'Google Drive · Dr Lebouabi',pdfs:PDFS_STE},
-  gygy:{drive:{},local:{},auth:{},dauth:'Pr OUZIRI',poly:'',polysub:'',pdfs:[]},
+  gygy:{drive:{},local:{},auth:{},dauth:'Pr OUZIRI',poly:'',polysub:'',pdfs:[],folder:'1DmmitrSkUE17ugCJ2hniEsCYz4WrDkvG'},
   pedia:{drive:{},local:{},auth:{},dauth:'',poly:'',polysub:'',pdfs:[]}
 };
 const R=()=>RES[CUR]||RES.ste;
 const clink=k=>R().local[k]||(R().drive[k]?dlink(R().drive[k]):'');
+const cembed=k=>R().local[k]||(R().drive[k]?`https://drive.google.com/file/d/${R().drive[k]}/preview`:'');
+const fembed=id=>`https://drive.google.com/embeddedfolderview?id=${id}#list`;
 const hasDocs=()=>!!(R().pdfs.length||R().poly);
 const SV=(d,w)=>`<svg viewBox="0 0 24 24" width="${w||20}" height="${w||20}" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 const IC={down:'<path d="M6 9l6 6 6-6"/>',
@@ -879,7 +904,9 @@ const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
-const accOf=j=>{ const a=(j&&j.acc)||{}; return YEARS.filter(y=>a[y]===true); };   // load | out | pending | blocked | in | nonet
+const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
+  const m=MODS.find(x=>x.id===id); return !!(m&&j&&j.acc&&j.acc[m.y]===true); };
+const accOf=j=>YEARS.filter(y=>MODS.some(m=>m.y===y&&grantOf(j,m.id)));   // années où au moins un module est accordé   // load | out | pending | blocked | in | nonet
 const SY={
   st:'idle', last:LS.get('mt_sync',0), t:null, busy:false,
   on(){ return FB.url.indexOf('__')<0 && FB.url.length>8; },
@@ -1069,7 +1096,7 @@ function finishExam(){
 function mprog(id){ try{ const h=JSON.parse(localStorage.getItem('mt_hist_'+id)||'{}'); const k=Object.keys(h);
   return {n:k.length, ok:k.filter(x=>h[x]&&h[x].ok).length}; }catch(e){ return {n:0,ok:0}; } }
 const LOGOIMG=`<img class="pklogo lgl" src="${LOGOW}" alt="MedLagh"><img class="pklogo lgd" src="${LOGOWD}" alt="MedLagh">`;
-function mshell(title,sub,inner,back){ return `<div class="pick"><div class="plaque">
+function mshell(title,sub,inner,back){ return `<div class="pickpage"><div class="plaque">
   <div class="pkh">${LOGOIMG}<h1>${title}</h1><p>${sub}</p></div>
   ${inner}
   <div class="pkf">${back||''}<button class="lnk" data-a="account">Mon compte</button></div></div></div>`; }
@@ -1087,7 +1114,7 @@ function vYears(){
     </div>`);
 }
 function vMods(){
-  const ms=MODS.filter(m=>m.y===YEAR&&isOpen(m)), lock=MODS.filter(m=>m.y===YEAR&&!isOpen(m));
+  const ms=MODS.filter(m=>m.y===YEAR&&isOpen(m)&&grantOf(AU.node,m.id)), lock=MODS.filter(m=>m.y===YEAR&&!ms.includes(m));
   return mshell('Vos modules',ord(YEAR)+' année · Faculté de médecine de Laghouat',
    `<div class="mcards">${ms.map(m=>{ const p=mprog(m.id), pc=m.nq?Math.round(p.n*100/m.nq):0;
       return `<button class="mcard" data-a="openmod" data-v="${m.id}">
@@ -1098,7 +1125,7 @@ function vMods(){
         <span class="mgo">${pc?'Reprendre':'Commencer'} §next§</span></button>`; }).join('')}
     ${lock.map(m=>`<div class="mcard off"><div class="mct"><b>${esc(m.name)}</b><span>${esc(m.sub)} · ${ord(m.y)} année</span></div>
         <div class="mcs">${m.nq} questions · ${m.nex} examens</div>
-        <div class="mcp">§lock§ Module pas encore ouvert</div></div>`).join('')}</div>`,
+        <div class="mcp">§lock§ ${isOpen(m)?'Non inclus dans votre accès':'Module pas encore ouvert'}</div></div>`).join('')}</div>`,
    AU.acc.length>1?`<button class="lnk" data-a="years">Changer d'année</button>`:'');
 }
 function vLoading(){ return mshell('Ouverture du module…','Déchiffrement du contenu',
@@ -1124,6 +1151,7 @@ function sidebar(){
    ${it('nav','search','search','Rechercher',v==='search')}
    <div class="grp">S'entraîner</div>
    ${it('nav','cours','layers','Session par cours',false)}
+   ${it('nav','plan','cal','Planning',v==='plan')}
    ${it('nav','exam','exam','Session par examen',false)}
    ${TMPC.length?it('nav','flash','cards','Flashcards',v==='flash'):''}
    <div class="grp">Suivi</div>
@@ -1222,9 +1250,19 @@ function vHome(){
       <button class="tl" data-a="nav" data-v="mastery"><span class="ti" style="background:#e3f6e8;color:#1f8b3a">§grid§</span><b>${Math.round(Q.filter(q=>S.hist[q.id]&&S.hist[q.id].ok).length/Q.length*100)}%</b><span>Ma maîtrise</span></button>
       <button class="tl" data-a="nav" data-v="search"><span class="ti" style="background:#e0f6fd;color:#0a7ea4">§search§</span><b>&nbsp;</b><span>Rechercher</span></button>
     </div></div>
+    ${homeSide()}
    </div>
   </div>
   </div>`;
+}
+/* colonne droite de l'accueil : compte à rebours + avancement du planning (évite le vide) */
+function homeSide(){
+  const P=planOf(), st=planState(); let tot=0, done=0;
+  P.groups.forEach(g=>g.rows.forEach(r=>{ const a=st[g.t+'|'+(r.k||r.n)]||[]; tot+=PLAN_STEPS.length; done+=PLAN_STEPS.filter((_,j)=>a[j]).length; }));
+  const pct=tot?Math.round(done*100/tot):0;
+  return `<div class="card"><p class="sec">§clock§ Examen dans</p><div class="cd cdsm" id="cd">${cdHTML()}</div>
+   <p class="lbl" style="margin-top:16px">Mon planning · ${pct} %</p><div class="pbar"><i style="width:${pct}%"></i></div>
+   <div class="row" style="justify-content:space-between"><span class="muted" style="font-size:.84rem">${done}/${tot} étapes cochées</span><button class="btn" data-a="nav" data-v="plan">§cal§ Ouvrir le planning</button></div></div>`;
 }
 function weak(){
   const by={}; for(const [k,v] of Object.entries(S.hist)){ const q=QI[k]; if(!q) continue; by[q.c]=by[q.c]||[0,0]; by[q.c][1]++; if(v.ok) by[q.c][0]++; }
@@ -1242,10 +1280,62 @@ function vCourses(){
   const rows=courseRows().sort((a,b)=>a.n.localeCompare(b.n,'fr'));
   return `${header()}<div class="wrap"><button class="btn back" data-a="home">← Accueil</button>
   <div class="card"><p class="sec">§book§ Les cours</p>${Object.keys(R().drive).length||Object.keys(R().local).length?'<p class="muted" style="font-size:.85rem;margin-top:-4px">Toucher un cours ouvre son fichier dans Google Drive.</p>':''}
-  <div class="clist">${rows.map(r=>{const L=clink(r.k), au=authOf(r.k), inner=`${L?'<i>↗</i>':''}<span>${esc(r.n)}${au?`<small style="display:block;color:var(--muted);font-size:.74rem">${esc(au)}</small>`:''}</span><b>${r.tot} Q · ${r.inEx}/${REALEX.length} examens</b>`;
-    return L?`<a href="${L}" target="_blank" rel="noopener">${inner}</a>`:`<a class="nolink">${inner}</a>`;}).join('')}
+  ${R().folder?`<button class="clist-folder" data-a="drv" data-v="${R().folder}|Dossier du module|folder"><i>▣</i><span><b>Dossier du module (Drive)</b><small>Tous les cours, ouverts dans la plateforme</small></span></button>`:''}
+  <div class="clist">${rows.map(r=>{const L=cembed(r.k), au=authOf(r.k), inner=`${L?'<i>▶</i>':''}<span>${esc(r.n)}${au?`<small style="display:block;color:var(--muted);font-size:.74rem">${esc(au)}</small>`:''}</span><b>${r.tot} Q · ${r.inEx}/${REALEX.length} examens</b>`;
+    return L?`<button class="cbtn" data-a="drv" data-v="${encodeURIComponent(L)}|${esc(r.n)}|file">${inner}</button>`:`<a class="nolink">${inner}</a>`;}).join('')}
   ${R().poly?`<a href="${dlink(R().poly)}" target="_blank" rel="noopener"><i>↗</i><span><b style="color:var(--ink);margin:0;font-size:1rem">Polycopié complet du module</b></span><b>PDF</b></a>`:''}</div></div>
   </div>`;
+}
+function vDrive(){
+  const d=S.dv||{}, src=d.mode==='folder'?fembed(d.id):decodeURIComponent(d.id);
+  const ext=d.mode==='folder'?`https://drive.google.com/drive/folders/${d.id}`:src.replace('/preview','/view');
+  return `${header()}<div class="wrap"><div class="row back"><button class="btn" data-a="courses">← Cours</button>
+  <a class="btn" href="${esc(ext)}" target="_blank" rel="noopener" style="margin-left:auto">Ouvrir dans Drive ↗</a></div>
+  <div class="card" style="padding:0;overflow:hidden"><p class="sec" style="padding:14px 16px 0;margin:0">${esc(d.n||'Cours')}</p>
+  <iframe class="dv" src="${esc(src)}" title="${esc(d.n||'Cours')}" allow="autoplay" loading="lazy" style="width:100%;height:76vh;min-height:420px;border:0;display:block"></iframe></div></div>`;
+}
+const PLAN=[{"t": "Généralités, croissance et développement", "rows": [{"n": "Développement psychomoteur", "ty": "Cours", "en": "Dr. KADI", "d": "18/10"}, {"n": "Mortalité et morbidité infantiles", "ty": "Cours", "en": "Dr. KADI", "d": "18/10"}, {"n": "Conseil génétique et diagnostic anténatal", "ty": "Cours", "en": "Dr. KADI", "d": "20/10"}, {"n": "Interprétation de l'imagerie chez l'enfant", "ty": "TD", "en": "Dr. KADI", "d": "21/10"}, {"n": "RSP", "ty": "TD", "en": "Dr. LOUCIF", "d": "26/10"}, {"n": "Développement bucco-dentaire et anomalies", "ty": "TD", "en": "Dr. LOUCIF", "d": "27/10"}, {"n": "Puberté normale et pathologique", "ty": "Cours", "en": "Dr. LOUCIF", "d": "24/11"}, {"n": "Croissance", "ty": "Cours", "en": "Dr. LOUCIF", "d": "24/11"}, {"n": "Suivi et dépistage des troubles sensoriels", "ty": "Cours", "en": "Dr. REZAK", "d": "02/12"}, {"n": "L'enfant handicapé : évaluation, orientation et PEC", "ty": "TD", "en": "Dr. KADI", "d": "19/11"}]}, {"t": "Néonatologie", "rows": [{"n": "Examen du nouveau-né à terme", "ty": "TD", "en": "Dr. KADI", "d": "19/10"}, {"n": "RCIU / Prématurité", "ty": "Cours", "en": "Dr. KADI", "d": "21/10"}, {"n": "Démarche diagnostique devant les SDR néonatals", "ty": "Cours", "en": "Dr. GHILENE", "d": "28/10"}, {"n": "Ictère du nouveau-né", "ty": "Cours", "en": "Dr. BENALIA", "d": "15/11"}, {"n": "Trouble de l'adaptation à la vie extra-utérine", "ty": "Cours", "en": "Dr. LOUCIF", "d": "29/11"}, {"n": "Infection bactérienne néonatale précoce (INBP)", "ty": "Cours", "en": "Dr. LOUCIF", "d": "29/11"}]}, {"t": "Nutrition et carences", "rows": [{"n": "Diététique", "ty": "Cours", "en": "Dr. KADI", "d": "19/10"}, {"n": "Allaitement maternel", "ty": "TD", "en": "Dr. LOUCIF", "d": "23/11"}, {"n": "Obésité", "ty": "Cours", "en": "Dr. LOUCIF", "d": "26/11"}, {"n": "Rachitisme carentiel", "ty": "Cours", "en": "Dr. LOUCIF", "d": "25/11"}]}, {"t": "Respiratoire", "rows": [{"n": "Dyspnée aiguë et chronique / Détresse respiratoire", "ty": "Cours", "en": "Dr. LOUCIF", "d": "28/10 et 23/11"}, {"n": "Asthme de l'enfant", "ty": "Cours", "en": "Pr. SAKFALI", "d": "02/11"}, {"n": "Infection respiratoire haute et basse", "ty": "Cours", "en": "Dr. BOURAHLA", "d": "22/11"}]}];
+
+const PLAN_STEPS=['Couche 1','Couche 2','Couche 3','QCM','ECOS'];
+function planState(){ return LS.get('mt_plan',{}); }
+/* planning par module : tableau fixe (pédiatrie) ou cours du module regroupés par thème */
+const PLAN_GROUPS={gygy:[
+ ['Obstétrique normale',['bassin','meca','grossesse','sommet','siege','transv','defl','deliv','suites']],
+ ['Pathologie obstétricale',['h3t','geu','avort','prema','hta','sf','rhesus','diab','infg','mole']],
+ ['Gynécologie fonctionnelle',['cycle','amen','infert','contra','meno','igh','algies']],
+ ['Gynécologie bénigne et statique',['fibrome','endomet','prolapsus']],
+ ['Cancérologie',['sein','col','endom','ovaire']]]};
+function planOf(){
+  if(CUR==='pedia') return {groups:PLAN,fixed:true,note:'Planning du 18/10 au 02/12/2026.'};
+  const G=PLAN_GROUPS[CUR], seen=new Set(); const groups=[];
+  const rowOf=([k,n])=>({k,n});
+  if(G) G.forEach(([t,ks])=>{ const rows=ks.map(k=>COURSES.find(c=>c[0]===k)).filter(Boolean).map(rowOf); rows.forEach(r=>seen.add(r.k)); if(rows.length) groups.push({t,rows}); });
+  const rest=COURSES.filter(c=>!seen.has(c[0])).map(rowOf);
+  if(rest.length) groups.push({t:G?'Autres cours':'Cours du module',rows:rest});
+  return {groups,fixed:false,note:''};
+}
+function planState(){ return LS.get('mt_plan_'+CUR,{}); }
+function vPlan(){
+  const P=planOf(), st=planState(); let tot=0, done=0;
+  const keyOf=(g,r)=>g.t+'|'+(r.k||r.n);
+  P.groups.forEach(g=>g.rows.forEach(r=>{ const a=st[keyOf(g,r)]||[]; tot+=PLAN_STEPS.length; done+=PLAN_STEPS.filter((_,j)=>a[j]).length; }));
+  const pct=tot?Math.round(done*100/tot):0;
+  const CR=P.fixed?{}:Object.fromEntries(courseRows().map(r=>[r.k,r]));
+  const cell=(k,j,on)=>`<button class="pchk ${on?'on':''}" data-a="pchk" data-v="${esc(k)}|${j}" aria-pressed="${on}" aria-label="${PLAN_STEPS[j]} : ${on?'fait':'à faire'}">${on?'✓':''}</button>`;
+  const head=P.fixed?'<th>Cours</th><th>Type</th><th>Enseignant</th><th>Date</th>':'<th>Cours</th><th>QCM d\'examen faits</th>';
+  const ncol=(P.fixed?4:2)+PLAN_STEPS.length;
+  const info=r=>{ if(P.fixed) return `<td>${r.ty}</td><td>${esc(r.en)}</td><td>${esc(r.d)}</td>`;
+    const c=CR[r.k]; if(!c||!c.tot) return '<td class="muted">—</td>';
+    const p=Math.round(c.done*100/c.tot); return `<td><div class="pq"><span>${c.done}/${c.tot}</span><i><b style="width:${p}%"></b></i></div></td>`; };
+  return `${header()}<div class="wrap"><div class="row back"><button class="btn" data-a="home">← Accueil</button><span class="muted" style="font-size:.85rem;margin-left:auto">${done}/${tot} étapes · ${pct} %</span></div>
+  <div class="card"><p class="sec">§cal§ Planning · ${esc((MOD[CUR]||{}).name||'module')}</p>
+   <p class="muted" style="font-size:.85rem;margin:-4px 0 10px">${P.note} Cochez chaque case une fois la couche, le QCM ou l'ECOS terminé.</p>
+   <div class="pbar"><i style="width:${pct}%"></i></div>
+   <div class="tw"><table class="ptab"><thead><tr>${head}${PLAN_STEPS.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>
+   ${P.groups.map(g=>{ const gd=g.rows.reduce((s,r)=>s+PLAN_STEPS.filter((_,j)=>(st[keyOf(g,r)]||[])[j]).length,0), gt=g.rows.length*PLAN_STEPS.length;
+     return `<tr class="pgrp"><td colspan="${ncol}">${esc(g.t)} (${g.rows.length}) <span class="pgp">${Math.round(gd*100/gt)} %</span></td></tr>`+g.rows.map(r=>{ const k=keyOf(g,r), a=st[k]||[], all=PLAN_STEPS.every((_,j)=>a[j]);
+     return `<tr class="${all?'pdone':''}"><td>${esc(r.n)}</td>${info(r)}${PLAN_STEPS.map((_,j)=>`<td class="pc">${cell(k,j,!!a[j])}</td>`).join('')}</tr>`; }).join(''); }).join('')}
+   </tbody></table></div></div></div>`;
 }
 function vStats(){
   const rows=courseRows().sort((a,b)=>b.tot-a.tot||b.inEx-a.inEx);
@@ -1757,13 +1847,13 @@ const ECG=`<svg class="lecg" viewBox="0 0 1200 70" preserveAspectRatio="none" ar
 function gshell(inner){ return `<div class="land">
   <div class="lhero"><div class="lsky"></div><div class="lgrid"></div>${ECG}<div class="lin">
     <div class="lbrand"><img class="lwide" src="${LOGOW}" alt="MedLagh"></div>
-    <h1>Vos examens de Laghouat, <em>expliquées par le cours</em>.</h1>
-    <p class="lp">Toutes les questions des examens passés, avec la bonne réponse et la page du cours qui l'explique.</p>
+    <h1>1<sup>ère</sup> plateforme de QCM <em>100 % exclusive à la faculté de Laghouat</em></h1>
+    <p class="lp lpbig">Toutes les questions des examens passés, avec la bonne réponse et la page du cours qui l'explique, tirées des cours officiels de la faculté.</p>
     <ol class="lben">
-      <li><b>1</b><span>Exclusif à la faculté de Laghouat</span></li>
-      <li><b>2</b><span>Explications tirées des cours officiels</span></li>
+      <li><b>1</b><span>Explications tirées des cours officiels</span></li>
+      <li><b>2</b><span>Examens blancs pour vous tester en conditions réelles</span></li>
       <li><b>3</b><span>Flashcards pour réviser en quelques minutes</span></li>
-      <li><b>4</b><span>Examens blancs pour vous tester en conditions réelles</span></li>
+      <li><b>4</b><span>Exclusif à la faculté de Laghouat</span></li>
       <li><b>5</b><span>100 % gratuit</span></li>
       <li><b>6</b><span>Le Drive de chaque année, intégré à l'application</span></li>
       <li><b>7</b><span>Un design simple et confortable</span></li>
@@ -1824,7 +1914,7 @@ function render(keep){
     $.innerHTML=(S.view==='years'?vYears():S.view==='mods'?vMods():vLoading())
       .replace(/§(\w+)§/g,(m,k)=>IC[k]?`<svg class="ii" viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`:'');
     return; }
-  const y=scrollY; let h=S.view==='home'?vHome():S.view==='quiz'?vQuiz():S.view==='stats'?vStats():S.view==='courses'?vCourses():S.view==='flash'?vFlash():S.view==='mastery'?vMastery():S.view==='docs'?vDocs():S.view==='search'?vSearch():S.view==='reader'?vReader():S.view==='sessions'?vSessions():S.view==='account'?vAccount():vEnd(); if(S.view==='quiz') h+=kbdHTML();
+  const y=scrollY; let h=S.view==='home'?vHome():S.view==='quiz'?vQuiz():S.view==='stats'?vStats():S.view==='courses'?vCourses():S.view==='drive'?vDrive():S.view==='plan'?vPlan():S.view==='flash'?vFlash():S.view==='mastery'?vMastery():S.view==='docs'?vDocs():S.view==='search'?vSearch():S.view==='reader'?vReader():S.view==='sessions'?vSessions():S.view==='account'?vAccount():vEnd(); if(S.view==='quiz') h+=kbdHTML();
   const hd=header(); if(h.startsWith(hd)) h=hd+`<div class="lay ${S.view==='quiz'?'quiz':''}">${sidebar()}<div class="ct">${h.slice(hd.length)}</div></div>`;
   h=h.replace(/§(\w+)§/g,(m,k)=>IC[k]?`<svg class="ii" viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`:'');
   $.innerHTML=h+(S.zoom?`<div class="zoom" data-a="unzoom"><div class="zbar"><button class="zb" data-a="zk" data-v="-1" aria-label="Réduire">${ico('minus')}</button><button class="zb" data-a="zk" data-v="1" aria-label="Agrandir">${ico('plus')}</button><button class="zb zx" data-a="unzoom" aria-label="Fermer">${ico('x',22)}</button></div><img src="${S.zoom.startsWith('url:')?oimg(S.zoom.slice(4)):cimg(S.zoom)}" alt="Agrandissement" style="width:${S.zk||100}%;${(S.zk||100)>100?'max-width:none':''}" data-a="noop"><p class="zhint">Échap ou ✕ pour fermer</p></div>`:'');
@@ -1915,6 +2005,8 @@ function act(a,v,el,ev){
     case 'by': S.by=v; LS.set('mt_by2',v); S.drop=null; render(true); return;
     case 'tile': S.by=v; LS.set('mt_by2',v); S.drop=null; render(true); { const n=document.getElementById('newsess'); if(n) n.scrollIntoView({behavior:'smooth',block:'start'}); } return;
     case 'courses': S.view='courses'; render(); scrollTo(0,0); return;
+    case 'pchk': { const cut=v.lastIndexOf('|'), k=v.slice(0,cut), j=v.slice(cut+1); const st=planState(); const a=(st[k]||[]).slice(); while(a.length<PLAN_STEPS.length) a.push(false); a[+j]=!a[+j]; st[k]=a; LS.set('mt_plan',st); render(true); return; }
+    case 'drv': { const [id,n,mode]=v.split('|'); S.dv={id,n,mode}; S.view='drive'; render(); scrollTo(0,0); return; }
     case 'sb': { const desk=matchMedia('(min-width:1000px)').matches&&S.view!=='quiz'; if(desk){ S.sbMini=!S.sbMini; LS.set('mt_sbmini',S.sbMini); } else S.sbOpen=!S.sbOpen; render(true); return; }
     case 'sbclose': S.sbOpen=false; render(true); return;
     case 'save': S.sbOpen=false; saveProgress(); return;
