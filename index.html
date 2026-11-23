@@ -244,7 +244,12 @@ mark.hl{color:#111;border-radius:3px;padding:0 1px;box-decoration-break:clone;-w
 .nt{margin-top:12px}.ntq{font-weight:700;margin:8px 0;line-height:1.45}
 .nav .again{padding:.45em .9em;font-size:.88rem;background:var(--surface2);color:var(--ink);border:1px solid var(--line)}
 .tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.bkact{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:6px}.bkact .bkpg{padding:.4em .8em;font-size:.84rem}
 .gate .lgf{text-align:left}
+.gate .flrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.gate .fl.flt label{top:50%;transform:translateY(-50%);left:12px;font-size:1rem;background:transparent;transition:top .15s,font-size .15s,transform .15s;pointer-events:none}
+.gate .fl.flt input:focus+label,.gate .fl.flt input:not(:placeholder-shown)+label{top:-.62em;transform:none;font-size:.8rem;background:linear-gradient(to bottom,transparent 50%,#eef4ff 50%);color:#13185a}
+.gate .flt #em_p,.gate .flt #em_p2{padding-right:62px}
 .gate .fl{position:relative;margin:0 0 18px}
 .gate .fl label{position:absolute;top:-.62em;left:12px;padding:0 6px;background:linear-gradient(to bottom,transparent 50%,#eef4ff 50%);font-size:.8rem;color:var(--muted);line-height:1.2;z-index:1}
 .gate .fl label i{font-style:normal;color:var(--muted)}
@@ -897,7 +902,7 @@ html,body{overflow-x:clip;max-width:100%}
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, signOut,
          onAuthStateChanged, setPersistence, browserLocalPersistence, browserSessionPersistence,
-         signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail }
+         signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, updateProfile }
   from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
 const CFG={apiKey:'AIzaSyCmgBrtwDbkjkTbjmufnop41nNl7hfq_pI',authDomain:'annales-ste.firebaseapp.com',projectId:'annales-ste'};
 const auth=getAuth(initializeApp(CFG));
@@ -911,8 +916,12 @@ const clearK=()=>{ try{ localStorage.removeItem('mt_auth'); for(const k of Objec
 window.__fbSignOut=()=>signOut(auth).then(()=>{ clearK(); location.reload(); });
 const MAXS=48*3600*1000;   // l'étudiant doit se reconnecter toutes les 48 h
 /* connexion sans Google (tablettes et téléphones Huawei sans services Google) */
-window.__fbEmail=async(mode,email,pw,remember)=>{ try{ await setPersistence(auth,remember===false?browserSessionPersistence:browserLocalPersistence); }catch(e){}
-  return mode==='new' ? createUserWithEmailAndPassword(auth,email,pw) : signInWithEmailAndPassword(auth,email,pw); };
+window.__fbEmail=async(mode,email,pw,remember,name)=>{ try{ await setPersistence(auth,remember===false?browserSessionPersistence:browserLocalPersistence); }catch(e){}
+  if(mode!=='new') return signInWithEmailAndPassword(auth,email,pw);
+  try{ localStorage.setItem('mt_pname',name||''); }catch(e){}
+  const c=await createUserWithEmailAndPassword(auth,email,pw);
+  if(name){ try{ await updateProfile(c.user,{displayName:name}); }catch(e){} }
+  return c; };
 window.__fbReset=email=>sendPasswordResetEmail(auth,email);
 window.__fbToken=()=>auth.currentUser?auth.currentUser.getIdToken():Promise.reject(new Error('no user'));
 onAuthStateChanged(auth, async u=>{
@@ -1031,7 +1040,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261123094741';   // version du build (remplacée à la compilation)
+const BUILDV='20261123101226';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1129,8 +1138,11 @@ async function onAuth(u,tok){
     const r=await fetch(SY.b()+'/users/'+u.uid+'.json'+SY.q(),{cache:'no-store'});
     if(!r.ok) throw new Error('http '+r.status);
     const j=await r.json();
-    const prof={email:u.email||'',name:u.name||'',at:Date.now()};
-    if(!j||!j.profile||j.profile.email!==prof.email||j.profile.name!==prof.name)
+    let pn=''; try{ pn=localStorage.getItem('mt_pname')||''; }catch(e){}
+    let pu=''; try{ pu=localStorage.getItem('mt_puser')||''; localStorage.removeItem('mt_puser'); }catch(e){}
+    const prof={email:u.email||'',name:u.name||pn||(j&&j.profile&&j.profile.name)||'',at:(j&&j.profile&&j.profile.at)||Date.now()}; const usr=pu||(j&&j.profile&&j.profile.user)||''; if(usr) prof.user=usr;
+    if(pn){ try{ localStorage.removeItem('mt_pname'); }catch(e){} }
+    if(!j||!j.profile||j.profile.email!==prof.email||j.profile.name!==prof.name||(prof.user||'')!==(j.profile.user||''))
       fetch(SY.b()+'/users/'+u.uid+'/profile.json'+SY.q(),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(prof)}).catch(()=>{});
     AU.node=j||{profile:prof};
     AU.acc=accOf(j);
@@ -1812,7 +1824,7 @@ function bookResults(){ const r=bookSearch(S.gq||''); const bn=(MOD[CUR]||{}).bo
      const full=op?(BOOK||[]).filter(x=>x.pg===p.pg).map(x=>`<p class="${x===p?'bkcur':''}">${hlAll(x.t,HW(x.t))}</p>`).join(''):'';
      return `<div class="sres cres bkr" data-a="bkopen" data-v="${i}"><div class="pills"><span class="pill">${esc(p.c||bn)}</span><span class="pill" style="background:var(--surface2);color:var(--ink)">p. ${p.pg-1}</span></div>
      <div class="bkpas">${op?full:`<p>${hlAll(p.t.length>420?p.t.slice(0,420)+'…':p.t,HW(p.t))}</p>`}</div>
-     <span class="whyb">${op?'Refermer ▴':'Lire toute la page ▾'}</span></div>`; }).join('')+(r.length>60?`<p class="muted">+ ${r.length-60} autres passages (affinez la recherche).</p>`:'');
+     <div class="bkact"><span class="whyb">${op?'Refermer ▴':'Lire toute la page ▾'}</span><button class="btn bkpg" data-a="bkpage" data-v="${p.pg}">${ico('bookopen',15)} Ouvrir la page ${p.pg-1}</button></div></div>`; }).join('')+(r.length>60?`<p class="muted">+ ${r.length-60} autres passages (affinez la recherche).</p>`:'');
 }
 function resultsHTML(){ const r=searchQ(S.gq||''); if(!(S.gq||'').trim()) return `<p class="muted">Tapez un mot-clé : ${esc(kwList())}…</p>`;
   if(!r.length) return `<p class="muted">Aucun résultat pour « ${esc(S.gq)} ».</p>`;
@@ -1846,17 +1858,17 @@ function pdfjs(){ if(PJSP) return PJSP; PJSP=new Promise((ok,ko)=>{ const sc=doc
     try{ const t=await (await fetch(PJS+'pdf.worker.min.js')).text(); L.GlobalWorkerOptions.workerSrc=URL.createObjectURL(new Blob([t],{type:'text/javascript'})); }catch(e){ L.GlobalWorkerOptions.workerSrc=PJS+'pdf.worker.min.js'; }
     ok(L); }; sc.onerror=ko; document.head.appendChild(sc); }); return PJSP; }
 function vReader(){ const R=S.rd; return `${header()}<div class="wrap rdw"><div class="rdbar"><button class="btn" data-a="rdback">${ico('prev',16)} Retour</button>
-  <div class="rdt"><b>${esc(CN[R.c])}</b><span>${esc(authOf(R.c))}</span></div>
-  <div class="row" style="gap:6px"><button class="btn" data-a="rdpg" data-v="-1" aria-label="Page précédente">${ico('prev',16)}</button><span id="rdn" class="rdn">p. ${R.pg}</span><button class="btn" data-a="rdpg" data-v="1" aria-label="Page suivante">${ico('next',16)}</button>
+  <div class="rdt"><b>${esc(R.t||CN[R.c])}</b><span>${esc(R.a!=null?R.a:authOf(R.c))}</span></div>
+  <div class="row" style="gap:6px"><button class="btn" data-a="rdpg" data-v="-1" aria-label="Page précédente">${ico('prev',16)}</button><span id="rdn" class="rdn">p. ${R.pg-(R.off||0)}</span><button class="btn" data-a="rdpg" data-v="1" aria-label="Page suivante">${ico('next',16)}</button>
   <button class="btn rdhlb ${R.hl?'on':''}" id="rdhlb" data-a="rdhl" title="Surligner des lignes du cours" aria-pressed="${R.hl?'true':'false'}">${ico('hl',16)} Surligner</button>
   <button class="btn" data-a="rdz" data-v="-1" aria-label="Réduire">${ico('minus',16)}</button><button class="btn" data-a="rdz" data-v="1" aria-label="Agrandir">${ico('plus',16)}</button>
-  <a class="btn" href="${clink(R.c)}" target="_blank" rel="noopener">Drive ↗</a></div></div>
+  ${R.c==="poche"?"":`<a class="btn" href="${clink(R.c)}" target="_blank" rel="noopener">Drive ↗</a>`}</div></div>
   <div class="row" style="margin:8px 0;gap:10px;flex-wrap:wrap"><div id="rdmsg" class="muted">Chargement du cours…</div><span id="rdhlmsg" class="rdhlmsg" ${R.hl?'':'hidden'}>Mode surlignage : touchez une ligne pour la surligner, touchez-la encore pour l'effacer.</span><span id="rduhn" class="muted" style="margin-left:auto;font-size:.82rem"></span></div><div class="rdpage" id="rdpage"></div></div>`; }
 async function openReader(){ const R=S.rd; try{ const L=await pdfjs(); if(!PDFS[R.c]) PDFS[R.c]=L.getDocument(MP()+'cours/'+R.c+'.pdf').promise; const doc=await PDFS[R.c]; R.n=doc.numPages; paintReader(); }
   catch(e){ const m=document.getElementById('rdmsg'); if(m) m.innerHTML='Impossible d’afficher le cours ici. <a href="'+clink(R.c)+'" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a> puis allez à la page '+R.pg+'.'; } }
 let RDT=0;
 async function paintReader(){ const R=S.rd, tk=++RDT; const box=document.getElementById('rdpage'), msg=document.getElementById('rdmsg'), nn=document.getElementById('rdn'); if(!box) return;
-  const doc=await PDFS[R.c]; if(tk!==RDT) return; R.pg=Math.max(1,Math.min(doc.numPages,R.pg)); if(nn) nn.textContent='p. '+R.pg+' / '+doc.numPages;
+  const doc=await PDFS[R.c]; if(tk!==RDT) return; R.pg=Math.max(1,Math.min(doc.numPages,R.pg)); if(nn) nn.textContent='p. '+(R.pg-(R.off||0))+' / '+(doc.numPages-(R.off||0));
   const page=await doc.getPage(R.pg); const W=Math.max(760,Math.min(box.clientWidth||800,1100))*R.z; const v0=page.getViewport({scale:1}); const sc=W/v0.width; const vp=page.getViewport({scale:sc});
   const dpr=Math.min(2,window.devicePixelRatio||1); const cv=document.createElement('canvas'); cv.width=vp.width*dpr; cv.height=vp.height*dpr; cv.style.width=vp.width+'px'; cv.style.height=vp.height+'px';
   const wrap=document.createElement('div'); wrap.className='rdcv'; wrap.style.width=vp.width+'px'; wrap.style.height=vp.height+'px'; wrap.appendChild(cv);
@@ -2114,28 +2126,35 @@ function animStats(){
   });
 }
 function emErr(e){ const c=(e&&e.code)||'';
-  return ({'auth/invalid-credential':'E-mail ou mot de passe incorrect.','auth/wrong-password':'E-mail ou mot de passe incorrect.','auth/user-not-found':'Aucun compte avec cet e-mail : appuyez sur « Créer mon compte ».',
-    'auth/email-already-in-use':'Ce compte existe déjà : appuyez sur « Se connecter ».','auth/weak-password':'Mot de passe trop court (6 caractères minimum).','auth/invalid-email':'Adresse e-mail invalide.',
+  return ({'auth/invalid-credential':'E-mail ou mot de passe incorrect. Si vous vous êtes inscrit avec Google, utilisez le bouton Google, ou « Mot de passe oublié ? » pour créer un mot de passe.','auth/wrong-password':'E-mail ou mot de passe incorrect.','auth/user-not-found':'Aucun compte avec cet e-mail : appuyez sur « Créer un compte ».',
+    'auth/email-already-in-use':'Cet e-mail a déjà un compte (peut-être créé avec Google) : connectez-vous avec Google, ou utilisez « Mot de passe oublié ? » depuis l\'écran de connexion.','auth/weak-password':'Mot de passe trop court (6 caractères minimum).','auth/invalid-email':'Adresse e-mail invalide.',
     'auth/too-many-requests':'Trop d\'essais : réessayez dans quelques minutes.','auth/network-request-failed':'Pas de connexion internet.',
     'auth/operation-not-allowed':'La connexion par e-mail n\'est pas encore activée par l\'administrateur.','auth/unauthorized-domain':'Ce site n\'est pas encore autorisé par l\'administrateur.'})[c]||('Connexion impossible ('+(c||'erreur')+').'); }
 const GBTN=`<button class="gog" data-a="signin"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.6l6.7-6.7C35.6 2.6 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.8 6.1C12.3 13.2 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.6c0-1.6-.1-3.1-.4-4.6H24v9h12.4c-.5 2.9-2.2 5.3-4.7 7l7.6 5.9c4.4-4.1 6.8-10.1 6.8-17.3z"/><path fill="#FBBC05" d="M10.4 28.7a14.6 14.6 0 0 1 0-9.4l-7.8-6.1a24 24 0 0 0 0 21.6l7.8-6.1z"/><path fill="#34A853" d="M24 48c6.2 0 11.5-2 15.3-5.6l-7.6-5.9c-2.1 1.4-4.8 2.3-7.7 2.3-6.3 0-11.7-3.7-13.6-9.1l-7.8 6.1C6.5 42.6 14.6 48 24 48z"/></svg>Continuer avec Google</button>`;
 function vGate(){
   if(AU.state==='load') return gshell(`<h2>Connexion</h2>
    <p class="gs">Vérification de votre accès…</p>`);
-  if(AU.state==='out') return gshell(`<h2>Connexion</h2>
+  if(AU.state==='out') return gshell(`<h2>${S.emmode==='new'?'Inscription':'Connexion'}</h2>
    ${(()=>{try{return localStorage.getItem('mt_exp')==='1'}catch(e){return false}})()?`<p class="gn" style="color:var(--orange2);font-weight:700">Votre session a expiré : reconnectez-vous (une connexion est demandée toutes les 48 h pour charger les nouveautés).</p>`:''}
    <div class="lgf">
+     ${S.emmode==='new'?`<div class="flrow"><div class="fl flt"><input id="em_n" placeholder=" " autocomplete="family-name" value="${esc(S.emnom||'')}"><label for="em_n">Nom <i>*</i></label></div>
+     <div class="fl flt"><input id="em_pr" placeholder=" " autocomplete="given-name" value="${esc(S.empre||'')}"><label for="em_pr">Prénom <i>*</i></label></div></div>
+     <div class="fl flt"><input id="em_u" placeholder=" " autocomplete="username" value="${esc(S.emusr||'')}"><label for="em_u">Nom d'utilisateur <i>*</i></label></div>
+     <div class="fl flt"><input id="em_e" type="email" placeholder=" " autocomplete="email" inputmode="email" value="${esc(S.emv||'')}"><label for="em_e">E-mail <i>*</i></label></div>
+     <div class="fl flt"><input id="em_p" type="${S.pwshow?'text':'password'}" placeholder=" " autocomplete="new-password"><label for="em_p">Mot de passe <i>*</i></label><button class="eye" data-a="pwshow" aria-label="Afficher le mot de passe">${ico(S.pwshow?'eye':'eyeoff',20)}</button></div>
+     <div class="fl flt"><input id="em_p2" type="${S.pwshow?'text':'password'}" placeholder=" " autocomplete="new-password"><label for="em_p2">Confirmer votre mot de passe <i>*</i></label><button class="eye" data-a="pwshow" aria-label="Afficher le mot de passe">${ico(S.pwshow?'eye':'eyeoff',20)}</button></div>`:`
      <div class="fl"><label for="em_e">E-mail <i>*</i></label><input id="em_e" type="email" autocomplete="email" inputmode="email" value="${esc(S.emv||'')}"></div>
-     <div class="fl"><label for="em_p">Mot de passe <i>*</i></label><input id="em_p" type="${S.pwshow?'text':'password'}" autocomplete="current-password"><button class="eye" data-a="pwshow" aria-label="${S.pwshow?'Masquer':'Afficher'} le mot de passe" title="${S.pwshow?'Masquer':'Afficher'} le mot de passe">${ico(S.pwshow?'eye':'eyeoff',20)}</button></div>
-     <div class="lgrow"><label class="rem"><input type="checkbox" id="em_r" ${S.emrem===false?'':'checked'}> Se souvenir</label><button class="glink2" data-a="emreset">Mot de passe oublié ?</button></div>
+     <div class="fl"><label for="em_p">Mot de passe <i>*</i></label><input id="em_p" type="${S.pwshow?'text':'password'}" autocomplete="current-password"><button class="eye" data-a="pwshow" aria-label="${S.pwshow?'Masquer':'Afficher'} le mot de passe" title="${S.pwshow?'Masquer':'Afficher'} le mot de passe">${ico(S.pwshow?'eye':'eyeoff',20)}</button></div>`}
+     <div class="lgrow"><label class="rem"><input type="checkbox" id="em_r" ${S.emrem===false?'':'checked'}> Se souvenir</label>${S.emmode==='new'?'':'<button class="glink2" data-a="emreset">Mot de passe oublié ?</button>'}</div>
      <p class="gerr" id="em_err" role="alert">${esc(S.emerr||'')}</p>
-     <button class="lgbtn" data-a="emin">Se connecter</button>
-     <p class="lgnew">Pas encore de compte ? <button class="glink2" data-a="emnew">Créer un compte</button></p>
+     ${S.emmode==='new'?`<button class="lgbtn" data-a="emnew">Créer mon compte</button>
+     <p class="lgnew">Déjà un compte ? <button class="glink2" data-a="emmode" data-v="in">Se connecter</button></p>`:`<button class="lgbtn" data-a="emin">Se connecter</button>
+     <p class="lgnew">Pas encore de compte ? <button class="glink2" data-a="emmode" data-v="new">Créer un compte</button></p>`}
    </div>
-   <div class="gor"><span>ou</span></div>
+   ${S.emmode==='new'?'':`<div class="gor"><span>ou</span></div>
    ${GBTN.replace('class="gog"','class="gog gog2"').replace('Continuer avec Google','Se connecter avec Google')}
    <p class="gn">Votre progression est enregistrée sur votre compte : vous la retrouvez
-     sur votre téléphone, votre PC et votre tablette, sans rien à recopier.</p>`);
+     sur votre téléphone, votre PC et votre tablette, sans rien à recopier.</p>`}`);
   if(AU.state==='pending'){ const e=(AU.node&&AU.node.profile&&AU.node.profile.email)||(AU.u&&AU.u.email)||'';
    return gshell(`<div class="gbadge gw">§clock§</div>
    <h2>Demande envoyée</h2>
@@ -2252,8 +2271,10 @@ function act(a,v,el,ev){
   switch(a){
     case 'theme':{const t=isDark()?'light':'dark';document.documentElement.dataset.theme=t;LS.set('mt_theme',t);render(true);return}
     case 'signin': if(window.__fbSignIn) window.__fbSignIn(); return;
-    case 'pwshow': { const e=document.getElementById('em_e'), p=document.getElementById('em_p'); S.emv=e?e.value:S.emv; const pv=p?p.value:''; S.pwshow=!S.pwshow; render(true);
-      const p2=document.getElementById('em_p'); if(p2){ p2.value=pv; p2.focus(); } return; }
+    case 'pwshow': { const g=id=>{ const x=document.getElementById(id); return x?x.value:''; };
+      const keep={em_e:g('em_e'),em_p:g('em_p'),em_p2:g('em_p2'),em_n:g('em_n'),em_pr:g('em_pr'),em_u:g('em_u')};
+      S.emv=keep.em_e||S.emv; S.pwshow=!S.pwshow; render(true);
+      for(const [k,v] of Object.entries(keep)){ const x=document.getElementById(k); if(x) x.value=v; } return; }
     case 'emin': case 'emnew': case 'emreset': {
       const e=(document.getElementById('em_e')||{}).value||'', p=(document.getElementById('em_p')||{}).value||'', out=document.getElementById('em_err');
       S.emopen=true; S.emv=e.trim(); const say=m=>{ S.emerr=m; if(out){ out.textContent=m; out.className='gerr'+(m.startsWith('✓')?' ok':''); } };
@@ -2261,7 +2282,14 @@ function act(a,v,el,ev){
       if(!/^\S+@\S+\.\S+$/.test(S.emv)){ say('Entrez une adresse e-mail valide.'); return; }
       if(a==='emreset'){ window.__fbReset(S.emv).then(()=>say('✓ E-mail envoyé : ouvrez le lien reçu pour choisir un nouveau mot de passe.')).catch(err=>say(emErr(err))); return; }
       if(p.length<6){ say('Le mot de passe doit faire au moins 6 caractères.'); return; }
-      S.emrem=!!(document.getElementById('em_r')||{checked:true}).checked; say('Connexion…'); window.__fbEmail(a==='emnew'?'new':'in',S.emv,p,S.emrem).then(()=>{ S.emerr=''; }).catch(err=>say(emErr(err))); return; }
+      let nm=''; if(a==='emnew'){ S.emnom=((document.getElementById('em_n')||{}).value||'').trim(); S.empre=((document.getElementById('em_pr')||{}).value||'').trim();
+        S.emusr=((document.getElementById('em_u')||{}).value||'').trim(); const p2=(document.getElementById('em_p2')||{}).value||'';
+        if(S.emnom.length<2||S.empre.length<2){ say('Entrez votre nom et votre prénom.'); return; }
+        if(S.emusr.length<3){ say('Choisissez un nom d\'utilisateur (3 caractères minimum).'); return; }
+        if(p!==p2){ say('Les deux mots de passe ne sont pas identiques.'); return; }
+        nm=S.emnom.toUpperCase()+' '+S.empre; try{ localStorage.setItem('mt_puser',S.emusr); }catch(e){} }
+      S.emrem=!!(document.getElementById('em_r')||{checked:true}).checked; say(a==='emnew'?'Création du compte…':'Connexion…'); window.__fbEmail(a==='emnew'?'new':'in',S.emv,p,S.emrem,nm).then(()=>{ S.emerr=''; }).catch(err=>say(emErr(err))); return; }
+    case 'emmode': { const x=document.getElementById('em_e'); if(x) S.emv=x.value; S.emmode=v; S.emerr=''; render(); return; }
     case 'signout': if(window.__fbSignOut) window.__fbSignOut(); else { try{localStorage.removeItem('mt_auth')}catch(e){} location.reload(); } return;
     case 'yearok': { const el=document.getElementById('ysel'); const y=+(el&&el.value||0);
       if(!y){ toast('Choisissez d\'abord votre année'); return; }
@@ -2298,6 +2326,7 @@ function act(a,v,el,ev){
     case 'rdhl': if(S.rd){ S.rd.hl=!S.rd.hl; const b=document.getElementById('rdhlb'); if(b){ b.classList.toggle('on',S.rd.hl); b.setAttribute('aria-pressed',S.rd.hl?'true':'false'); }
       const m=document.getElementById('rdhlmsg'); if(m) m.hidden=!S.rd.hl; paintUH(); } return;
     case 'rdz': if(S.rd){ S.rd.z=Math.max(.6,Math.min(3,S.rd.z+(+v)*.25)); paintReader(); } return;
+    case 'bkpage': { S.rd={c:'poche',pg:+v,off:1,t:(MOD[CUR]||{}).book||'Livre en poche',a:'Résumé des cours',w:norm(S.gq||'').split(/\s+/).filter(x=>x.length>1),z:1,back:S.view}; S.view='reader'; render(); scrollTo(0,0); openReader(); return; }
     case 'rdback': S.view=(S.rd&&S.rd.back)||'search'; render(); scrollTo(0,0); return;
     case 'gcopen': { if(ev&&(ev.target.closest('a')||ev.target.closest('[data-a="reader"]'))) return; S.gopen=S.gopen||new Set(); const i=+v; S.gopen.has(i)?S.gopen.delete(i):S.gopen.add(i); refreshSearch(); return; }
     case 'gsgo': { const r=searchQ(S.gq||''); if(!r.length) return; newSession(r.map(x=>x.q.id),'Recherche : '+S.gq); S.sess.i=+v||0; save(); render(); scrollTo(0,0); return; }

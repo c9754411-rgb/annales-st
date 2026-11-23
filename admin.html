@@ -124,7 +124,7 @@ async function render(u){
 
   const grantBtns=x=>MODS_A.map(m=>`<button class="ych ${x.g.includes(m.id)?'on':''}" data-g="${x.uid}|${m.id}" title="${x.g.includes(m.id)?'Retirer':'Donner'} l'accès : ${esc(m.n)}">${esc(m.s)}</button>`).join('');
   const line=x=>`<tr>
-     <td><b>${esc(x.p.name)||'<span class="muted">—</span>'}</b><div class="sm muted">${esc(x.p.email)}</div></td>
+     <td><b>${esc(x.p.name)||esc(x.p.email)||'<span class="muted">—</span>'}</b><div class="sm muted">${esc(x.p.email)}</div></td>
      <td class="sm">${ago(x.seen.at)}</td>
      <td class="sm">${x.seen.n?`${x.seen.n} faites · ${x.seen.ok||0} justes`:'<span class="muted">—</span>'}</td>
      <td>${grantBtns(x)}</td>
@@ -145,7 +145,7 @@ async function render(u){
    ${wait.length?`<div class="card" style="border-color:var(--orange)">
      <h2>Demandes en attente <span class="pill p-no">${wait.length}</span></h2>
      <div class="tw"><table><tbody>${wait.map(x=>`<tr>
-       <td><b>${esc(x.p.name)||'—'}</b><div class="sm muted">${esc(x.p.email)}</div></td>
+       <td><b>${esc(x.p.name)||esc(x.p.email)||'—'}</b><div class="sm muted">${esc(x.p.email)}</div></td>
        <td class="sm muted">demandé ${ago(x.p.at)}</td>
        <td style="text-align:right">${MODS_A.map(m=>`<button class="orange" data-ok="${x.uid}|${m.id}">+ ${esc(m.s)}</button>`).join(' ')}
            <button class="danger sm" data-del="${x.uid}">Refuser</button></td></tr>`).join('')}</tbody></table></div></div>`:''}
