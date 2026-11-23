@@ -1040,7 +1040,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261123101226';   // version du build (remplacée à la compilation)
+const BUILDV='20261123193252';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1599,7 +1599,7 @@ function actCard(){
    <div class="actk"><div><b>${wk}</b><span>QCM cette semaine</span></div><div><b>${tot}</b><span>sur les 14 derniers jours</span></div><div><b>${all}</b><span>QCM faits au total</span></div></div>
    ${cols(D.map(d=>d.n),D.map(d=>d.l),'var(--acc3)')}
    <p class="muted" style="font-size:.8rem;margin:8px 0 0">Une question est comptée le jour de votre dernière réponse.</p></div>`; }
-const EXAM_T=Date.UTC(2026,11,6,7,0,0);   /* examen théorique : dimanche 6 décembre 2026, 8 h (UTC+1) */
+const EXAM_T=Date.UTC(2026,11,5,7,0,0);   /* examen théorique : samedi 5 décembre 2026, 8 h (UTC+1) */
 function cdHTML(){ const s=Math.floor(Math.max(0,EXAM_T-Date.now())/1000);
   const d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), x=s%60;
   const b=(v,l)=>`<div class="cdb"><b>${String(v).padStart(2,'0')}</b><span>${l}</span></div>`;
@@ -2109,7 +2109,6 @@ function gshell(inner){ return `<div class="land">
       <li><b>${ico('exam',15)}</b><span>Examens blancs pour vous tester en conditions réelles</span></li>
       <li><b>${ico('cards',15)}</b><span>Flashcards pour réviser en quelques minutes</span></li>
       <li><b>${ico('steth',15)}</b><span>Exclusif à la faculté de Laghouat</span></li>
-      <li><b>${ico('sparkles',15)}</b><span>100 % gratuit</span></li>
       <li><b>${ico('cloud',15)}</b><span>Le Drive de chaque année, intégré à l'application</span></li>
       <li><b>${ico('cloudoff',15)}</b><span>Fonctionne même sans Internet, une fois installée</span></li>
       <li><b>${ico('check',15)}</b><span>Un design simple et confortable</span></li>
