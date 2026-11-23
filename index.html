@@ -426,6 +426,10 @@ body.hh .rdbar{top:8px}
 .rdpage{overflow:auto;margin-top:6px;border-radius:12px}
 .rdcv{position:relative;margin:0 auto;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.18);border-radius:6px;overflow:hidden}
 .rdcv canvas{display:block}
+mark.rduh{position:absolute;background:rgba(255,230,0,.5);border-radius:2px;mix-blend-mode:multiply;pointer-events:none}
+.rdcv.hlmode{cursor:text;outline:3px dashed rgba(245,158,11,.6);outline-offset:4px}
+.rdhlb.on{background:#fff1b8;border-color:#f2b705;color:#5a3d00}
+.rdhlmsg{font-size:.82rem;font-weight:700;color:#8a5a00;background:#fff6d6;border-radius:8px;padding:.3em .7em}
 mark.rdhl{position:absolute;background:rgba(255,214,0,.45);border-radius:3px;mix-blend-mode:multiply;outline:2px solid rgba(245,158,11,.9);pointer-events:none}
 .cres{cursor:pointer} a.btn{text-decoration:none;color:inherit} .cres .ssn{color:var(--ink);font-size:.9rem}
 .qz main{min-height:calc(100dvh + 140px)}
@@ -845,6 +849,7 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .accs{flex-wrap:nowrap;justify-content:space-between;gap:4px;padding:6px 12px 10px}
 .accs button{width:22px;height:22px;flex:none}
 .bk{display:flex;gap:12px;align-items:flex-start}
+.bkpas p{margin:.2em 0;line-height:1.5;font-size:.98rem;color:var(--ink)}.bkpas{margin-top:8px;padding:10px 12px;border-left:4px solid var(--orange);background:var(--surface2);border-radius:8px}.bkpas .bkcur{background:#fff6d6;border-radius:6px;padding:2px 4px;margin:4px -4px}.bkgap{display:block;color:var(--muted);font-size:.8rem}.bkview{margin-top:8px;font-size:.85rem;padding:.4em .8em}
 .bkimg{flex:none;width:96px;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in}
 .bkimg img{display:block;width:100%;height:auto}
 .brandh{position:relative;isolation:isolate;margin:0 64px 0 8px}
@@ -861,6 +866,7 @@ html,body{overflow-x:clip;max-width:100%}
 .wrap,.ct,.card{min-width:0}
 .seg button{min-width:0}
 @media(max-width:560px){.hdr [data-a="fs"]{display:none}}
+@media(max-width:560px){.seg button{white-space:normal;line-height:1.2;font-size:.82rem;padding:.55em .35em;overflow-wrap:anywhere}}
 @media(max-width:400px){.hdr #syb{display:none}.hdr .brandh img{max-width:74px;height:auto}}
 </style>
 
@@ -995,13 +1001,13 @@ let MODST={}; const isOpen=m=>MODST[m.id]!==false;
 async function loadMods(){ try{ const r=await fetch(FB.url.replace(/\/$/,'')+'/mods.json',{cache:'no-store'}); if(r.ok) MODST=(await r.json())||{}; }catch(e){} }
 let CUR='', YEAR=0;
 /* les clés ci-dessous sont propres à chaque module : mt_hist_ste, mt_hist_gygy… */
-const MSCOPE=new Set(['mt_hist','mt_fav','mt_notes','mt_last','mt_hl','mt_flk','mt_sessions','mt_fcs','mt_fy','mt_fe2','mt_fes','mt_plan','mt_ft','mt_by2','mt_fdeck','mt_fdir','mt_lastsave','mt_order2','mt_eorder']);
+const MSCOPE=new Set(['mt_hist','mt_fav','mt_notes','mt_last','mt_hl','mt_flk','mt_sessions','mt_fcs','mt_fy','mt_fe2','mt_fes','mt_plan','mt_ft','mt_by2','mt_fdeck','mt_fdir','mt_lastsave','mt_order2','mt_eorder','mt_chl','mt_ncs']);
 const mk=k=>(CUR&&MSCOPE.has(k))?k+'_'+CUR:k;
 const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m.length+1)); return k; };
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261123083234';   // version du build (remplacée à la compilation)
+const BUILDV='20261123091719';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1230,9 +1236,10 @@ function vMods(){
     ${lock.map(m=>`<div class="mcard off"><div class="mct"><b>${esc(m.name)}</b><span>${esc(m.sub)} · ${ord(m.y)} année</span></div>
         <div class="mcs">${m.nq} questions · ${m.nex} examens</div>
         <div class="mcp">§lock§ ${isOpen(m)?'Non inclus dans votre accès':'Module pas encore ouvert'}</div></div>`).join('')}</div>
-    ${(()=>{ const oth=MODS.filter(m=>m.y!==YEAR&&!grantOf(AU.node,m.id)).concat(TEASE.filter(t=>t.y!==YEAR));
+    ${(()=>{ const oth=MODS.filter(m=>m.y!==YEAR).concat(TEASE.filter(t=>t.y!==YEAR));
       if(!oth.length) return ''; const ys=[...new Set(oth.map(m=>m.y))].sort();
-      return ys.map(y=>`<p class="msec">Aussi sur MedLagh · ${ord(y)} année</p><div class="mcards">${oth.filter(m=>m.y===y).map(m=>`<div class="mcard off"><div class="mct"><b>${esc(m.name)}</b><span>${esc(m.sub)} · ${ord(m.y)} année</span></div>
+      return ys.map(y=>`<p class="msec">Aussi sur MedLagh · ${ord(y)} année</p><div class="mcards">${oth.filter(m=>m.y===y).map(m=>MOD[m.id]&&isOpen(m)&&grantOf(AU.node,m.id)?`<button class="mcard" data-a="openmody" data-v="${m.id}"><div class="mct"><b>${esc(m.name)}</b><span>${esc(m.sub)} · ${ord(m.y)} année</span></div>
+        <div class="mcs">${m.nq} questions · ${m.nex} examens</div><span class="mgo">Ouvrir §next§</span></button>`:`<div class="mcard off"><div class="mct"><b>${esc(m.name)}</b><span>${esc(m.sub)} · ${ord(m.y)} année</span></div>
         <div class="mcs">${m.nq} questions · ${m.nex} examens</div>
         <div class="mcp">§lock§ Réservé à la ${ord(m.y)} année</div></div>`).join('')}</div>`).join(''); })()}`,
    AU.acc.length>1?`<button class="lnk" data-a="years">Changer d'année</button>`:'');
@@ -1710,6 +1717,7 @@ function mergeData(D){
     else if(B==='mt_fav'){ const a=cur(K)||[], b=inc(K)||[]; const m=[...new Set([...a,...b])]; if(m.length!==a.length) chg(); put(K,m); }
     else if(B==='mt_notes'){ const a=cur(K)||{}, b=inc(K)||{}; for(const [k,v] of Object.entries(b)){ if(!a[k]||a[k]===v||v.includes(a[k])){ if(a[k]!==v) chg(); a[k]=v; } else if(!a[k].includes(v)){ a[k]=a[k]+'\n— \n'+v; chg(); } } put(K,a); }
     else if(B==='mt_hl'){ const a=cur(K)||{}, b=inc(K)||{}; for(const [k,L] of Object.entries(b)){ const seen=new Set((a[k]||[]).map(x=>JSON.stringify(x))); const add=L.filter(x=>!seen.has(JSON.stringify(x))); if(add.length) chg(); a[k]=(a[k]||[]).concat(add); } put(K,a); }
+    else if(B==='mt_chl'){ const a=cur(K)||{}, b=inc(K)||{}; for(const [k,L] of Object.entries(b)){ const m=[...new Set([...(a[k]||[]),...L])]; if(m.length!==(a[k]||[]).length) chg(); a[k]=m; } put(K,a); }
     else if(B==='mt_flk'){ const a=cur(K)||{}, b=inc(K)||{}; for(const [k,v] of Object.entries(b)) if(a[k]!==v){ a[k]=v; chg(); } put(K,a); }
     else if(B==='mt_last'){ const a=cur(K), b=inc(K); if(b&&(!a||(b.start||0)>(a.start||0))){ put(K,b); chg(); } }
     else if(B==='mt_sessions'){ const a=cur(K)||[], b=inc(K)||[]; const M=new Map(a.map(x=>[x.start,x])); for(const x of b){ const y=M.get(x.start); if(!y||(x.last||0)>(y.last||0)){ M.set(x.start,x); chg(); } }
@@ -1762,11 +1770,25 @@ const KWS={gygy:['pré-éclampsie','hémorragie de la délivrance','bassin','Bra
 const kwList=()=>(KWS[CUR]||KWS.ste).join(', ');
 const QL=qid=>QI[qid]?`${QI[qid].label} · Q${QI[qid].n}`:qid;
 function bookSearch(term){ const w=norm(term).split(/\s+/).filter(x=>x.length>1); if(!w.length) return []; return (BOOK||[]).filter(p=>w.every(x=>norm(p.t).includes(x))).map(p=>({p,w})); }
+/* passage lisible : lignes qui contiennent le mot + la ligne voisine, sans les lignes illisibles */
+function bookPassage(t,w){ const lines=String(t).split('\n').map(x=>x.replace(/\s+/g,' ').replace(/^[\s|:;.,—–-]+/,'').trim())
+    .filter(x=>x.length>3&&(x.match(/[A-Za-zÀ-ÿ]/g)||[]).length/x.length>.6);
+  const hit=lines.map(x=>w.some(y=>norm(x).includes(y))); const keep=new Set();
+  hit.forEach((h,i)=>{ if(h){ keep.add(i-1); keep.add(i); keep.add(i+1); } });
+  const out=[...keep].filter(i=>i>=0&&i<lines.length).sort((a,b)=>a-b).slice(0,8);
+  if(!out.length) return snippet(t,w);
+  let h='', prev=-2; for(const i of out){ if(i>prev+1&&h) h+='<span class="bkgap">…</span>'; h+=`<p>${hlAll(lines[i],w)}</p>`; prev=i; } return h; }
 function bookResults(){ const r=bookSearch(S.gq||''); const bn=(MOD[CUR]||{}).book||'le livre';
-  if(!(S.gq||'').trim()) return `<p class="muted">Recherchez dans les pages de « ${esc(bn)} » : ${esc(kwList())}…</p>`;
-  if(!r.length) return `<p class="muted">Aucune page de « ${esc(bn)} » ne contient « ${esc(S.gq)} ».</p>`;
-  return `<p class="muted" style="margin:0 0 10px"><b style="color:var(--ink)">${r.length} page${r.length>1?'s':''}</b> dans « ${esc(bn)} »</p>`+
-   r.slice(0,40).map(({p,w})=>`<div class="sres bk"><button class="bkimg" data-a="zoom" data-v="url:${esc(MP()+p.f)}" aria-label="Agrandir la page"><img src="${esc(MP()+p.f)}" alt="Page du livre" loading="lazy"></button><div style="min-width:0"><div class="pills">${p.q.slice(0,3).map(qid=>`<span class="pill">${esc(QL(qid))}</span>`).join('')}</div><div class="ssn">${snippet(p.t,w)}</div></div></div>`).join('')+(r.length>40?`<p class="muted">+ ${r.length-40} autres pages.</p>`:'');
+  if(!(S.gq||'').trim()) return `<p class="muted">Recherchez dans « ${esc(bn)} » : ${esc(kwList())}…</p>`;
+  if(!r.length) return `<p class="muted">Aucun passage de « ${esc(bn)} » ne contient « ${esc(S.gq)} ».</p>`;
+  const pages=new Set(r.map(x=>x.p.pg)); const ph=norm(S.gq).trim().replace(/\s+/g,' ');
+  const HW=t=>{ const ws=(r[0]||{}).w||[]; if(ws.length>1&&norm(t).includes(ph)) return [ph]; const big=ws.filter(x=>x.length>3); return big.length?big:ws; };
+  return `<p class="muted" style="margin:0 0 10px"><b style="color:var(--ink)">${r.length} passage${r.length>1?'s':''}</b> sur ${pages.size} page${pages.size>1?'s':''} de « ${esc(bn)} »</p>`+
+   r.slice(0,60).map(({p,w},i)=>{ const op=S.bopen&&S.bopen.has(i);
+     const full=op?(BOOK||[]).filter(x=>x.pg===p.pg).map(x=>`<p class="${x===p?'bkcur':''}">${hlAll(x.t,HW(x.t))}</p>`).join(''):'';
+     return `<div class="sres cres bkr" data-a="bkopen" data-v="${i}"><div class="pills"><span class="pill">${esc(p.c||bn)}</span><span class="pill" style="background:var(--surface2);color:var(--ink)">p. ${p.pg-1}</span></div>
+     <div class="bkpas">${op?full:`<p>${hlAll(p.t.length>420?p.t.slice(0,420)+'…':p.t,HW(p.t))}</p>`}</div>
+     <span class="whyb">${op?'Refermer ▴':'Lire toute la page ▾'}</span></div>`; }).join('')+(r.length>60?`<p class="muted">+ ${r.length-60} autres passages (affinez la recherche).</p>`:'');
 }
 function resultsHTML(){ const r=searchQ(S.gq||''); if(!(S.gq||'').trim()) return `<p class="muted">Tapez un mot-clé : ${esc(kwList())}…</p>`;
   if(!r.length) return `<p class="muted">Aucun résultat pour « ${esc(S.gq)} ».</p>`;
@@ -1802,9 +1824,10 @@ function pdfjs(){ if(PJSP) return PJSP; PJSP=new Promise((ok,ko)=>{ const sc=doc
 function vReader(){ const R=S.rd; return `${header()}<div class="wrap rdw"><div class="rdbar"><button class="btn" data-a="rdback">${ico('prev',16)} Retour</button>
   <div class="rdt"><b>${esc(CN[R.c])}</b><span>${esc(authOf(R.c))}</span></div>
   <div class="row" style="gap:6px"><button class="btn" data-a="rdpg" data-v="-1" aria-label="Page précédente">${ico('prev',16)}</button><span id="rdn" class="rdn">p. ${R.pg}</span><button class="btn" data-a="rdpg" data-v="1" aria-label="Page suivante">${ico('next',16)}</button>
+  <button class="btn rdhlb ${R.hl?'on':''}" id="rdhlb" data-a="rdhl" title="Surligner des lignes du cours" aria-pressed="${R.hl?'true':'false'}">${ico('hl',16)} Surligner</button>
   <button class="btn" data-a="rdz" data-v="-1" aria-label="Réduire">${ico('minus',16)}</button><button class="btn" data-a="rdz" data-v="1" aria-label="Agrandir">${ico('plus',16)}</button>
   <a class="btn" href="${clink(R.c)}" target="_blank" rel="noopener">Drive ↗</a></div></div>
-  <div id="rdmsg" class="muted" style="margin:8px 0">Chargement du cours…</div><div class="rdpage" id="rdpage"></div></div>`; }
+  <div class="row" style="margin:8px 0;gap:10px;flex-wrap:wrap"><div id="rdmsg" class="muted">Chargement du cours…</div><span id="rdhlmsg" class="rdhlmsg" ${R.hl?'':'hidden'}>Mode surlignage : touchez une ligne pour la surligner, touchez-la encore pour l'effacer.</span><span id="rduhn" class="muted" style="margin-left:auto;font-size:.82rem"></span></div><div class="rdpage" id="rdpage"></div></div>`; }
 async function openReader(){ const R=S.rd; try{ const L=await pdfjs(); if(!PDFS[R.c]) PDFS[R.c]=L.getDocument(MP()+'cours/'+R.c+'.pdf').promise; const doc=await PDFS[R.c]; R.n=doc.numPages; paintReader(); }
   catch(e){ const m=document.getElementById('rdmsg'); if(m) m.innerHTML='Impossible d’afficher le cours ici. <a href="'+clink(R.c)+'" target="_blank" rel="noopener">Ouvrir dans Drive ↗</a> puis allez à la page '+R.pg+'.'; } }
 let RDT=0;
@@ -1815,11 +1838,25 @@ async function paintReader(){ const R=S.rd, tk=++RDT; const box=document.getElem
   const wrap=document.createElement('div'); wrap.className='rdcv'; wrap.style.width=vp.width+'px'; wrap.style.height=vp.height+'px'; wrap.appendChild(cv);
   await page.render({canvasContext:cv.getContext('2d'),viewport:vp,transform:dpr!==1?[dpr,0,0,dpr,0,0]:null}).promise; if(tk!==RDT) return;
   const tc=await page.getTextContent(); let first=null, hits=0;
+  R.items=tc.items.map(it=>{ if(!it.str||!it.str.trim()) return null; const tx=L_mul(vp.transform,it.transform); const fh=Math.hypot(tx[2],tx[3]);
+    return {x:tx[4]-2,y:tx[5]-fh-1,w:it.width*sc+4,h:fh*1.2+2}; });
+  R.wrap=wrap; paintUH();
+  wrap.addEventListener('click',ev=>{ if(!S.rd||!S.rd.hl) return; const b=wrap.getBoundingClientRect(), x=ev.clientX-b.left, y=ev.clientY-b.top;
+    let best=-1, bd=1e9; (S.rd.items||[]).forEach((r,i)=>{ if(!r) return; if(x>=r.x-4&&x<=r.x+r.w+4&&y>=r.y-4&&y<=r.y+r.h+4){ const d=Math.abs(y-(r.y+r.h/2)); if(d<bd){ bd=d; best=i; } } });
+    if(best<0) return; const H=LS.get('mt_chl',{}), key=S.rd.c+'|'+S.rd.pg; let L=H[key]||[]; const rb=S.rd.items[best], cy=rb.y+rb.h/2;
+    const line=S.rd.items.map((r,i)=>r&&Math.abs((r.y+r.h/2)-cy)<rb.h*0.45?i:-1).filter(i=>i>=0);   /* toute la ligne */
+    if(L.includes(best)) L=L.filter(i=>!line.includes(i)); else L=[...new Set([...L,...line])];
+    if(L.length) H[key]=L; else delete H[key]; LS.set('mt_chl',H); paintUH(); });
   for(const it of tc.items){ const s=it.str; if(!s) continue; const n=norm(s);
     for(const w of R.w){ let i=n.indexOf(w); while(i>=0){ const tx=L_mul(vp.transform,it.transform); const fh=Math.hypot(tx[2],tx[3]); const x0=tx[4], y0=tx[5]-fh; const cw=(it.width*sc)/Math.max(1,s.length);
         const m=document.createElement('mark'); m.className='rdhl'; m.style.left=(x0+i*cw-2)+'px'; m.style.top=(y0-1)+'px'; m.style.width=(w.length*cw+4)+'px'; m.style.height=(fh*1.15+2)+'px'; wrap.appendChild(m); hits++; if(!first) first=m; i=n.indexOf(w,i+w.length); } } }
   box.innerHTML=''; box.appendChild(wrap); if(msg) msg.textContent=hits?`${hits} occurrence${hits>1?'s':''} surlignée${hits>1?'s':''} sur cette page`:(R.w.length?'Mot non trouvé sur cette page : essayez la page voisine.':'');
   if(first) setTimeout(()=>{ const r=first.getBoundingClientRect(); scrollTo(0,scrollY+r.top-innerHeight/3); box.scrollLeft=Math.max(0,first.offsetLeft-box.clientWidth/3); },60); }
+function paintUH(){ const R=S.rd; if(!R||!R.wrap) return; R.wrap.querySelectorAll('mark.rduh').forEach(m=>m.remove());
+  const L=(LS.get('mt_chl',{})[R.c+'|'+R.pg])||[]; let n=0;
+  for(const i of L){ const r=(R.items||[])[i]; if(!r) continue; const m=document.createElement('mark'); m.className='rduh'; m.style.left=r.x+'px'; m.style.top=r.y+'px'; m.style.width=r.w+'px'; m.style.height=r.h+'px'; R.wrap.insertBefore(m,R.wrap.children[1]||null); n++; }
+  R.wrap.classList.toggle('hlmode',!!R.hl);
+  const c=document.getElementById('rduhn'); if(c) c.textContent=n?n+' ligne'+(n>1?'s':'')+' surlignée'+(n>1?'s':'')+' sur cette page':''; }
 function L_mul(a,b){ return [a[0]*b[0]+a[2]*b[1],a[1]*b[0]+a[3]*b[1],a[0]*b[2]+a[2]*b[3],a[1]*b[2]+a[3]*b[3],a[0]*b[4]+a[2]*b[5]+a[4],a[1]*b[4]+a[3]*b[5]+a[5]]; }
 function vSearch(){ loadCourses(); return `${header()}<div class="wrap"><div class="card"><p class="sec">§search§ Recherche dans les examens et les cours</p>
   <div class="sbox">${ico('search',20)}<input id="gs" type="search" placeholder="Rechercher : ${esc(kwList())}…" value="${esc(S.gq||'')}" autocomplete="off"></div>
@@ -2029,7 +2066,7 @@ const ECG=`<svg class="lecg" viewBox="0 0 1200 70" preserveAspectRatio="none" ar
 function gshell(inner){ return `<div class="land">
   <div class="lhero"><div class="lsky"></div><div class="lgrid"></div>${ECG}<div class="lin">
     <div class="lbrand"><img class="lwide" src="${LOGOW}" alt="MedLagh"></div>
-    <h1>1<sup>ère</sup> plateforme de QCM <em>100 % exclusive à la faculté de Laghouat</em></h1>
+    <h1>1<sup>ère</sup> plateforme de QCM<br><em>100&nbsp;% exclusive à la faculté de Laghouat</em></h1>
     <p class="lp lpbig">Toutes les questions des examens passés, avec la bonne réponse et la page du cours qui l'explique, tirées des cours officiels de la faculté.</p>
     <ol class="lben">
       <li><b>${ico('bookopen',15)}</b><span>Explications tirées des cours officiels</span></li>
@@ -2122,7 +2159,7 @@ function render(keep){
   if(S.view==='reader'&&S.rd&&PDFS[S.rd.c]) setTimeout(paintReader,0);
   if(keep) scrollTo(0,y);
   const dq=document.getElementById('dq'); if(dq){ dq.focus(); dq.setSelectionRange(dq.value.length,dq.value.length); dq.addEventListener('input',e=>{S.dq=e.target.value; render(true);}); }
-  const gs=document.getElementById('gs'); if(gs){ if(!keep||S.focusGS){ gs.focus(); gs.setSelectionRange(gs.value.length,gs.value.length);} gs.addEventListener('input',e=>{ S.gq=e.target.value; clearTimeout(gs._t); gs._t=setTimeout(()=>{ S.gopen=new Set(); refreshSearch(); },140); }); }
+  const gs=document.getElementById('gs'); if(gs){ if(!keep||S.focusGS){ gs.focus(); gs.setSelectionRange(gs.value.length,gs.value.length);} gs.addEventListener('input',e=>{ S.gq=e.target.value; clearTimeout(gs._t); gs._t=setTimeout(()=>{ S.gopen=new Set(); S.bopen=new Set(); refreshSearch(); },140); }); }
   fitQ();
   const nf=document.getElementById('nfc'); if(nf) nf.onchange=()=>{ S.nfc=nf.value; render(true); };
   document.querySelectorAll('.fnc').forEach(sl=>sl.onchange=()=>{ const n=LS.get('mt_ncs',{}); if(sl.value) n[sl.dataset.k]=sl.value; else delete n[sl.dataset.k]; LS.set('mt_ncs',n); render(true); });
@@ -2205,6 +2242,7 @@ function act(a,v,el,ev){
     case 'year': YEAR=+v; LS.set('mt_year',YEAR); S.view='mods'; render(); scrollTo(0,0); return;
     case 'years': YEAR=0; S.view='years'; render(); scrollTo(0,0); return;
     case 'mods': S.view='mods'; render(); scrollTo(0,0); return;
+    case 'openmody': { const m=MOD[v]; if(!m) return; YEAR=m.y; LS.set('mt_year',YEAR); return act('openmod',v); }
     case 'openmod': {
       const prev=S.view; S.view='loading'; render();
       loadMod(v).then(()=>{ S.view='home'; render(); scrollTo(0,0); })
@@ -2229,6 +2267,9 @@ function act(a,v,el,ev){
     case 'gtab': S.gtab=v; refreshSearch(); return;
     case 'reader': { const [c,pg]=v.split('|'); S.rd={c,pg:+pg,w:norm(S.gq||'').split(/\s+/).filter(x=>x.length>1),z:1,back:S.view}; S.view='reader'; render(); scrollTo(0,0); openReader(); return; }
     case 'rdpg': if(S.rd){ S.rd.pg=Math.max(1,Math.min(S.rd.n||999,S.rd.pg+(+v))); paintReader(); } return;
+    case 'bkopen': { S.bopen=S.bopen||new Set(); const i=+v; if(S.bopen.has(i)) S.bopen.delete(i); else S.bopen.add(i); refreshSearch(); return; }
+    case 'rdhl': if(S.rd){ S.rd.hl=!S.rd.hl; const b=document.getElementById('rdhlb'); if(b){ b.classList.toggle('on',S.rd.hl); b.setAttribute('aria-pressed',S.rd.hl?'true':'false'); }
+      const m=document.getElementById('rdhlmsg'); if(m) m.hidden=!S.rd.hl; paintUH(); } return;
     case 'rdz': if(S.rd){ S.rd.z=Math.max(.6,Math.min(3,S.rd.z+(+v)*.25)); paintReader(); } return;
     case 'rdback': S.view=(S.rd&&S.rd.back)||'search'; render(); scrollTo(0,0); return;
     case 'gcopen': { if(ev&&(ev.target.closest('a')||ev.target.closest('[data-a="reader"]'))) return; S.gopen=S.gopen||new Set(); const i=+v; S.gopen.has(i)?S.gopen.delete(i):S.gopen.add(i); refreshSearch(); return; }
