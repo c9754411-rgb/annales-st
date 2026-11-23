@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="fr"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Entraînez-vous avec les QCM et examens des années passées, avec les passages du cours à réviser : gynécologie-obstétrique et STE."><meta property="og:type" content="website"><meta property="og:site_name" content="MedLagh"><meta property="og:title" content="MedLagh – 1ère plateforme de QCM exclusive à la faculté de Laghouat"><meta property="og:description" content="Entraînez-vous avec les QCM et examens des années passées, avec les passages du cours à réviser : gynécologie-obstétrique et STE."><meta property="og:url" content="https://medlaghdz.github.io/"><meta property="og:image" content="https://medlaghdz.github.io/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="fr_FR"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="MedLagh – 1ère plateforme de QCM exclusive à la faculté de Laghouat"><meta name="twitter:description" content="Entraînez-vous avec les QCM et examens des années passées, avec les passages du cours à réviser : gynécologie-obstétrique et STE."><meta name="twitter:image" content="https://medlaghdz.github.io/og.png">
 <meta name="theme-color" content="#161142"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><link rel="icon" href="icon-192.png">
 <title>MedLagh · Examens</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -8,7 +9,7 @@
 <style>
 :root{
   --bg:#eef0f7; --surface:#ffffff; --surface2:#f4f5fb; --ink:#161a33; --muted:#5f6584; --line:#dfe2ee;
-  --navy:#2b0a3d; --navy2:#4a1a66; --orange:#f59e0b; --orange2:#ff8a00; --sky:#0ea5e9; --skyink:#062a3d;
+  --navy:#1d1b4f; --navy2:#2d2a78; --orange:#f59e0b; --orange2:#ff8a00; --sky:#0ea5e9; --skyink:#062a3d;
   --good:#1f8b3a; --goodbg:#e3f6e8; --bad:#d32f2f; --badbg:#fde7e7; --sel:#fff1c9; --selb:#f2b705;
   --kw:#e11d48; --bn:#0b6fc4; --vio:#7c3aed;
   --t1:#ffe3a3; --t2:#9fefd2; --t3:#d8cbff; --t4:#ffc4d3;
@@ -16,11 +17,11 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0c0e1c; --surface:#161a31; --surface2:#1d2240; --ink:#eceefe; --muted:#a2a8cc; --line:#2b3157;
-  --navy:#1e0730; --navy2:#3a1352; --sky:#38bdf8; --skyink:#04202f; --good:#3ecf6b; --goodbg:#11331f; --bad:#ff5c5c; --badbg:#3b1518;
+  --navy:#120f3a; --navy2:#272263; --sky:#38bdf8; --skyink:#04202f; --good:#3ecf6b; --goodbg:#11331f; --bad:#ff5c5c; --badbg:#3b1518;
   --sel:#3a3112; --selb:#f2b705; --kw:#ff5c86; --bn:#5cb6ff; --vio:#a78bfa; --t1:#5a4512; --t2:#0f4a3a; --t3:#33285e; --t4:#5a2234; --shadow:none; color-scheme:dark;}}
 :root[data-theme="dark"]{
   --bg:#0c0e1c; --surface:#161a31; --surface2:#1d2240; --ink:#eceefe; --muted:#a2a8cc; --line:#2b3157;
-  --navy:#1e0730; --navy2:#3a1352; --sky:#38bdf8; --skyink:#04202f; --good:#3ecf6b; --goodbg:#11331f; --bad:#ff5c5c; --badbg:#3b1518;
+  --navy:#120f3a; --navy2:#272263; --sky:#38bdf8; --skyink:#04202f; --good:#3ecf6b; --goodbg:#11331f; --bad:#ff5c5c; --badbg:#3b1518;
   --sel:#3a3112; --selb:#f2b705; --kw:#ff5c86; --bn:#5cb6ff; --vio:#a78bfa; --t1:#5a4512; --t2:#0f4a3a; --t3:#33285e; --t4:#5a2234; --shadow:none; color-scheme:dark;}
 *{box-sizing:border-box}
 html{font-size:clamp(16px,0.45vw + 14px,18.5px);-webkit-text-size-adjust:100%}
@@ -52,7 +53,8 @@ button{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .t1{background:var(--t1)} .t2{background:var(--t2)} .t3{background:var(--t3)} .t4{background:var(--t4)}
 .grid2{display:grid;gap:16px}
 .grid2>.card{align-self:start}
-@media(min-width:900px){.grid2{grid-template-columns:1.25fr 1fr}}
+.grid2{grid-template-columns:minmax(0,1fr)}.grid2>*{min-width:0}
+@media(min-width:900px){.grid2{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}}
 .card{background:var(--surface);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);border:1px solid var(--line)}
 .sec{font-weight:900;font-size:1.12rem;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:2px;margin:0 0 12px}
 .lbl{font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
@@ -240,6 +242,10 @@ mark.hl{color:#111;border-radius:3px;padding:0 1px;box-decoration-break:clone;-w
 .pchk{width:26px;height:26px;border-radius:7px;border:2px solid var(--muted);background:var(--surface);color:#fff;font-weight:900;display:inline-grid;place-items:center;cursor:pointer;padding:0}
 .pchk.on{background:var(--good);border-color:var(--good)}
 .nt{margin-top:12px}.ntq{font-weight:700;margin:8px 0;line-height:1.45}
+.nav .again{padding:.45em .9em;font-size:.88rem;background:var(--surface2);color:var(--ink);border:1px solid var(--line)}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.fnote{display:block;width:100%;min-height:120px;resize:vertical;border:1px solid var(--line);border-left:4px solid var(--orange);background:#fffbe6;border-radius:10px;padding:10px 12px;font:inherit;font-size:1rem;color:#1b1b1b;line-height:1.5;margin-top:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .ntx{white-space:pre-wrap;background:#fffbe6;border-left:4px solid var(--orange);border-radius:10px;padding:10px 12px;color:#1b1b1b;line-height:1.5}
 .pgp{float:right;font-weight:700;color:var(--muted);font-size:.8rem}
 .ptab tr.pdone td:first-child{color:var(--good);font-weight:700}
@@ -405,7 +411,10 @@ mark.rdhl{position:absolute;background:rgba(255,214,0,.45);border-radius:3px;mix
 @media(max-width:440px){.nav{gap:6px}.nav .btn{padding:.55em .65em;font-size:.88rem;white-space:nowrap}}
 .hlbar .sw.def{box-shadow:0 0 0 2px var(--surface),0 0 0 4px var(--orange)}
 
-:root{--acc3:#7b3fa8;--hdrg:#4a1a66;--accsh:rgba(74,26,102,.3);--acctint:rgba(123,63,168,.06)}
+:root{--acc3:#5b3fd6;--hdrg:#3b33a8;--accsh:rgba(60,40,180,.3);--acctint:rgba(91,63,214,.06)}
+:root[data-acc="prune"]{--navy:#2b0a3d;--navy2:#4a1a66;--acc3:#7b3fa8;--hdrg:#4a1a66;--accsh:rgba(74,26,102,.3);--acctint:rgba(123,63,168,.06)}
+@media (prefers-color-scheme:dark){:root[data-acc="prune"]:not([data-theme="light"]){--navy:#1e0730;--navy2:#3a1352}}
+:root[data-acc="prune"][data-theme="dark"]{--navy:#1e0730;--navy2:#3a1352}
 :root[data-acc="rose"]{--navy:#7a1f4e;--navy2:#b02a6f;--acc3:#ec4899;--hdrg:#db2777;--orange:#f472b6;--orange2:#db2777;--accsh:rgba(219,39,119,.3);--acctint:rgba(236,72,153,.07);--sky:#ec4899;--skyink:#fff;--t1:#ffd6e8;--t2:#fbcfe8;--t3:#f5d0fe;--t4:#fecdd3;--vio:#c026d3}
 :root[data-acc="violet"]{--navy:#3b0764;--navy2:#6d28d9;--acc3:#a855f7;--hdrg:#7c3aed;--orange:#c084fc;--orange2:#9333ea;--accsh:rgba(124,58,237,.3);--acctint:rgba(168,85,247,.07);--sky:#8b5cf6;--skyink:#fff;--t1:#ede9fe;--t2:#e9d5ff;--t3:#f3e8ff;--t4:#fae8ff}
 :root[data-acc="vert"]{--navy:#064e3b;--navy2:#047857;--acc3:#10b981;--hdrg:#059669;--orange:#f59e0b;--orange2:#d97706;--accsh:rgba(5,150,105,.3);--acctint:rgba(16,185,129,.07);--sky:#10b981;--skyink:#032b20;--t1:#d1fae5;--t2:#a7f3d0;--t3:#ccfbf1;--t4:#fef3c7}
@@ -414,8 +423,8 @@ mark.rdhl{position:absolute;background:rgba(255,214,0,.45);border-radius:3px;mix
 :root[data-acc="noir"]{--navy:#111827;--navy2:#374151;--acc3:#6b7280;--hdrg:#1f2937;--orange:#f59e0b;--orange2:#d97706;--accsh:rgba(17,24,39,.3);--acctint:rgba(107,114,128,.08);--sky:#475569;--skyink:#fff;--t1:#f3f4f6;--t2:#e5e7eb;--t3:#e2e8f0;--t4:#fef3c7}
 :root[data-theme="dark"][data-acc] {--t1:color-mix(in srgb,var(--acc3) 22%,#161a31);--t2:color-mix(in srgb,var(--acc3) 16%,#161a31);--t3:color-mix(in srgb,var(--orange) 18%,#161a31);--t4:color-mix(in srgb,var(--acc3) 28%,#161a31)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"])[data-acc]{--t1:color-mix(in srgb,var(--acc3) 22%,#161a31);--t2:color-mix(in srgb,var(--acc3) 16%,#161a31);--t3:color-mix(in srgb,var(--orange) 18%,#161a31);--t4:color-mix(in srgb,var(--acc3) 28%,#161a31)}}
-.accs{display:flex;gap:8px;flex-wrap:wrap;padding:6px 16px 10px}
-.accs button{width:28px;height:28px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1.5px var(--line);padding:0}
+.accs{display:flex;gap:4px;flex-wrap:nowrap;justify-content:space-between;padding:6px 12px 10px}
+.accs button{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--surface);box-shadow:0 0 0 1.5px var(--line);padding:0}
 .accs button.on{box-shadow:0 0 0 2.5px var(--ink)}
 .sb.mini .accs{display:none} @media(max-width:999px){.sb.mini .accs{display:flex}}
 .hdr .tt b{color:var(--orange)}
@@ -772,6 +781,15 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .qopts li b,.qans li b{display:inline-block;min-width:1.6em}
 .qans li{font-weight:600}
 .qexp{margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--surface2);font-size:.92rem;line-height:1.5}
+.fcard .qlab{font-size:clamp(.8rem,1.8vw,.95rem)}
+.fcard .qtxt{font-size:clamp(1.25rem,3.6vw,1.7rem);line-height:1.4;font-weight:700}
+.fcard .qopts li,.fcard .qans li{font-size:clamp(1.05rem,2.8vw,1.35rem);line-height:1.45}
+.fcard .qopts,.fcard .qans{gap:12px;margin-top:18px}
+.fcard .qexp{font-size:clamp(1rem,2.4vw,1.15rem)}
+.face.qonly .qtxt{margin:auto 0;font-size:clamp(1.7rem,5.2vw,2.8rem);line-height:1.3;font-weight:800;text-align:center}
+.face.qonly .hint{text-align:center;font-size:.95rem}
+.face.qfront .hint{margin-top:auto;padding-top:14px}
+.qans li b:empty,.qopts li b:empty{display:none}
 
 .land{background:linear-gradient(125deg,#f3f8ff 0%,#d9eaff 40%,#b5d6ff 75%,#93c2ff 100%)}
 .lhero{background:none;color:#13185a}
@@ -803,8 +821,8 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 .lben{margin:0 0 26px;padding:0;list-style:none;display:grid;gap:9px;font-size:.98rem;color:#13185a;font-weight:600}
 .lben li{display:flex;gap:10px;align-items:center}
 .lben li b{flex:none;width:30px;height:30px;border-radius:10px;background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);color:#2f5fd0;display:grid;place-items:center}
-.accs{flex-wrap:nowrap;justify-content:space-between;gap:6px;padding:6px 16px 10px}
-.accs button{width:24px;height:24px;flex:none}
+.accs{flex-wrap:nowrap;justify-content:space-between;gap:4px;padding:6px 12px 10px}
+.accs button{width:22px;height:22px;flex:none}
 .bk{display:flex;gap:12px;align-items:flex-start}
 .bkimg{flex:none;width:96px;padding:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;cursor:zoom-in}
 .bkimg img{display:block;width:100%;height:auto}
@@ -817,6 +835,12 @@ kbd{display:inline-block;min-width:1.6em;text-align:center;padding:.15em .45em;b
 @media(max-width:620px){.hdr{background:linear-gradient(90deg,color-mix(in srgb,var(--navy2) 10%,#fff) 0px,color-mix(in srgb,var(--navy2) 17%,#fff) 150px,color-mix(in srgb,var(--navy2) 40%,#fff) 180px,color-mix(in srgb,var(--navy2) 72%,#fff) 210px,var(--navy2) 250px,var(--navy) 100%)!important}}
 .brandh img{background:none;border-radius:0;padding:0;box-shadow:none;height:48px;max-width:184px}
 @media(max-width:620px){.brandh img{height:36px;max-width:120px}.brandh::before{top:-6px;bottom:-6px;left:-8px;right:-38px}}
+/* téléphone : écran fixe, rien ne dépasse sur les côtés */
+html,body{overflow-x:clip;max-width:100%}
+.wrap,.ct,.card{min-width:0}
+.seg button{min-width:0}
+@media(max-width:560px){.hdr [data-a="fs"]{display:none}}
+@media(max-width:400px){.hdr #syb{display:none}.hdr .brandh img{max-width:74px;height:auto}}
 </style>
 
 </head><body>
@@ -834,12 +858,17 @@ window.__fbSignIn=()=>signInWithPopup(auth,prov()).catch(e=>{
   if(['auth/popup-blocked','auth/popup-closed-by-user','auth/cancelled-popup-request',
       'auth/operation-not-supported-in-this-environment'].includes(e.code)) signInWithRedirect(auth,prov());
 });
-window.__fbSignOut=()=>signOut(auth).then(()=>{ try{localStorage.removeItem('mt_auth');localStorage.removeItem('mt_k')}catch(e){} location.reload(); });
+const clearK=()=>{ try{ localStorage.removeItem('mt_auth'); for(const k of Object.keys(localStorage)) if(/^mt_k\d+$/.test(k)) localStorage.removeItem(k); }catch(e){} };
+window.__fbSignOut=()=>signOut(auth).then(()=>{ clearK(); location.reload(); });
+const MAXS=48*3600*1000;   // l'étudiant doit se reconnecter toutes les 48 h
 window.__fbToken=()=>auth.currentUser?auth.currentUser.getIdToken():Promise.reject(new Error('no user'));
 onAuthStateChanged(auth, async u=>{
   if(!u){ window.__onauth && window.__onauth(null,null); return; }
+  const last=Date.parse(u.metadata&&u.metadata.lastSignInTime)||0;
+  if(!last||Date.now()-last>MAXS){ clearK(); try{ localStorage.setItem('mt_exp','1'); }catch(e){} try{ await signOut(auth); }catch(e){} return; }
+  try{ localStorage.removeItem('mt_exp'); }catch(e){}
   let tok=null; try{ tok=await u.getIdToken(); }catch(e){}
-  window.__onauth && window.__onauth({uid:u.uid,email:u.email||'',name:u.displayName||''},tok);
+  window.__onauth && window.__onauth({uid:u.uid,email:u.email||'',name:u.displayName||'',last},tok);
 });
 </script>
 
@@ -947,7 +976,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261122225516';   // version du build (remplacée à la compilation)
+const BUILDV='20261123071321';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1036,7 +1065,7 @@ function reloadState(){                        // recharge l'état propre au mod
   S.fes=LS.get('mt_fes',[]).filter(k=>ex.some(e=>e[0]===k)); if(!S.fes.length&&S.fe) S.fes=[S.fe];
   S.open=new Set(); S.hideT=new Set(); S.drop=null; S.zoom=null; S.fl=null;
 }
-const GRACE=30*24*3600*1000;      // tolérance hors ligne pour un accès déjà validé
+const GRACE=48*3600*1000;         // hors ligne : accès gardé au plus 48 h après la dernière connexion
 async function onAuth(u,tok){
   AU.u=u; AU.tok=tok; AU.err='';
   if(!u){ AU.state='out'; AU.node=null; render(); return; }
@@ -1051,7 +1080,7 @@ async function onAuth(u,tok){
     AU.node=j||{profile:prof};
     AU.acc=accOf(j);
     AU.state = AU.acc.length ? 'in' : (j&&j.blocked===true ? 'blocked' : 'pending');
-    LS.set('mt_auth',{uid:u.uid,email:prof.email,ok:AU.state==='in',acc:AU.acc,at:Date.now(),mods:(j&&j.mods)||null,yacc:(j&&j.acc)||null});
+    LS.set('mt_auth',{uid:u.uid,email:prof.email,ok:AU.state==='in',acc:AU.acc,at:u.last||Date.now(),mods:(j&&j.mods)||null,yacc:(j&&j.acc)||null});
   }catch(e){
     const c=LS.get('mt_auth',null);
     if(c&&c.uid===u.uid&&c.ok&&Date.now()-c.at<GRACE){ AU.state='in'; AU.acc=c.acc||[]; AU.node={mods:c.mods,acc:c.yacc}; SY.st='off'; }
@@ -1082,7 +1111,7 @@ const S={caseQ:{}, caseAuto:LS.get('mt_caseauto',true), view:'home', theme:LS.ge
   drop:null, dq:'', zoom:null, sess:LS.get('mt_last',null), open:new Set(), hideT:new Set(), shownote:false, hl:LS.get('mt_hl',{}), noside:LS.get('mt_noside',false), sbOpen:false, sbMini:LS.get('mt_sbmini',false), pen:null, hlbar:false, hlc:LS.get('mt_hlc','#ffe066'), flk:LS.get('mt_flk',{}), fdeck:LS.get('mt_fdeck','exam'), fdir:LS.get('mt_fdir','num'), fl:null};
 if(!Array.isArray(S.fcs)) S.fcs=[];
 document.documentElement.dataset.theme=S.theme||'light';
-S.acc=LS.get('mt_acc','ocean'); if(S.acc) document.documentElement.dataset.acc=S.acc;
+S.acc=LS.get('mt_acc',''); if(S.acc) document.documentElement.dataset.acc=S.acc;
 const isDark=()=>{const t=document.documentElement.dataset.theme;return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches};
 /* sons (extraits de la vidéo) */
 const SFX={}; function play(k){ if(!S.sound) return; try{ if(!SFX[k]) SFX[k]=new Audio(SND[k]); SFX[k].currentTime=0; SFX[k].play().catch(()=>{}); }catch(e){} }
@@ -1216,7 +1245,7 @@ function sidebar(){
    <div class="sep"></div>
    ${it('theme','','moon',isDark()?'Thème clair':'Thème sombre',false)}
    <div class="grp">Couleurs</div>
-   <div class="accs">${[['ocean','#2f8fcf','Bleu ciel'],['','#2b0a3d','Classique'],['rose','#ec4899','Rose'],['violet','#8b5cf6','Violet'],['vert','#10b981','Vert'],['rouge','#e11d48','Bordeaux'],['noir','#374151','Graphite']].map(([k,c,n])=>`<button data-a="acc" data-v="${k}" class="${(S.acc||'')===k?'on':''}" style="background:${c}" title="${n}" aria-label="Thème ${n}"></button>`).join('')}</div>
+   <div class="accs">${[['','#2d2a78','Bleu marine'],['ocean','#2f8fcf','Bleu ciel'],['prune','#2b0a3d','Bleu bordeaux'],['rose','#ec4899','Rose'],['violet','#8b5cf6','Violet'],['vert','#10b981','Vert'],['rouge','#e11d48','Bordeaux'],['noir','#374151','Graphite']].map(([k,c,n])=>`<button data-a="acc" data-v="${k}" class="${(S.acc||'')===k?'on':''}" style="background:${c}" title="${n}" aria-label="Thème ${n}"></button>`).join('')}</div>
   </nav><div class="scrim ${S.sbOpen?'open':''}" data-a="sbclose"></div>`;
 }
 function vMastery(){ const done=Object.keys(S.hist).filter(k=>QI[k]); return `${header()}<div class="wrap">${mastery()}${actCard()}${evoCard()}${done.length?`<div class="card" style="margin-top:16px"><p class="sec">Mes points faibles</p>${weak()}<button class="btn" style="margin-top:10px" data-a="reset">Effacer ma progression</button></div>`:''}</div>`; }
@@ -1300,7 +1329,7 @@ function vHome(){
     <div class="card"><p class="sec">Révisions rapides</p><div class="tools5">
       <button class="tl" data-a="wrong" ${wrong.length?'':'disabled'}><span class="ti" style="background:#fde7e7;color:#c62828">§err§</span><b>${wrong.length}</b><span>Mes erreurs</span></button>
       <button class="tl" data-a="favs" ${S.fav.size?'':'disabled'}><span class="ti" style="background:#fff1c9;color:#9a6700">§mark§</span><b>${S.fav.size}</b><span>Marquées</span></button>
-      <button class="tl" data-a="noted" ${Object.keys(S.notes).length?'':'disabled'}><span class="ti" style="background:#e3f0ff;color:#0b5cad">§note§</span><b>${Object.keys(S.notes).length}</b><span>Mes notes</span></button>
+      <button class="tl" data-a="noted"><span class="ti" style="background:#e3f0ff;color:#0b5cad">§note§</span><b>${Object.keys(S.notes).length}</b><span>Mes notes</span></button>
       ${TMPC.length?`<button class="tl" data-a="flash"><span class="ti" style="background:#ece6ff;color:var(--acc3)">§cards§</span><b>${TMPC.length}</b><span>Flashcards</span></button>`:''}
       <button class="tl" data-a="nav" data-v="mastery"><span class="ti" style="background:#e3f6e8;color:#1f8b3a">§grid§</span><b>${Math.round(Q.filter(q=>S.hist[q.id]&&S.hist[q.id].ok).length/Q.length*100)}%</b><span>Ma maîtrise</span></button>
       <button class="tl" data-a="nav" data-v="search"><span class="ti" style="background:#e0f6fd;color:#0a7ea4">§search§</span><b>&nbsp;</b><span>Rechercher</span></button>
@@ -1410,10 +1439,16 @@ function vNotes(){
      <p class="ntq">${esc(String(q.stem).replace(/\*\*/g,'')).slice(0,220)}</p>
      <div class="ntx">${esc(S.notes[k])}</div>
      <div class="row" style="justify-content:flex-end;margin-top:10px"><button class="btn navy" data-a="noteq" data-v="${k}">§play§ Voir le QCM</button></div></div>`; };
+  const fk=Object.keys(S.notes).filter(k=>k.startsWith('note:')).sort((a,b)=>+b.slice(5)-+a.slice(5));
+  const fdate=k=>{ const d=new Date(+k.slice(5)); return isNaN(d)?'':d.toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}); };
+  const fcard=k=>`<div class="card nt"><div class="pills"><span class="pill">Note libre</span><span class="muted" style="font-size:.78rem;margin-left:auto">${fdate(k)}</span></div>
+     <label class="sr" for="fn_${k.slice(5)}">Note libre</label><textarea class="fnote" id="fn_${k.slice(5)}" data-k="${k}" placeholder="Écrivez votre note…">${esc(S.notes[k]||'')}</textarea>
+     <div class="row" style="justify-content:flex-end;margin-top:8px"><button class="btn" data-a="ndel" data-v="${k}">Supprimer la note</button></div></div>`;
+  const tot=ks.length+fk.length;
   return `${header()}<div class="wrap"><div class="row back"><button class="btn" data-a="home">← Accueil</button>
-   ${ks.length?`<button class="btn green" data-a="notesall" style="margin-left:auto">§play§ Réviser les ${ks.length} QCM annotés</button>`:''}</div>
-   <div class="card"><p class="sec">§note§ Mes notes</p><p class="muted" style="margin:0">${ks.length?`${ks.length} note${ks.length>1?'s':''}. Lisez vos notes ; « Voir le QCM » ouvre la question correspondante.`:'Aucune note pour l\'instant. Pendant un QCM, utilisez le bouton crayon pour écrire une note.'}</p></div>
-   ${ks.map(card).join('')}</div>`;
+   <div class="row" style="margin-left:auto;gap:8px"><button class="btn orange" data-a="nnew">+ Une note</button>${ks.length?`<button class="btn green" data-a="notesall">§play§ Réviser les ${ks.length} QCM annotés</button>`:''}</div></div>
+   <div class="card"><p class="sec">§note§ Mes notes</p><p class="muted" style="margin:0">${tot?`${tot} note${tot>1?'s':''}. « + Une note » ajoute une note libre ; « Voir le QCM » ouvre la question d'une note de QCM.`:'Aucune note pour l\'instant. « + Une note » ajoute une note libre ; pendant un QCM, le bouton crayon ajoute une note sur la question.'}</p></div>
+   ${fk.map(fcard).join('')}${ks.map(card).join('')}</div>`;
 }
 function vStats(){
   const rows=courseRows().sort((a,b)=>b.tot-a.tot||b.inEx-a.inEx);
@@ -1510,7 +1545,7 @@ function vFlashQA(){
       h+=`<div style="margin-top:16px;max-width:820px;margin-left:auto;margin-right:auto"><div class="fl-top"><b>Carte ${F.i+1} / ${F.deck.length}</b>${st?`<span class="gchip ${st==='ok'?'g2':'fchip'}">${st==='ok'?'✓ déjà sue':'✗ à revoir'}</span>`:''}<span class="muted" style="margin-left:auto;font-size:.78rem">${esc(c.lab)} · Q${esc(c.num)}</span></div>
        <div class="fl-prog"><i style="width:${F.i/F.deck.length*100}%"></i></div></div>
        <div class="flip"><div class="fcard ${F.flip?'on':''}" data-a="fflip" id="fcard">
-        <div class="face front qfront"><div class="qlab">Question${c.m?' · plusieurs réponses possibles':''}</div><div class="qtxt">${rich(c.q).replace(/\n/g,'<br>')}</div>
+        <div class="face front qfront${c.o.length?'':' qonly'}"><div class="qlab">Question${c.m?' · plusieurs réponses possibles':''}</div><div class="qtxt">${rich(c.q).replace(/\n/g,'<br>')}</div>
           <ol class="qopts">${c.o.map(([l,t])=>`<li><b>${esc(l)}</b> <span>${rich(t)}</span></li>`).join('')}</ol><div class="hint">Touchez pour voir la réponse</div></div>
         <div class="face back qfront"><div class="qlab">Réponse</div>
           <ul class="qans">${c.a.map(([l,t])=>`<li><b>${esc(l)}</b> <span>${rich(t)}</span></li>`).join('')}</ul>
@@ -1879,7 +1914,7 @@ function vQuiz(){
   if(done&&q.type==='open') h+= a.self ? (a.ok?`<div class="verdict ok">✓ Je savais</div>`:`<div class="verdict ko">✗ À revoir</div>`) : `<div class="selfg"><span>Comparez avec la réponse attendue :</span><button class="btn red" data-a="selfg" data-v="0">✗ À revoir</button><button class="btn green" data-a="selfg" data-v="1">✓ Je savais</button></div>`;
   else if(done) h+= a.ok?`<div class="verdict ok">✓ Bonne réponse</div>`:`<div class="verdict ko">✗ ${(!a.ch||!a.ch.length)&&q.type!=='match'?'Sans réponse':'Mauvaise réponse'}${q.type!=='match'?' · réponse juste : '+esc([...correctOf(q)].map(k=>dispL(q,k)).join(q.cb?'+':', ')):''}</div>`;
   const hasSel = q.type==='open' ? true : q.type==='match' ? sel.m && Object.values(sel.m).some(v=>v.length) : (sel.ch||[]).length;
-  const mid = done ? '' : s.mode==='rev' ? `<button class="btn green" data-a="validate" ${hasSel?'':'disabled'}>Afficher la réponse</button>` : (s.finished?'':`<span class="muted" style="font-size:.82rem">${q.type==='open'?'QROC : réponse attendue affichée à la correction':hasSel?'Réponse enregistrée':'Sélectionnez puis passez à la suivante'}</span>`);
+  const mid = done ? (s.mode==='rev'?`<button class="btn sm again" data-a="qagain" title="Refaire cette question">§repeat§ Refaire</button>`:'') : s.mode==='rev' ? `<button class="btn green" data-a="validate" ${hasSel?'':'disabled'}>Afficher la réponse</button>` : (s.finished?'':`<span class="muted" style="font-size:.82rem">${q.type==='open'?'QROC : réponse attendue affichée à la correction':hasSel?'Réponse enregistrée':'Sélectionnez puis passez à la suivante'}</span>`);
   h+=`<div class="nav"><button class="btn navy" data-a="prev" ${s.i?'':'disabled'}>§prev§ Précédent</button><div class="sp">${mid}</div><button class="btn navy" data-a="next">${s.i+1<n?'Suivant §next§':(s.mode==='exam'&&!s.finished?'Terminer §stop§':'Résultats')}</button></div>`;
   if(S.shownote) h+=`<div class="notes"><textarea id="notearea" placeholder="Ma note sur cette question…">${esc(S.notes[q.id]||'')}</textarea></div>`;
   h+=`</div>`;
@@ -1969,6 +2004,7 @@ function vGate(){
   if(AU.state==='load') return gshell(`<h2>Connexion</h2>
    <p class="gs">Vérification de votre accès…</p>`);
   if(AU.state==='out') return gshell(`<h2>Connexion</h2>
+   ${(()=>{try{return localStorage.getItem('mt_exp')==='1'}catch(e){return false}})()?`<p class="gn" style="color:var(--orange2);font-weight:700">Votre session a expiré : reconnectez-vous (une connexion est demandée toutes les 48 h pour charger les nouveautés).</p>`:''}
    ${GBTN}
    <p class="gn">Votre progression est enregistrée sur votre compte Google : vous la retrouvez
      sur votre téléphone, votre PC et votre tablette, sans rien à recopier.</p>`);
@@ -2021,6 +2057,10 @@ function render(keep){
   if(keep) scrollTo(0,y);
   const dq=document.getElementById('dq'); if(dq){ dq.focus(); dq.setSelectionRange(dq.value.length,dq.value.length); dq.addEventListener('input',e=>{S.dq=e.target.value; render(true);}); }
   const gs=document.getElementById('gs'); if(gs){ if(!keep||S.focusGS){ gs.focus(); gs.setSelectionRange(gs.value.length,gs.value.length);} gs.addEventListener('input',e=>{ S.gq=e.target.value; clearTimeout(gs._t); gs._t=setTimeout(()=>{ S.gopen=new Set(); refreshSearch(); },140); }); }
+  document.querySelectorAll('.fnote').forEach(t=>{ const k=t.dataset.k;
+    t.addEventListener('input',()=>{ S.notes[k]=t.value; LS.set('mt_notes',S.notes); });
+    t.addEventListener('blur',()=>{ if(!t.value.trim()&&S.notes[k]!==undefined){ delete S.notes[k]; LS.set('mt_notes',S.notes); setTimeout(()=>render(true),0); } }); });
+  if(S.nfocus){ const t=document.querySelector('.fnote[data-k="'+S.nfocus+'"]'); S.nfocus=null; if(t){ t.focus(); t.scrollIntoView({block:'center'}); } }
   const na=document.getElementById('notearea'); if(na){ na.addEventListener('input',e=>{ const q=cur(); const v=e.target.value.trim(); if(v) S.notes[q.id]=e.target.value; else delete S.notes[q.id]; LS.set('mt_notes',S.notes); }); }
   const st=document.getElementById('strip'); if(st){ const c=st.querySelector('.cur'); if(c) st.scrollLeft=c.offsetLeft-st.clientWidth/2; }
   const sd=document.querySelector('.side .lst'); if(sd){ const c=sd.querySelector('.cur'); if(c&&(c.offsetTop<sd.scrollTop||c.offsetTop>sd.scrollTop+sd.clientHeight-40)) sd.scrollTop=c.offsetTop-sd.clientHeight/2; }
@@ -2162,6 +2202,8 @@ function act(a,v,el,ev){
     case 'favs': newSession([...S.fav].filter(k=>QI[k]),'Questions marquées'); return;
     case 'install': doInstall(); return;
     case 'noted': S.view='notes'; render(); scrollTo(0,0); return;
+    case 'nnew': { const k='note:'+Date.now(); S.notes[k]=''; S.nfocus=k; render(true); return; }
+    case 'ndel': delete S.notes[v]; LS.set('mt_notes',S.notes); render(true); return;
     case 'noteq': newSession([v],'Ma note'); return;
     case 'notesall': newSession(Object.keys(S.notes).filter(k=>QI[k]),'Mes notes'); return;
     case 'reset': S.hist={}; LS.set('mt_hist',{}); render(true); return;
@@ -2201,6 +2243,7 @@ function act(a,v,el,ev){
     case 'why': S.open.has(v)?S.open.delete(v):S.open.add(v); render(true); return;
     case 'next': if(s.i+1<s.ids.length) go(s.i+1); else { if(s.mode==='exam'&&!s.finished){ s.endAt=Date.now(); finishExam(); } else { S.view='end'; render(); scrollTo(0,0);} } return;
     case 'prev': go(s.i-1); return;
+    case 'qagain': { const q=cur(); delete s.ans[q.id]; delete s.sel[q.id]; if(s.strk) delete s.strk[q.id]; save(); render(true); return; }
     case 'goto': go(+v); return;
     case 'jump': S.view='quiz'; go(+v); return;
     case 'finish': s.endAt=Date.now(); finishExam(); return;
