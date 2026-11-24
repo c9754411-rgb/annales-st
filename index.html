@@ -1027,7 +1027,7 @@ const MODS=[
  {id:'gygy',y:5,name:'Gynécologie-Obstétrique',book:'Gynéco-Obstétrique en poche',sub:'Pr OUZIRI',     nq:149,nex:6,ntip:31, ncard:149},
  {id:'pedia',y:5,name:'Pédiatrie',            sub:'Dr. KADI',nq:272,nex:5,ntip:101,ncard:0},
  {id:'ste', y:6,name:'Médecine du travail',    sub:'Dr S. LEBOUABI',nq:446,nex:8,ntip:131,ncard:87},
- {id:'sys', y:6,name:'Maladies de système',book:'Maladies de système en poche',sub:'Dr BENLAABIDI',nq:95,nex:2,ntip:13,ncard:0}
+ {id:'sys', y:6,k:5,name:'Maladies de système',book:'Maladies de système en poche',sub:'Dr BENLAABIDI',nq:95,nex:2,ntip:13,ncard:0}
 ];
 const MIDS=MODS.map(m=>m.id), MOD=Object.fromEntries(MODS.map(m=>[m.id,m]));
 const YEARS=[...new Set(MODS.map(m=>m.y))].sort();
@@ -1042,7 +1042,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261124115321';   // version du build (remplacée à la compilation)
+const BUILDV='20261124140000';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1107,8 +1107,8 @@ async function loadMod(id){                    // télécharge et déchiffre un 
     const r=await fetch('mod/'+id+'.enc?v='+BUILDV,{cache:'force-cache'});
     if(!r.ok) throw new Error('module '+r.status);
     const raw=B64((await r.text()).trim());
-    let pt; try{ pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:raw.slice(0,12)},await yearKey(m.y),raw.slice(12)); }
-    catch(e){ try{localStorage.removeItem('mt_k'+m.y);}catch(_){} pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:raw.slice(0,12)},await yearKey(m.y),raw.slice(12)); }
+    let pt; try{ pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:raw.slice(0,12)},await yearKey(m.k||m.y),raw.slice(12)); }
+    catch(e){ try{localStorage.removeItem('mt_k'+(m.k||m.y));}catch(_){} pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:raw.slice(0,12)},await yearKey(m.k||m.y),raw.slice(12)); }
     MCACHE[id]=JSON.parse(new TextDecoder().decode(pt));
   }
   migrate(id); CUR=id; reloadState(); setData(MCACHE[id]);
