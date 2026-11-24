@@ -66,9 +66,10 @@ const DB  = 'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'
 const MODS_A = [
   {id:'gygy', n:'Gynéco-Obstétrique', s:'Gynéco', y:5},
   {id:'pedia', n:'Pédiatrie', s:'Pédiatrie', y:5},
-  {id:'ste', n:'Médecine du travail', s:'Méd. travail', y:6}
+  {id:'ste', n:'Médecine du travail', s:'Méd. travail', y:6},
+  {id:'sys', n:'Maladies de système', s:'Mal. système', y:6}
 ];
-const MODL = [['gygy','Gynécologie-Obstétrique · 5ᵉ année'],['pedia','Pédiatrie · 5ᵉ année'],['ste','Médecine du travail · 6ᵉ année']];
+const MODL = [['gygy','Gynécologie-Obstétrique · 5ᵉ année'],['pedia','Pédiatrie · 5ᵉ année'],['ste','Médecine du travail · 6ᵉ année'],['sys','Maladies de système · 6ᵉ année']];
 
 const auth=getAuth(initializeApp(CFG));
 const $=s=>document.querySelector(s);
@@ -136,6 +137,14 @@ async function render(u){
      <div class="row"><span class="uid" id="uid">${u.uid}</span><button id="cpuid">Copier</button></div></div>
    ${err?`<div class="warn"><b>${esc(err)}</b></div>`:''}
    ${modcard}
+   <div class="card"><h2>Chiffrer un module</h2>
+     <p class="sm muted" style="margin-top:0">Choisissez le fichier du module en clair (ex. <code>sys.json</code>, jamais dans le dépôt). Il est chiffré ici, dans votre navigateur, avec la clé de l'année lue dans Firebase, puis téléchargé sous le nom <code>sys.enc</code> à mettre dans le dossier <code>mod/</code>.</p>
+     <div class="row"><input type="file" id="encf" accept=".json,application/json">
+       <select id="ency" style="font:inherit;padding:.5em;border-radius:10px;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink)"><option value="6">6ᵉ année</option><option value="5">5ᵉ année</option></select>
+       <button class="navy" id="encgo">Chiffrer et télécharger</button></div></div>
+   <div class="card"><h2>Accès groupé · Maladies de système</h2>
+     <p class="sm muted" style="margin-top:0">Donne « Maladies de système » à tous les étudiants qui ont déjà « Médecine du travail » (même année).</p>
+     <button class="orange" id="bulksys">Donner l'accès à ${L.filter(x=>x.g.includes('ste')&&!x.g.includes('sys')).length} étudiant(s)</button></div>
    <div class="card"><div class="stat">
      <div><b>${wait.length}</b><span>en attente</span></div>
      <div><b>${act.length}</b><span>avec au moins un module</span></div>
@@ -156,6 +165,28 @@ async function render(u){
    ${off.length?`<div class="card"><h2>Sans accès</h2>
      <div class="tw"><table><tbody>${off.map(line).join('')}</tbody></table></div></div>`:''}`;
 
+  $('#encgo').onclick=async()=>{
+    const f=$('#encf').files[0], y=$('#ency').value; if(!f){ toast('Choisissez le fichier .json'); return; }
+    try{
+      const txt=await f.text(); JSON.parse(txt);
+      let k=null; try{ k=await api('/secret/'+y+'.json'); }catch(e){} if(!k) k=(prompt('Clé de la '+y+'e année introuvable ou illisible dans Firebase.\nCollez la clé (base64) :')||'').trim(); if(!k) throw new Error('Clé manquante');
+      const raw=Uint8Array.from(atob(k),c=>c.charCodeAt(0));
+      const key=await crypto.subtle.importKey('raw',raw,'AES-GCM',false,['encrypt','decrypt']);
+      const iv=crypto.getRandomValues(new Uint8Array(12));
+      const ct=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(txt)));
+      const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,ct); if(new TextDecoder().decode(pt)!==txt) throw new Error('Vérification échouée');
+      const all=new Uint8Array(12+ct.length); all.set(iv,0); all.set(ct,12);
+      let b=''; for(let i=0;i<all.length;i+=32768) b+=String.fromCharCode.apply(null,all.subarray(i,i+32768));
+      const out=new Blob([btoa(b)],{type:'text/plain'}); const a=document.createElement('a');
+      a.href=URL.createObjectURL(out); a.download=f.name.replace(/\.json$/i,'')+'.enc'; document.body.appendChild(a); a.click(); a.remove();
+      toast('✓ '+a.download+' téléchargé');
+    }catch(e){ toast(e.message||String(e)); }
+  };
+  $('#bulksys').onclick=async()=>{
+    const T=L.filter(x=>x.g.includes('ste')&&!x.g.includes('sys')); if(!T.length){ toast('Personne à ajouter'); return; }
+    if(!confirm('Donner « Maladies de système » à '+T.length+' étudiant(s) ?')) return;
+    try{ for(const x of T) await setGrant(x.uid,'sys',true); toast('✓ Accès donné à '+T.length+' étudiant(s)'); render(u); }catch(e){ toast(e.message); }
+  };
   $('#cpuid').onclick=()=>{navigator.clipboard.writeText(u.uid);toast('UID copié')};
   /* écrit toute la liste des modules d'un étudiant (évite de perdre les accès anciens) */
   const setGrant=async(uid,id,val)=>{

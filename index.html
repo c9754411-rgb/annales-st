@@ -955,7 +955,8 @@ const PDFS_STE=[['STE_Synthese_orientee_examen.pdf','Résumé du module','Synth�
 const RES={
   ste:{drive:DRIVE,local:LOCALC,auth:AUTH,dauth:'Dr S. LEBOUABI · 2026-2027',poly:POLY,polysub:'Google Drive · Dr Lebouabi',pdfs:PDFS_STE},
   gygy:{drive:{"comm": "1XZkvCpj0EBGRwxA8XZtZEmJO4RJunptW", "sf": "15ZsYKuj7ksqoPYmnV5LMifEjeU7rq0bI", "amen": "19xzTrxkIz7gZY9ixr_pxw5x9rFntO8lQ", "contra": "1pqZxouwU0IIaWdG71yNS4_Uf7X4vike4", "deliv": "1nc0Rut5nW92chMREFlm2kPBCYd920T6B", "suites": "1nc0Rut5nW92chMREFlm2kPBCYd920T6B", "defl": "1FkNI_unjDxBalRSNNeUF2x3J3b9FXbYk", "meca": "1FwlDxdhPnBMsqn3F2xhmFn4pYauzKpRJ", "geu": "1Rw-hguuZtQyhQdl_bM47th0GMTmgvyHi", "bassin": "1n-37rRrw4tbGYVgxxCz55lTFmFI8PjTs", "mole": "1Pl6X6G-yaXMv-Ys07gReCQjrkd0Xthh0", "ovaire": "1z8y9BuVmGHP8Uo1Ov7Bgpq_K2oxuNKFy", "siege": "1zgSoqFqO5uGrb3gPhHAwoNE8EgA6iiPl", "fibrome": "1uKHb8Mws4dY0zWEg-5Ejxbwmft9LhTVJ", "cycle": "19S_HMFG5FNzn5799qBu0luC6aZGKZc_r", "grossesse": "1sykqvCgft9Cn4ya3ONfOD8S-HUlPvIZy", "endomet": "1dSzWIHJ6pJrRy4MwloRCQfXJvNOVrR1P", "infg": "1fjMmsSdN_--_GRV-PqCTiZ-zonea5Y0D", "rhesus": "1AgWtvmendf5RHZ-J4Z0pDeVNAffLlG7M", "avort": "134FQvnOqP621ok96QBX-g9d61UAlnW4g", "prema": "1Rok2dCqRMIm__AAVxLlFd5m6NkS_EvBw"},local:{"diab": "mod/gygy/cours/diab.pdf", "hta": "mod/gygy/cours/hta.pdf", "col": "mod/gygy/cours/col.pdf", "infert": "mod/gygy/cours/infert.pdf", "igh": "mod/gygy/cours/igh.pdf", "meno": "mod/gygy/cours/meno.pdf", "h3t": "mod/gygy/cours/h3t.pdf"},auth:{},dauth:'Pr OUZIRI',poly:'',polysub:'',pdfs:[],folder:'1DmmitrSkUE17ugCJ2hniEsCYz4WrDkvG'},
-  pedia:{drive:{},local:{},auth:{},dauth:'',poly:'',polysub:'',pdfs:[]}
+  pedia:{drive:{},local:{},auth:{},dauth:'',poly:'',polysub:'',pdfs:[]},
+  sys:{drive:{},local:{},auth:{les:'Dr M. HAMMACHE',sapl:'Dr M. HAMMACHE',vasc:'Dr M. HAMMACHE',mai:'Dr M. HAMMACHE',sib:'Dr M. HAMMACHE',sgs:'Dr F. BENLABIDI',amy:'Dr F. BENLABIDI',trt:'Pr B. BENZIANE',rares:'Pr F. BENMEDIOUNI',scs:'Pr F. BENMEDIOUNI',aan:'Pr F. BENMEDIOUNI',behcet:'Dr W. MESMOUS',mainf:'Pr S. CHEMALI'},dauth:'',poly:'',polysub:'',pdfs:[]}
 };
 const R=()=>RES[CUR]||RES.ste;
 const clink=k=>R().local[k]||(R().drive[k]?dlink(R().drive[k]):'');
@@ -1025,7 +1026,8 @@ function setData(d){ DATA=d; Q=d.q||[]; QI=Object.fromEntries(Q.map(q=>[q.id,q])
 const MODS=[
  {id:'gygy',y:5,name:'Gynécologie-Obstétrique',book:'Gynéco-Obstétrique en poche',sub:'Pr OUZIRI',     nq:149,nex:6,ntip:31, ncard:149},
  {id:'pedia',y:5,name:'Pédiatrie',            sub:'Dr. KADI',nq:272,nex:5,ntip:101,ncard:0},
- {id:'ste', y:6,name:'Médecine du travail',    sub:'Dr S. LEBOUABI',nq:446,nex:8,ntip:131,ncard:87}
+ {id:'ste', y:6,name:'Médecine du travail',    sub:'Dr S. LEBOUABI',nq:446,nex:8,ntip:131,ncard:87},
+ {id:'sys', y:6,name:'Maladies de système',book:'Maladies de système en poche',sub:'Dr BENLAABIDI',nq:95,nex:2,ntip:13,ncard:0}
 ];
 const MIDS=MODS.map(m=>m.id), MOD=Object.fromEntries(MODS.map(m=>[m.id,m]));
 const YEARS=[...new Set(MODS.map(m=>m.y))].sort();
@@ -1040,7 +1042,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261123193252';   // version du build (remplacée à la compilation)
+const BUILDV='20261124115321';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1258,7 +1260,7 @@ function vYears(){
     </div>`);
 }
 /* modules annoncés (pas encore dans l'app) : visibles et verrouillés */
-const TEASE=[{id:'sys',y:6,name:'Maladies de système',sub:'Dr BENLAABIDI',nq:120,nex:4}];
+const TEASE=[];
 function vMods(){
   const ms=MODS.filter(m=>m.y===YEAR&&isOpen(m)&&grantOf(AU.node,m.id)), lock=MODS.filter(m=>m.y===YEAR&&!ms.includes(m));
   return mshell('Vos modules',ord(YEAR)+' année · Faculté de médecine de Laghouat',
@@ -1467,7 +1469,12 @@ const PLAN=[{"t": "Généralités, croissance et développement", "rows": [{"n":
 const PLAN_STEPS=['Couche 1','Couche 2','Couche 3','QCM','ECOS'];
 function planState(){ return LS.get('mt_plan',{}); }
 /* planning par module : tableau fixe (pédiatrie) ou cours du module regroupés par thème */
-const PLAN_GROUPS={gygy:[
+const PLAN_GROUPS={sys:[
+ ['Connectivites',['les','sapl','sgs','scs','mai','aan']],
+ ['Vascularites',['vasc','behcet']],
+ ['Auto-inflammation, amyloses, maladies rares',['mainf','amy','rares']],
+ ['Transversal',['trt','sib','dip','thromb','ped']]],
+ gygy:[
  ['Obstétrique normale',['bassin','meca','grossesse','sommet','siege','transv','defl','deliv','suites']],
  ['Pathologie obstétricale',['h3t','geu','avort','prema','hta','sf','rhesus','diab','infg','mole']],
  ['Gynécologie fonctionnelle',['cycle','amen','infert','contra','meno','igh','algies']],
@@ -1600,7 +1607,8 @@ function actCard(){
    ${cols(D.map(d=>d.n),D.map(d=>d.l),'var(--acc3)')}
    <p class="muted" style="font-size:.8rem;margin:8px 0 0">Une question est comptée le jour de votre dernière réponse.</p></div>`; }
 const EXAM_T=Date.UTC(2026,11,5,7,0,0);   /* examen théorique : samedi 5 décembre 2026, 8 h (UTC+1) */
-function cdHTML(){ const s=Math.floor(Math.max(0,EXAM_T-Date.now())/1000);
+const EXAM_TS={sys:Date.UTC(2026,10,26,13,0,0)};   /* maladies de système : jeudi 26 novembre 2026, 14 h (UTC+1) */
+function cdHTML(){ const s=Math.floor(Math.max(0,(EXAM_TS[CUR]||EXAM_T)-Date.now())/1000);
   const d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60), x=s%60;
   const b=(v,l)=>`<div class="cdb"><b>${String(v).padStart(2,'0')}</b><span>${l}</span></div>`;
   return b(d,'jours')+b(h,'heures')+b(m,'minutes')+b(x,'secondes'); }
@@ -1802,7 +1810,7 @@ function snippet(text,w){ const t=String(text).replace(/\*\*|\[\[|\]\]/g,''); co
   for(const x of w){ const nn=norm(sn); let out='', k=0, j; const src=sn; let res=''; let last=0; let idx=nn.indexOf(x);
     if(idx<0) continue; res=''; last=0; while(idx>=0){ res+=esc(src.slice(last,idx))+'<mark class="sm">'+esc(src.slice(idx,idx+x.length))+'</mark>'; last=idx+x.length; idx=nn.indexOf(x,last); } res+=esc(src.slice(last)); h=res; break; }
   return h; }
-const KWS={gygy:['pré-éclampsie','hémorragie de la délivrance','bassin','Bracht','cancer du col','diabète gestationnel'],ste:['amiante','21 jours','plombémie','TMP 42','Caplan'],pedia:['nouveau-né','ictère','asthme','convulsions']};
+const KWS={gygy:['pré-éclampsie','hémorragie de la délivrance','bassin','Bracht','cancer du col','diabète gestationnel'],ste:['amiante','21 jours','plombémie','TMP 42','Caplan'],pedia:['nouveau-né','ictère','asthme','convulsions'],sys:['lupus','anti-SSA','amylose','Behçet','Horton','Schirmer']};
 const kwList=()=>(KWS[CUR]||KWS.ste).join(', ');
 const QL=qid=>QI[qid]?`${QI[qid].label} · Q${QI[qid].n}`:qid;
 function bookSearch(term){ const w=norm(term).split(/\s+/).filter(x=>x.length>1); if(!w.length) return []; return (BOOK||[]).filter(p=>w.every(x=>norm(p.t).includes(x))).map(p=>({p,w})); }
@@ -1981,7 +1989,7 @@ function caseHTML(q){
   if(!q.case) return '';
   const lines=DATA.cases[q.case]||[]; const s=S.sess; const prev=s.ids[s.i-1]&&QI[s.ids[s.i-1]];
   const first=!prev||prev.case!==q.case;
-  const body=lines.map(l=>l.img!==undefined?(CAPS['img:'+l.img]?`<div class="cap"><img src="${cimg('img:'+l.img)}" data-a="zoom" data-v="img:${l.img}" alt="Audiogramme"></div>`:''):l.p!==undefined?`<p>${rich(l.p)}</p>`:`<div class="tscroll"><table class="t">${l.tbl.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`).join('');
+  const body=lines.map(l=>l.img!==undefined?(CAPS['img:'+l.img]?`<div class="cap"><img src="${cimg('img:'+l.img)}" data-a="zoom" data-v="img:${l.img}" alt="Document du cas clinique"></div>`:''):l.p!==undefined?`<p>${rich(l.p)}</p>`:`<div class="tscroll"><table class="t">${l.tbl.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</table></div>`).join('');
   const u=S.caseQ[q.id]; const open = u!==undefined ? u : (first || !S.caseAuto);
   return `<details class="casebox" ${open?'open':''} data-case="${q.case}" data-q="${q.id}"><summary>§clip§ Énoncé du cas clinique <span class="cst">${open?'▴ masquer':'▾ afficher'}</span></summary><div class="hlz" data-hk="case:${q.case}">${body}</div></details>`;
 }
@@ -2048,7 +2056,7 @@ function vQuiz(){
     { const wa=warnSplit(q)[1]; h+=`<div class="card comm"><h3>§msg§ Commentaire :</h3>${wa.length?`<div class="note wrem"><b>Remarque :</b> ${wa.map(rich).join(' ')}</div>`:''}<div class="gx">${noteHTML(q.g)}</div>${q.tip?`<div class="astuce"><b class="ah">§bulb§ Astuce</b><div class="at">${rich(q.tip)}</div></div>`:''}`; }
     if(q.cs) h+=`<div class="csum"><b class="h">§pdf§ Résumé du cas clinique</b>${rich(q.cs)}</div>`;
     if((q.o||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§bookopen§ Cours officiel · ${authQ(q)}${CN[q.c]?' · '+esc(CN[q.c]):''} <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${[...new Set(q.o.map(x=>'p. '+x[1]))].join(', ')} · toucher pour agrandir</span></div>${q.o.map(([src,pg])=>`<img loading="lazy" src="${oimg(src)}" data-a="zoom" data-v="url:${src}" alt="Cours officiel, page ${pg}">`).join('')}</div>`;
-    if((q.k||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§book§ Rappel du livre « Gynéco-Obstétrique en poche » <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${q.k.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${q.k.map(([src,pg])=>`<img loading="lazy" src="${MP()+src}" data-a="zoom" data-v="url:${src}" alt="Livre en poche, page ${pg}">`).join('')}</div>`;
+    if((q.k||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§book§ Rappel du livre « ${esc((MOD[CUR]||{}).book||'Livre en poche')} » <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${q.k.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${q.k.map(([src,pg])=>`<img loading="lazy" src="${MP()+src}" data-a="zoom" data-v="url:${src}" alt="Livre en poche, page ${pg}">`).join('')}</div>`;
     if((q.s||[]).length) h+=`<details class="cap poly" ${(q.o||[]).length?'':'open'}><summary class="lbl" style="margin-top:12px;cursor:pointer">§pdf§ Résumé · polycopié ${esc((MOD[CUR]||{}).sub||'')} ▾</summary>${q.s.map(k=>CAPS['s:'+k]?`<img loading="lazy" src="${cimg('s:'+k)}" data-a="zoom" data-v="s:${k}" alt="Extrait du polycopié">`:'').join('')}</details>`;
     for(const t of (q.t||[])){ if(!CAPS['t:'+t]) continue; const hid=S.hideT.has(t);
       h+=`<div class="tmp"><div class="th">§clip§ Tableau de maladie professionnelle n° ${t}<button class="btn" style="padding:.25em .7em;font-size:.8rem" data-a="tmp" data-v="${t}">${hid?'Afficher':'Masquer'}</button></div>${hid?'':`<img loading="lazy" src="${cimg('t:'+t)}" data-a="zoom" data-v="t:${t}" alt="Tableau n° ${t}">`}</div>`; }
