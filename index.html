@@ -1042,7 +1042,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261125120000';   // version du build (remplacée à la compilation)
+const BUILDV='20261125130000';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1104,7 +1104,7 @@ const MCACHE={};
 async function loadMod(id){                    // télécharge et déchiffre un module
   const m=MOD[id]; if(!m) return;
   if(!MCACHE[id]){
-    const r=await fetch('mod/'+id+'.enc?v='+BUILDV,{cache:'force-cache'});
+    const r=await fetch('mod/'+id+'.enc?v='+BUILDV,{cache:'no-cache'});
     if(!r.ok) throw new Error('module '+r.status);
     const raw=B64((await r.text()).trim());
     let pt; try{ pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:raw.slice(0,12)},await yearKey(m.y,m.kc),raw.slice(12)); }
