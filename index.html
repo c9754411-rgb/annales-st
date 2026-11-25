@@ -173,6 +173,7 @@ table.t tr:first-child td,table.t th{background:var(--surface2);font-weight:700}
 .alist div:last-child{border-bottom:0}
 .cap{margin-top:12px}
 .cap img{display:block;width:100%;border-radius:10px;border:1px solid var(--line);background:#fff;cursor:zoom-in;margin-top:6px}
+@media(max-width:620px){.cap .cimg{width:100vw;margin-left:calc(50% - 50vw);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}.cap .cimg::-webkit-scrollbar{display:none}.cap .cimg img{width:118vw;max-width:none;border-radius:0;border-left:0;border-right:0}}
 .tmp{margin-top:12px;border:1.5px solid var(--line);border-radius:12px;overflow:hidden}
 .tmp .th{display:flex;align-items:center;gap:8px;padding:.55em .8em;background:var(--surface2);font-weight:800;color:var(--navy2)}
 :root[data-theme="dark"] .tmp .th{color:var(--sky)}
@@ -1027,7 +1028,7 @@ const MODS=[
  {id:'gygy',y:5,name:'Gynécologie-Obstétrique',book:'Gynéco-Obstétrique en poche',sub:'Pr OUZIRI',     nq:149,nex:6,ntip:31, ncard:149},
  {id:'pedia',y:5,name:'Pédiatrie',            sub:'Dr. KADI',nq:272,nex:5,ntip:101,ncard:0},
  {id:'ste', y:6,name:'Médecine du travail',    sub:'Dr S. LEBOUABI',nq:446,nex:8,ntip:131,ncard:87},
- {id:'sys', y:6,kc:'6s',name:'Maladies de système',book:'Maladies de système en poche',sub:'Dr BENLAABIDI',nq:95,nex:2,ntip:13,ncard:0}
+ {id:'sys', y:6,kc:'6s',name:'Maladies de système',book:'Maladies de système en poche',sub:'Dr BENLAABIDI',nq:131,nex:3,ntip:17,ncard:0}
 ];
 const MIDS=MODS.map(m=>m.id), MOD=Object.fromEntries(MODS.map(m=>[m.id,m]));
 const YEARS=[...new Set(MODS.map(m=>m.y))].sort();
@@ -1042,7 +1043,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261124150500';   // version du build (remplacée à la compilation)
+const BUILDV='20261125110000';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
@@ -1472,7 +1473,7 @@ function planState(){ return LS.get('mt_plan',{}); }
 const PLAN_GROUPS={sys:[
  ['Connectivites',['les','sapl','sgs','scs','mai','aan']],
  ['Vascularites',['vasc','behcet']],
- ['Auto-inflammation, amyloses, maladies rares',['mainf','amy','rares']],
+ ['Auto-inflammation, granulomatoses, amyloses, maladies rares',['mainf','granu','amy','rares']],
  ['Transversal',['trt','sib','dip','thromb','ped']]],
  gygy:[
  ['Obstétrique normale',['bassin','meca','grossesse','sommet','siege','transv','defl','deliv','suites']],
@@ -2056,7 +2057,12 @@ function vQuiz(){
     { const wa=warnSplit(q)[1]; h+=`<div class="card comm"><h3>§msg§ Commentaire :</h3>${wa.length?`<div class="note wrem"><b>Remarque :</b> ${wa.map(rich).join(' ')}</div>`:''}<div class="gx">${noteHTML(q.g)}</div>${q.tip?`<div class="astuce"><b class="ah">§bulb§ Astuce</b><div class="at">${rich(q.tip)}</div></div>`:''}`; }
     if(q.cs) h+=`<div class="csum"><b class="h">§pdf§ Résumé du cas clinique</b>${rich(q.cs)}</div>`;
     if((q.o||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§bookopen§ Cours officiel · ${authQ(q)}${CN[q.c]?' · '+esc(CN[q.c]):''} <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${[...new Set(q.o.map(x=>'p. '+x[1]))].join(', ')} · toucher pour agrandir</span></div>${q.o.map(([src,pg])=>`<img loading="lazy" src="${oimg(src)}" data-a="zoom" data-v="url:${src}" alt="Cours officiel, page ${pg}">`).join('')}</div>`;
-    if((q.k||[]).length) h+=`<div class="cap"><div class="lbl" style="margin-top:12px">§book§ Rappel du livre « ${esc((MOD[CUR]||{}).book||'Livre en poche')} » <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${q.k.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${q.k.map(([src,pg])=>`<img loading="lazy" src="${MP()+src}" data-a="zoom" data-v="url:${src}" alt="Livre en poche, page ${pg}">`).join('')}</div>`;
+    if((q.k||[]).length){ const kb=q.k.filter(x=>!x[2]), ksl=q.k.filter(x=>x[2]);
+      const ci=([src,pg,cs])=>`<div class="cimg"><img loading="lazy" src="${MP()+src}" data-a="zoom" data-v="url:${src}" alt="${cs?esc(cs)+', diapo '+pg:'Livre en poche, page '+pg}"></div>`;
+      h+=`<div class="cap">`;
+      if(kb.length) h+=`<div class="lbl" style="margin-top:12px">§book§ Rappel du livre « ${esc((MOD[CUR]||{}).book||'Livre en poche')} » <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${kb.map(x=>'p. '+x[1]).join(', ')} · toucher pour agrandir</span></div>${kb.map(ci).join('')}`;
+      if(ksl.length) h+=`<div class="lbl" style="margin-top:12px">§book§ ${esc(ksl[0][2])} <span style="text-transform:none;letter-spacing:0;font-weight:400">· ${ksl.map(x=>'diapo '+x[1]).join(', ')} · toucher pour agrandir</span></div>${ksl.map(ci).join('')}`;
+      h+=`</div>`; }
     if((q.s||[]).length) h+=`<details class="cap poly" ${(q.o||[]).length?'':'open'}><summary class="lbl" style="margin-top:12px;cursor:pointer">§pdf§ Résumé · polycopié ${esc((MOD[CUR]||{}).sub||'')} ▾</summary>${q.s.map(k=>CAPS['s:'+k]?`<img loading="lazy" src="${cimg('s:'+k)}" data-a="zoom" data-v="s:${k}" alt="Extrait du polycopié">`:'').join('')}</details>`;
     for(const t of (q.t||[])){ if(!CAPS['t:'+t]) continue; const hid=S.hideT.has(t);
       h+=`<div class="tmp"><div class="th">§clip§ Tableau de maladie professionnelle n° ${t}<button class="btn" style="padding:.25em .7em;font-size:.8rem" data-a="tmp" data-v="${t}">${hid?'Afficher':'Masquer'}</button></div>${hid?'':`<img loading="lazy" src="${cimg('t:'+t)}" data-a="zoom" data-v="t:${t}" alt="Tableau n° ${t}">`}</div>`; }
@@ -2205,6 +2211,7 @@ function render(keep){
   h=h.replace(/§(\w+)§/g,(m,k)=>IC[k]?`<svg class="ii" viewBox="0 0 24 24" width="1.15em" height="1.15em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${IC[k]}</svg>`:'');
   $.innerHTML=h+(S.zoom?`<div class="zoom" data-a="unzoom"><div class="zbar">${S.view==='quiz'&&S.sess&&S.zoom.startsWith('url:')&&(()=>{ const q=cur(), src=S.zoom.slice(4); return (q.o||[]).some(x=>x[0]===src)||(q.k||[]).some(x=>x[0]===src); })()?`<button class="zb znote" data-a="zn" title="Ajouter cette capture à Mes notes" aria-label="Ajouter cette capture à Mes notes">${ico('note')}<span>Ajouter aux notes</span></button>`:''}<button class="zb" data-a="zk" data-v="-1" aria-label="Réduire">${ico('minus')}</button><button class="zb" data-a="zk" data-v="1" aria-label="Agrandir">${ico('plus')}</button><button class="zb zx" data-a="unzoom" aria-label="Fermer">${ico('x',22)}</button></div><img src="${S.zoom.startsWith('url:')?oimg(S.zoom.slice(4)):cimg(S.zoom)}" alt="Agrandissement" style="width:${S.zk||100}%;${(S.zk||100)>100?'max-width:none':''}" data-a="noop"><p class="zhint">Échap ou ✕ pour fermer</p></div>`:'');
   paintAll();
+  document.querySelectorAll('.cap .cimg').forEach(c=>{ const f=()=>{ if(c.scrollWidth>c.clientWidth) c.scrollLeft=(c.scrollWidth-c.clientWidth)/2; }, i=c.querySelector('img'); if(i){ i.addEventListener('load',f,{once:true}); requestAnimationFrame(f); } });
   if('IntersectionObserver' in window){ if(!window._pio) window._pio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.open=true; window._pio.unobserve(e.target); } }),{threshold:0.9});
     document.querySelectorAll('details.poly:not([open])').forEach(d=>window._pio.observe(d)); }
   if(S.view==='reader'&&S.rd&&PDFS[S.rd.c]) setTimeout(paintReader,0);
