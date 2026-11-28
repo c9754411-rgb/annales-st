@@ -1024,7 +1024,7 @@ function setData(d){ DATA=d; Q=d.q||[]; QI=Object.fromEntries(Q.map(q=>[q.id,q])
   CTXT=[]; for(const [c,L] of Object.entries(d.ctext||{})) for(const [pg,t] of L) CTXT.push({c,pg,t,n:norm(t)}); CTXT_ERR=false; }
 /* ---------- catalogue des modules ---------- */
 const MODS=[
- {id:'gygy',y:5,name:'Gynécologie-Obstétrique',book:'Gynéco-Obstétrique en poche',sub:'Pr OUZIRI',     nq:149,nex:6,ntip:31, ncard:149},
+ {id:'gygy',y:5,name:'Gynécologie-Obstétrique',book:'Gynéco-Obstétrique en poche',sub:'Pr OUZIRI',     nq:189,nex:7,ntip:31, ncard:189},
  {id:'pedia',y:5,name:'Pédiatrie',            sub:'Dr. KADI',nq:272,nex:5,ntip:101,ncard:0},
  {id:'ste', y:6,name:'Médecine du travail',    sub:'Dr S. LEBOUABI',nq:446,nex:8,ntip:131,ncard:87},
  {id:'sys', y:6,kc:'6s',name:'Maladies de système',book:'Maladies de système en poche',sub:'Dr BENLAABIDI',nq:131,nex:3,ntip:17,ncard:0}
@@ -1042,7 +1042,7 @@ const kbase=k=>{ for(const m of MIDS) if(k.endsWith('_'+m)) return k.slice(0,-(m
 const LS={get(k,d){try{const v=localStorage.getItem(mk(k));return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(mk(k),JSON.stringify(v))}catch(e){}}};
 /* ---------- accès par code + synchronisation multi-appareils ---------- */
 const FB={url:'https://annales-ste-default-rtdb.europe-west1.firebasedatabase.app'};
-const BUILDV='20261125130000';   // version du build (remplacée à la compilation)
+const BUILDV='20261128160000';   // version du build (remplacée à la compilation)
 /* ---------- accès par compte Google + synchronisation multi-appareils ---------- */
 const AU={ u:null, tok:null, state:'load', node:null, err:'', acc:[] };
 const grantOf=(j,id)=>{ const g=j&&j.mods; if(g&&typeof g==='object') return g[id]===true;
